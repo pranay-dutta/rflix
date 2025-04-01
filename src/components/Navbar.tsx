@@ -1,12 +1,20 @@
 import { ColorModeButton } from "@/ui/color-mode";
-import { Box, HStack, Text } from "@chakra-ui/react";
-import { RiMovie2AiFill } from "react-icons/ri";
-import { SegmentGroup } from "@chakra-ui/react";
+import {
+  Box,
+  Drawer,
+  HStack,
+  Portal,
+  SegmentGroup,
+  Text,
+  List,
+} from "@chakra-ui/react";
 import { BiSearch } from "react-icons/bi";
-import { Drawer } from "@chakra-ui/react";
-import { Button, ButtonGroup, CloseButton, Portal } from "@chakra-ui/react";
+import { FaBars } from "react-icons/fa";
+import { RiMovie2AiFill } from "react-icons/ri";
 
 const Navbar = () => {
+  const items = ["Home", "Discover", "Donate"];
+
   return (
     <HStack px={5} py={2} justifyContent="space-between">
       <Box display="flex" alignItems="center" gap={2}>
@@ -17,14 +25,16 @@ const Navbar = () => {
       <Box mx="auto" display="none" md={{ display: "block" }}>
         <SegmentGroup.Root defaultValue="Home">
           <SegmentGroup.Indicator />
-          <SegmentGroup.Items items={["Home", "Discover", "Donate"]} />
+          <SegmentGroup.Items items={items} />
         </SegmentGroup.Root>
       </Box>
 
       <HStack gap={2}>
         <BiSearch size={24} />
-        <ColorModeButton />
-        <Box><Demo /></Box>
+        <ColorModeButton size="sm" />
+        <Box>
+          <Demo />
+        </Box>
       </HStack>
     </HStack>
   );
@@ -33,28 +43,30 @@ const Navbar = () => {
 export default Navbar;
 
 const Demo = () => {
+  const items = ["Home", "Discover", "Donate"];
   return (
     <Drawer.Root size="xs">
       <Drawer.Trigger asChild>
-        <Button variant="outline" size="sm">
-          Open Drawer
-        </Button>
+        <FaBars size={24} />
       </Drawer.Trigger>
+
       <Portal>
         <Drawer.Backdrop />
         <Drawer.Positioner>
           <Drawer.Content>
             <Drawer.Header>
-              <Drawer.CloseTrigger asChild pos="initial">
-                <CloseButton />
-              </Drawer.CloseTrigger>
-              <Drawer.Title flex="1">Drawer Title</Drawer.Title>
-              <ButtonGroup>
-                <Button variant="outline">Cancel</Button>
-                <Button>Save</Button>
-              </ButtonGroup>
+              <Box display="flex" alignItems="center" gap={2}>
+                <RiMovie2AiFill color="aqua" size={24} />
+                <Text>Nunflix</Text>
+              </Box>
             </Drawer.Header>
             <Drawer.Body>
+              <Text>Menu</Text>
+              <List.Root>
+                {items.map((item) => (
+                  <List.Item key={item}>{item}</List.Item>
+                ))}
+              </List.Root>
             </Drawer.Body>
           </Drawer.Content>
         </Drawer.Positioner>
