@@ -2,7 +2,7 @@ import apiClient from "@/services/api-client";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 
-interface Movie {
+export interface Movie {
   id: number;
   adult: boolean;
   backdrop_path: string;
