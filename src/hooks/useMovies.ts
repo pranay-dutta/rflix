@@ -46,7 +46,7 @@ const useMovies = () => {
       controller.abort();
     };
   }, []);
-  return { movies, error, isLoading };
+  return {movies, error, isLoading}
 };
 
 export default useMovies;
