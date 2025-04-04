@@ -2,6 +2,7 @@ import { Movie } from "@/hooks/useMovies";
 import { Box, Image, Link } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaPlay } from "react-icons/fa";
+import classNames from "classnames";
 
 interface Props {
   movie: Movie;
@@ -9,6 +10,7 @@ interface Props {
 
 const MovieCard = ({ movie }: Props) => {
   const [show, setShow] = useState<boolean>(false);
+
   return (
     <Box
       className={`flex flex-col gap-2 w-56 !p-2 relative cursor-pointer`}
@@ -16,9 +18,11 @@ const MovieCard = ({ movie }: Props) => {
       onMouseLeave={() => setShow(false)}
     >
       <Box
-        className={`after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-[radial-gradient(circle,rgba(0,0,0,0)_40%,rgba(0,0,0,0.7)_100%)] after:transition-opacity after:duration-300 after:ease-in-out after:rounded-md after:pointer-events-none ${
-          show ? "after:opacity-100" : "after:opacity-0"
-        }`}
+        className={classNames({
+          "overlay-effect": true,
+          "after:opacity-100": show,
+          "after:opacity-0": !show,
+        })}
       >
         <Image
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -27,12 +31,12 @@ const MovieCard = ({ movie }: Props) => {
           alt={movie.original_title}
         />
         <Box
-          position="absolute"
-          left="30%"
-          top={"30%"}
-          opacity={show ? 1 : 0}
-          transform={show ? "scale(1)" : "scale(0.8)"}
-          transition="opacity 0.2s ease-in-out, transform 0.2s ease-in-out"
+          className={classNames({
+            "absolute left-[33%] top-[33%] transition-transform duration-200 ease-in-out":
+              true,
+            "opacity-100 scale-100": show,
+            "opacity-0 scale-80": !show,
+          })}
         >
           <FaPlay size={80} />
         </Box>
