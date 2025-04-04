@@ -19,7 +19,7 @@ const MovieCard = ({ movie }: Props) => {
     >
       <Box
         className={classNames({
-          "overlay-effect": true,
+          "overlay-effect relative": true,
           "after:opacity-100": show,
           "after:opacity-0": !show,
         })}
@@ -32,7 +32,7 @@ const MovieCard = ({ movie }: Props) => {
         />
         <Box
           className={classNames({
-            "absolute left-[33%] top-[33%] transition-transform duration-200 ease-in-out":
+            "absolute left-[33%] top-[33%] transition-transform duration-200 ease-in-out text-white":
               true,
             "opacity-100 scale-100": show,
             "opacity-0 scale-80": !show,
