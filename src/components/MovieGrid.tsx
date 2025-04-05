@@ -2,12 +2,15 @@ import useMovies from "@/hooks/useMovies";
 import { Container, SimpleGrid } from "@chakra-ui/react";
 import MovieCard from "./MovieCard";
 import Pagination from "./Pagination";
+import { useState } from "react";
 
 const MovieGrid = () => {
-  const { movies, isLoading, error } = useMovies();
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const { data, isLoading, error } = useMovies(currentPage);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Something went wrong</div>;
+
   return (
     <>
       <Container maxW="7xl">
@@ -21,11 +24,14 @@ const MovieGrid = () => {
             xl: 5,
           }}
         >
-          {movies.map((movie) => (
+          {data?.results.map((movie) => (
             <MovieCard key={movie.id} movie={movie}></MovieCard>
           ))}
         </SimpleGrid>
-        <Pagination />
+        <Pagination
+          changePage={(pageNo) => setCurrentPage(pageNo)}
+          currentPage={currentPage}
+        />
       </Container>
     </>
   );
