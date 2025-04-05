@@ -1,8 +1,8 @@
 import useMovies from "@/hooks/useMovies";
-import { Container, SimpleGrid } from "@chakra-ui/react";
+import { Box, Container, SimpleGrid } from "@chakra-ui/react";
+import { useState } from "react";
 import MovieCard from "./MovieCard";
 import Pagination from "./Pagination";
-import { useState } from "react";
 
 const MovieGrid = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -13,7 +13,7 @@ const MovieGrid = () => {
 
   return (
     <>
-      <Container maxW="7xl">
+      <Container maxW="7xl" py={20}>
         <SimpleGrid
           justifyItems="center"
           gap={4}
@@ -28,10 +28,12 @@ const MovieGrid = () => {
             <MovieCard key={movie.id} movie={movie}></MovieCard>
           ))}
         </SimpleGrid>
-        <Pagination
-          changePage={(pageNo) => setCurrentPage(pageNo)}
-          currentPage={currentPage}
-        />
+        <Box mt={16}>
+          <Pagination
+            changePage={(pageNo) => setCurrentPage(pageNo)}
+            currentPage={currentPage}
+          />
+        </Box>
       </Container>
     </>
   );

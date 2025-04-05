@@ -12,37 +12,35 @@ interface Props {
 
 const Pagination = ({ changePage, currentPage }: Props) => {
   return (
-    <>
-      <h1>Current page {currentPage}</h1>
-      <ChakraPagination.Root
-        count={500 * 20}
-        pageSize={20}
-        defaultPage={currentPage}
-        onPageChange={(e) => changePage(e.page)}
-      >
-        <ButtonGroup variant="outline" size="sm">
-          <ChakraPagination.PrevTrigger asChild>
-            <IconButton>
-              <LuChevronLeft />
-            </IconButton>
-          </ChakraPagination.PrevTrigger>
+    <ChakraPagination.Root
+      display="flex"
+      count={500 * 20}
+      pageSize={20}
+      defaultPage={currentPage}
+      onPageChange={(e) => changePage(e.page)}
+    >
+      <ButtonGroup variant="outline" size="sm" margin="auto">
+        <ChakraPagination.PrevTrigger asChild>
+          <IconButton>
+            <LuChevronLeft />
+          </IconButton>
+        </ChakraPagination.PrevTrigger>
 
-          <ChakraPagination.Items
-            render={(page) => (
-              <IconButton variant={{ base: "outline", _selected: "solid" }}>
-                {page.value}
-              </IconButton>
-            )}
-          />
-
-          <ChakraPagination.NextTrigger asChild>
-            <IconButton>
-              <LuChevronRight />
+        <ChakraPagination.Items
+          render={(page) => (
+            <IconButton variant={{ base: "outline", _selected: "solid" }}>
+              {page.value}
             </IconButton>
-          </ChakraPagination.NextTrigger>
-        </ButtonGroup>
-      </ChakraPagination.Root>
-    </>
+          )}
+        />
+
+        <ChakraPagination.NextTrigger asChild>
+          <IconButton>
+            <LuChevronRight />
+          </IconButton>
+        </ChakraPagination.NextTrigger>
+      </ButtonGroup>
+    </ChakraPagination.Root>
   );
 };
 export default Pagination;
