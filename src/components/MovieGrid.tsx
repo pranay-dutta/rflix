@@ -9,11 +9,13 @@ const MovieGrid = () => {
   const { data, isLoading, error } = useMovies(currentPage);
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Something went wrong</div>;
+  if (error || !data) return <div>Something went wrong</div>;
+
+  const { results: movies } = data;
 
   return (
     <>
-      <Container maxW="7xl" py={20}>
+      <Container maxW="7xl" py={10}>
         <SimpleGrid
           justifyItems="center"
           gap={4}
@@ -24,7 +26,7 @@ const MovieGrid = () => {
             xl: 5,
           }}
         >
-          {data?.results.map((movie) => (
+          {movies.map((movie) => (
             <MovieCard key={movie.id} movie={movie}></MovieCard>
           ))}
         </SimpleGrid>

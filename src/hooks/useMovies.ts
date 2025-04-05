@@ -12,7 +12,6 @@ export interface Movie {
 }
 
 interface FetchResponse {
-  page: number;
   results: Movie[];
 }
 const useMovies = (page: number) => {
