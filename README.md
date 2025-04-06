@@ -1,54 +1,74 @@
-# React + TypeScript + Vite
+# 🎬 nunmovies
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**nunmovies** is a sleek movie browsing app powered by the TMDB API.  
+It lets users discover and explore a wide range of movies and shows with ease.
 
-Currently, two official plugins are available:
+> ⚠️ **Note:** nunmovies does **not** host or store any media files.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 👨🏻‍💻 Run Locally
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### ✅ Requirements
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Before you begin 🏁, make sure the following tools are installed on your machine:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 🚀 Getting Started
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/pranay-dutta/nunmovies.git
+   ```
+
+2. **Navigate into the project directory:**
+
+   ```bash
+   cd nunmovies
+   ```
+
+3. **Install project dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+4. **Set up environment variables:**
+
+   - Create a `.env` file in the root directory.
+   - Add your [TMDB API key](https://www.themoviedb.org/) to the file:
+
+     ```env
+     VITE_API_KEY=YOUR_TMDB_API_KEY
+     ```
+
+5. **Start the development server:**
+
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## ⚠️ Disclaimer
+
+> **Legal Notice**  
+> nunmovies does **not** host or store any media content. It only provides links to third-party services.  
+> Any copyright or legal concerns should be addressed with the respective content hosts.  
+> nunmovies is **not liable** for the media content streamed from external providers.
+
+---
+
+## 📄 License
+
+This project is intended for **educational** and **personal** use only.
+
+---
+
+## 🙌 Contributions
+
+We welcome contributions!  
+Feel free to fork the project, suggest improvements, or submit pull requests.
