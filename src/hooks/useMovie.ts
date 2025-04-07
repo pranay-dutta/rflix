@@ -30,7 +30,11 @@ interface MovieDetails {
   vote_count: number;
 }
 const useMovie = (movieId: number) => {
-  return useQuery<MovieDetails, Error>({
+  const {
+    data: movie,
+    error,
+    isLoading,
+  } = useQuery<MovieDetails, Error>({
     queryKey: ["movie", movieId],
     queryFn: async () => {
       return axiosInstance
@@ -38,5 +42,6 @@ const useMovie = (movieId: number) => {
         .then((res) => res.data);
     },
   });
+  return { movie, error, isLoading };
 };
 export default useMovie;

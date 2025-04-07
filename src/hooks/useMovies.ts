@@ -18,7 +18,7 @@ const useMovies = (page: number) => {
   return useQuery<FetchResponse, Error>({
     queryKey: ["movies", page],
     queryFn: async () => {
-      return apiClient
+      return await apiClient
         .get<FetchResponse>("/movie/popular", { params: { page } })
         .then((res) => res.data);
     },
