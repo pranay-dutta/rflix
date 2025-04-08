@@ -9,6 +9,8 @@ export interface Movie {
   overview: string;
   poster_path: string;
   release_date: string;
+  vote_average: number;
+  original_language: string;
 }
 
 interface FetchResponse {
@@ -18,7 +20,7 @@ const useMovies = (page: number) => {
   return useQuery<FetchResponse, Error>({
     queryKey: ["movies", page],
     queryFn: async () => {
-      return await apiClient
+      return apiClient
         .get<FetchResponse>("/movie/popular", { params: { page } })
         .then((res) => res.data);
     },
