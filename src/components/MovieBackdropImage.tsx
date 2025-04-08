@@ -8,6 +8,7 @@ const MovieBackdropImage = ({ movieId }: { movieId: number }) => {
 
   return (
     <Image
+      className="opacity-40"
       src={getTMDBImage(movie?.backdrop_path, "original")}
       alt={movie.original_title}
     />

@@ -8,7 +8,7 @@ const Title = () => {
       <Box display="flex" alignItems="center" gap={2}>
         <RiMovie2AiFill color="aqua" size={24} />
         <Heading fontSize="xl" fontWeight="bold">
-          Nunflix
+          Nunmovies
         </Heading>
       </Box>
     </Link>

@@ -19,7 +19,7 @@ const MovieLogo = ({ movieId }: { movieId: number }) => {
       </Text>
     );
 
-  return <Image src={getTMDBImage(logo)} alt={movie?.original_title} />;
+  return <Image src={getTMDBImage(logo, "w500")} alt={movie?.original_title} />;
 };
 
 export default MovieLogo;

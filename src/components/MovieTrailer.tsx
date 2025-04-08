@@ -1,6 +1,7 @@
 import useMovie from "@/hooks/useMovie";
 import useTrailers from "@/hooks/useTrailers";
 import { useEffect, useRef } from "react";
+import MovieBackdropImage from "./MovieBackdropImage";
 
 interface Props {
   isActive: boolean;
@@ -29,10 +30,13 @@ const MovieTrailer = ({ movieId, isActive = false }: Props) => {
   const youtubeId = trailers?.find(
     (trailer) => trailer.type === "Trailer"
   )?.key;
-  if (!youtubeId) return null;
+
+  if (!youtubeId || window.innerWidth < 1024)
+    return <MovieBackdropImage movieId={movieId} />
 
   return (
     <iframe
+      className="opacity-40"
       ref={iframeRef}
       src={`https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&mute=1&autoplay=1&loop=1&rel=0&fs=0&controls=0&disablekb=1&playlist=${youtubeId}`}
       style={{ scale: 1.5 }}

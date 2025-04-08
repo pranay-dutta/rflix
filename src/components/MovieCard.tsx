@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
+import { getTMDBImage } from "./constants";
 
 interface Props {
   movie: Movie;
@@ -27,7 +28,7 @@ const MovieCard = ({ movie }: Props) => {
           })}
         >
           <Image
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            src={getTMDBImage(movie.poster_path, "w500")}
             className="object-cover h-72 rounded-md"
             objectFit="cover"
             alt={movie.original_title}

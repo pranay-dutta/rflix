@@ -1,9 +1,14 @@
-// import useImages from "@/hooks/useImages";
 import useMovies from "@/hooks/useMovies";
-import { Swiper, SwiperSlide } from "swiper/react";
-// import SwiperSlideChild from "./SwiperSlideChild";
-import MovieVideo from "./MovieVideo";
+import { Box, HStack } from "@chakra-ui/react";
 import { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import AspectRatioContainer from "./AspectRatioContainer";
+import MovieLanguage from "./MovieLanguage";
+import MovieLogo from "./MovieLogo";
+import MovieOverview from "./MovieOverview";
+import MovieTrailer from "./MovieTrailer";
+import Rating from "./Rating";
+import ReleaseDate from "./ReleaseDate";
 
 const Hero2 = () => {
   const { data: movies } = useMovies(1);
@@ -12,16 +17,32 @@ const Hero2 = () => {
   if (!movies) return null;
 
   return (
-    <Swiper
-      className="bg-blue-700 text-white"
-      onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-    >
+    <Swiper onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}>
       {movies.results.map((movie, index) => {
         return (
-          <SwiperSlide key={movie.id} className="transition-all ">
-            {<MovieVideo movieId={movie.id} isActive={activeIndex === index} />}
-            {/* <SwiperSlideChild movieId={movie.id} /> */}
-          </SwiperSlide>
+          <>
+            <div className="relative">
+              <SwiperSlide key={movie.id} className="transition-all relative">
+                <AspectRatioContainer>
+                  <MovieTrailer
+                    movieId={movie.id}
+                    isActive={activeIndex === index}
+                  />
+                </AspectRatioContainer>
+
+                {/* Movie Informations */}
+                <Box className="w-full flex flex-col gap-3 items-center md:items-start absolute bottom-5 left-0 md:bottom-[20%] md:left-[2%]">
+                  <Box p={5}><MovieLogo movieId={movie.id} /></Box>
+                  <HStack gap={4}>
+                    <Rating rating={movie.vote_average} />
+                    <ReleaseDate date={movie.release_date} />
+                    <MovieLanguage language={movie.original_language} />
+                  </HStack>
+                  <MovieOverview overview={movie.overview} />
+                </Box>
+              </SwiperSlide>
+            </div>
+          </>
         );
       })}
     </Swiper>
