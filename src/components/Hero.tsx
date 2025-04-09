@@ -1,27 +1,31 @@
 import useMovies from "@/hooks/useMovies";
 import { Box, HStack } from "@chakra-ui/react";
 import { useState } from "react";
+import { FaInfoCircle } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa6";
+import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import AspectRatioContainer from "./AspectRatioContainer";
+import Button from "./Button";
 import MovieLanguage from "./MovieLanguage";
 import MovieLogo from "./MovieLogo";
 import MovieOverview from "./MovieOverview";
 import MovieTrailer from "./MovieTrailer";
 import Rating from "./Rating";
 import ReleaseDate from "./ReleaseDate";
-import Button from "./Button";
-import { FaInfoCircle } from "react-icons/fa";
-import { FaPlay } from "react-icons/fa6";
 
 const Hero2 = () => {
   const { movies } = useMovies(1, "upcoming");
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   if (!movies) return null;
-  console.log(movies);
 
   return (
-    <Swiper onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}>
+    <Swiper
+      onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+      autoplay={{ delay: 12 * 1000 }}
+      modules={[Autoplay]}
+    >
       {movies.map((movie, index) => {
         return (
           <>
@@ -34,9 +38,12 @@ const Hero2 = () => {
                   />
                 </AspectRatioContainer>
 
-                <Box className="w-full flex flex-col gap-3 items-center md:items-start absolute bottom-5 left-0 md:bottom-[10%] md:left-[2%]">
+                <Box
+                  filter="drop-shadow(0 4px 6px rgba(0, 0, 0, 1.5))"
+                  className="w-full !px-5 flex flex-col gap-3 items-center md:items-start absolute bottom-5 left-0 md:bottom-[20%] md:left-[2%]"
+                >
                   {/* Movie title logo */}
-                  <Box p={5} maxH={500} maxW={500}>
+                  <Box maxH={500} maxW={500}>
                     <MovieLogo movieId={movie.id} />
                   </Box>
 
