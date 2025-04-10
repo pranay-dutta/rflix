@@ -15,7 +15,7 @@ import Rating from "./Rating";
 import ReleaseDate from "./ReleaseDate";
 
 const Hero2 = () => {
-  const { movies } = useMovies(1, "upcoming");
+  const { movies } = useMovies(1, "popular");
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   if (!movies) return null;
@@ -23,8 +23,8 @@ const Hero2 = () => {
   return (
     <Swiper
       onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-      autoplay={{ delay: 12 * 1000 }}
-      modules={[Autoplay]}
+      // autoplay={{ delay: 12 * 1000 }}
+      // modules={[Autoplay]}
     >
       {movies.map((movie, index) => {
         return (
@@ -39,7 +39,8 @@ const Hero2 = () => {
                 </AspectRatioContainer>
 
                 <Box
-                  filter="drop-shadow(0 4px 6px rgba(0, 0, 0, 1.5))"
+                  filter="drop-shadow(0 4px 4px rgba(0, 0, 0, 0.6))"
+                  fontSize="lg"
                   className="w-full !px-5 flex flex-col gap-3 items-center md:items-start absolute bottom-5 left-0 md:bottom-[20%] md:left-[2%]"
                 >
                   {/* Movie title logo */}
@@ -48,12 +49,13 @@ const Hero2 = () => {
                   </Box>
 
                   {/* Movie Informations */}
-                  <HStack gap={4}>
+                  <HStack filter="contrast(2)" gap={4}>
                     <Rating rating={movie.vote_average} />
                     <ReleaseDate date={movie.release_date} />
                     <MovieLanguage language={movie.original_language} />
                   </HStack>
                   <MovieOverview overview={movie.overview} />
+
                   <HStack gap={5}>
                     <Button icon={FaInfoCircle}>More info</Button>
                     <Button icon={FaPlay}>Play</Button>

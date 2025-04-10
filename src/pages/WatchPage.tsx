@@ -12,7 +12,7 @@ const WatchPage = () => {
   const { id } = useParams();
   if (!id) throw new Error();
 
-  const { data: movie } = useMovie(parseInt(id));
+  const { movie } = useMovie(parseInt(id));
   if (!movie) return null;
 
   return (

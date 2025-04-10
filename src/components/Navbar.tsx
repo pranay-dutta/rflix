@@ -7,7 +7,15 @@ import { items } from "./constants";
 
 const Navbar = () => {
   return (
-    <HStack px={5} py={2} justifyContent="space-between">
+    <HStack
+      px={5}
+      py={2}
+      justifyContent="space-between"
+      w={"100%"}
+      position="fixed"
+      backdropFilter="blur(10px)"
+      zIndex="10"
+    >
       <Title />
 
       <Box mx="auto" display="none" md={{ display: "block" }}>

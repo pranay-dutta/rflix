@@ -6,17 +6,17 @@ import WatchPage from "./pages/WatchPage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
-    children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
-      {
-        path: "/watch/:id",
-        element: <WatchPage />,
-      },
-    ],
+    element: <HomePage />,
+    // children: [
+    //   {
+    //     index: true,
+    //     // element: <HomePage />,
+    //   },
+    //   {
+    //     path: "/watch/:id",
+    //     element: <WatchPage />,
+    //   },
+    // ],
   },
 ]);
 export default router;

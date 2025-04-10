@@ -1,55 +1,54 @@
-import { Movie } from "@/hooks/useMovies";
-import { Box, Heading, Image } from "@chakra-ui/react";
-import { useState } from "react";
-import { FaPlay } from "react-icons/fa";
-import classNames from "classnames";
-import { Link } from "react-router-dom";
+import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import { getTMDBImage } from "./constants";
+import { Movie } from "@/hooks/useMovies";
+import Rating from "./Rating";
+import { useState } from "react";
+import ReleaseDate from "./ReleaseDate";
 
-interface Props {
-  movie: Movie;
-}
-
-const MovieCard = ({ movie }: Props) => {
-  const [show, setShow] = useState<boolean>(false);
-
+const MovieCard = ({ movie }: { movie: Movie }) => {
+  const [showRating, setShowRating] = useState<boolean>(false);
   return (
-    <Link to={"/watch/" + movie.id}>
-      <Box
-        className={`flex flex-col gap-2 w-56 !p-2 relative cursor-pointer`}
-        onMouseEnter={() => setShow(true)}
-        onMouseLeave={() => setShow(false)}
-      >
-        <Box
-          className={classNames({
-            "overlay-effect relative": true,
-            "after:opacity-100": show,
-            "after:opacity-0": !show,
-          })}
-        >
-          <Image
-            src={getTMDBImage(movie.poster_path, "w500")}
-            className="object-cover h-72 rounded-md"
-            objectFit="cover"
-            alt={movie.original_title}
-          />
-          <Box
-            className={classNames({
-              "absolute left-[33%] top-[33%] transition-transform duration-200 ease-in-out text-white":
-                true,
-              "opacity-100 scale-100": show,
-              "opacity-0 scale-80": !show,
-            })}
-          >
-            <FaPlay size={80} />
-          </Box>
-        </Box>
+    <Box
+      className="cursor-pointer relative"
+      py={3}
+      _hover={{
+        scale: 1.03,
+        transition: "all 0.3s ease-in-out",
+        transform: "translateY(-5px)",
+      }}
+      transition="all 0.3s ease-in-out"
+      onMouseEnter={() => setShowRating(true)}
+      onMouseLeave={() => setShowRating(false)}
+    >
+      {/* Image of movie card */}
+      <Image
+        borderRadius="md"
+        _hover={{
+          filter: "brightness(0.6)",
+          transition: "all 0.3s ease-in-out",
+        }}
+        src={getTMDBImage(movie.poster_path, "w500")}
+        alt={movie.original_title}
+        objectFit="cover"
+      />
+      <Text mt={2} lineClamp={1}>
+        {movie.title}
+      </Text>
 
-        <Heading className="!font-medium !no-underline hover:text-gray-400">
-          {movie.original_title}
-        </Heading>
-      </Box>
-    </Link>
+      {/* Movie card rating and release date*/}
+      {showRating && (
+        <HStack
+          position="absolute"
+          top={4}
+          px={2}
+          w="full"
+          justify="space-between"
+        >
+          <ReleaseDate date={movie.release_date} />
+          <Rating rating={movie.vote_average} />
+        </HStack>
+      )}
+    </Box>
   );
 };
 

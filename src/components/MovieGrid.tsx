@@ -1,17 +1,15 @@
 import useMovies from "@/hooks/useMovies";
 import { Box, Container, SimpleGrid } from "@chakra-ui/react";
 import { useState } from "react";
-import MovieCard from "./MovieCard";
+import MovieCard from "./OldMovieCard";
 import Pagination from "./Pagination";
 
 const MovieGrid = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const { data, isLoading, error } = useMovies(currentPage);
+  const { movies, isLoading, error } = useMovies(currentPage, "popular");
 
   if (isLoading) return <div>Loading...</div>;
-  if (error || !data) return <div>Something went wrong</div>;
-
-  const { results: movies } = data;
+  if (error || !movies) return <div>Something went wrong</div>;
 
   return (
     <>

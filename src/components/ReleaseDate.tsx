@@ -3,9 +3,9 @@ import { BiCalendar } from "react-icons/bi";
 
 const ReleaseDate = ({ date }: { date: string }) => {
   return (
-    <HStack gap={1} fontSize="lg">
+    <HStack gap={1}>
       <BiCalendar />
-      {date}
+      {date.substring(0, 4)}
     </HStack>
   );
 };

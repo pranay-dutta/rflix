@@ -1,32 +1,17 @@
-import useMovies from "@/hooks/useMovies";
-import { Box, Image } from "@chakra-ui/react";
+import { Movie } from "@/hooks/useMovies";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { getTMDBImage } from "./constants";
+import MovieCard from "./MovieCard";
 
-const MovieScroll = ({
-  endpoint,
-}: {
-  endpoint: "popular" | "top_rated" | "upcoming" | "now_playing";
-}) => {
-  const { movies } = useMovies(1, endpoint);
-  if (!movies) return null;
-
+const MovieScroll = ({ movies }: { movies: Movie[] }) => {
   return (
-    <Swiper slidesPerView={9} spaceBetween={10} loop>
+    <Swiper
+      slidesPerView={8}
+      spaceBetween={10}
+      loop
+    >
       {movies.map((movie) => (
         <SwiperSlide>
-          <Box
-            py={3}
-            _hover={{ scale: 1.05 }}
-            transition="all 0.3s ease-in-out"
-          >
-            <Image
-              borderRadius="md"
-              src={getTMDBImage(movie.poster_path, "w500")}
-              alt={movie.original_title}
-              objectFit="cover"
-            />
-          </Box>
+          <MovieCard key={movie.id} movie={movie} />
         </SwiperSlide>
       ))}
     </Swiper>

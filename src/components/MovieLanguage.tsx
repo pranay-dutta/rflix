@@ -4,7 +4,7 @@ import { Badge } from "@chakra-ui/react";
 
 const MovieLanguage = ({ language }: { language: string }) => {
   return (
-    <Badge colorPalette="orange" variant="surface" size="lg">
+    <Badge colorPalette="yellow" variant="plain" size="lg">
       <HStack gap={2}>
         <IoLanguage />
         {language.toUpperCase()}
