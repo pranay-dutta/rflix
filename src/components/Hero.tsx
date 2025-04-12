@@ -15,7 +15,7 @@ import Rating from "./Rating";
 import ReleaseDate from "./ReleaseDate";
 
 const Hero2 = () => {
-  const { movies } = useMovies(1, "popular");
+  const { movies } = useMovies(1, "upcoming");
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   if (!movies) return null;
@@ -23,8 +23,8 @@ const Hero2 = () => {
   return (
     <Swiper
       onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-      // autoplay={{ delay: 12 * 1000 }}
-      // modules={[Autoplay]}
+      autoplay={{ delay: 12 * 1000 }}
+      modules={[Autoplay]}
     >
       {movies.map((movie, index) => {
         return (
