@@ -1,4 +1,4 @@
-import { getTMDBImage } from "./constants";
+import { getPlaceHolder, getTMDBImage } from "./constants";
 import { Image } from "@chakra-ui/react";
 import useMovie from "@/hooks/useMovie";
 
@@ -9,7 +9,11 @@ const MovieBackdropImage = ({ movieId }: { movieId: number }) => {
   return (
     <Image
       className="opacity-40"
-      src={getTMDBImage(movie?.backdrop_path, "original")}
+      src={
+        movie.backdrop_path
+          ? getTMDBImage(movie?.backdrop_path, "original")
+          : getPlaceHolder("original")
+      }
       alt={movie.original_title}
     />
   );

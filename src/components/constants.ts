@@ -10,3 +10,9 @@ export const items: { icon: IconType; label: string; to: string }[] = [
 export function getTMDBImage(url: string, quality: "original" | "w500") {
   return `https://image.tmdb.org/t/p/${quality}` + url;
 }
+
+export function getPlaceHolder(quality: "w500" | "original") {
+  return quality == "original"
+    ? "https://fakeimg.pl/1920x1080?text=Movie"
+    : "https://fakeimg.pl/500x750?text=Movie";
+}

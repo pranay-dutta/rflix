@@ -1,5 +1,5 @@
 import Button from "@/components/Button";
-import { getTMDBImage } from "@/components/constants";
+import { getPlaceHolder, getTMDBImage } from "@/components/constants";
 import useMovie from "@/hooks/useMovie";
 import { BiPlay } from "react-icons/bi";
 import {
@@ -33,9 +33,14 @@ const InfoPage = () => {
   return (
     <Container>
       <Box position="relative">
+        {/* Movie Poster */}
         <Image
           className="opacity-50 hidden! md:block! rounded-md"
-          src={getTMDBImage(movie.backdrop_path, "original")}
+          src={
+            movie.backdrop_path
+              ? getTMDBImage(movie.backdrop_path, "original")
+              : getPlaceHolder("original")
+          }
         />
         <div className="hidden! md:absolute! inset-0 pointer-events-none">
           {/* Bottom gradient */}
@@ -50,8 +55,13 @@ const InfoPage = () => {
           gap={5}
         >
           <GridItem>
+            {/* Card image above poster */}
             <Image
-              src={getTMDBImage(movie.poster_path, "original")}
+              src={
+                movie.poster_path
+                  ? getTMDBImage(movie.poster_path, "original")
+                  : getPlaceHolder("w500")
+              }
               borderRadius="md"
             />
           </GridItem>
@@ -80,14 +90,14 @@ const InfoPage = () => {
         </SimpleGrid>
       </Box>
 
-      <div>
+      <Box mt={10}>
         <Heading fontSize="2xl" fontWeight="bold" filter={"contrast(2)"}>
           <Highlight query={"Movies"} styles={{ color: "red.600" }}>
             Similar Movies
           </Highlight>
         </Heading>
         <MovieScroll movies={similarMovies} />
-      </div>
+      </Box>
     </Container>
   );
 };

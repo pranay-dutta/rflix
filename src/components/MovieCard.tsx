@@ -31,7 +31,7 @@ const MovieCard = ({ movie }: { movie: Movie }) => {
             src={
               movie.poster_path
                 ? getTMDBImage(movie.poster_path, "w500")
-                : getPlaceHolder()
+                : getPlaceHolder("w500")
             }
             alt={movie.original_title}
             objectFit="cover"
