@@ -1,43 +1,60 @@
-import { useParams } from "react-router-dom";
+import { Quote } from "@/components/Quote";
+import Rating from "@/components/Rating";
+import ReleaseDate from "@/components/ReleaseDate";
+import Runtime from "@/components/Runtime";
+import useMovie from "@/hooks/useMovie";
 import {
-  AspectRatio,
+  Container,
   Text,
   Heading,
+  HStack,
   Stack,
-  SimpleGrid,
+  Button,
 } from "@chakra-ui/react";
-import useMovie from "@/hooks/useMovie";
+import { RiArrowLeftLine } from "react-icons/ri";
+import { useNavigate, useParams } from "react-router-dom";
 
 const WatchPage = () => {
   const { id } = useParams();
   if (!id) throw new Error();
 
+  const navigate = useNavigate();
   const { movie } = useMovie(parseInt(id));
   if (!movie) return null;
 
   return (
-    <SimpleGrid
-      p={10}
-      gap={10}
-      columns={{
-        base: 1,
-        md: 2,
-      }}
-    >
-      <Stack gap={5}>
-        <Heading size="4xl">{movie.original_title}</Heading>
-        <Text>{movie.overview}</Text>
-        <Text>Release date: {movie.release_date}</Text>
-        <Text>Popularity: {Math.round(movie.popularity)}</Text>
-      </Stack>
-
-      <AspectRatio bg="bg.muted" ratio={2 / 1}>
+    <Container>
+      <Button
+        my={5}
+        onClick={() => navigate(-1)}
+        colorPalette="blackAlpha"
+        variant="outline"
+      >
+        <RiArrowLeftLine /> Back
+      </Button>
+      <div className="w-full aspect-square md:aspect-video">
         <iframe
+          className="rounded-lg"
+          sandbox="allow-same-origin allow-scripts"
+          width="100%"
+          height="100%"
           src={`https://player.videasy.net/movie/${id}`}
           allowFullScreen
         />
-      </AspectRatio>
-    </SimpleGrid>
+      </div>
+      <Stack gap={5} mt={5}>
+        <Heading fontSize="3xl" fontWeight="medium">
+          {movie.title}
+        </Heading>
+        <Quote tagline={movie.tagline} />
+        <Text>{movie.overview}</Text>
+        <HStack>
+          <ReleaseDate date={movie.release_date} />
+          <Rating rating={movie.vote_average} />
+          <Runtime runtime={movie.runtime} />
+        </HStack>
+      </Stack>
+    </Container>
   );
 };
 
