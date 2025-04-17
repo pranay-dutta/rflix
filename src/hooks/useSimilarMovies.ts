@@ -1,17 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import { Movie } from "./useMovies";
+import { Movie } from "../interfaces/Movie";
 import axiosInstance from "@/services/api-client";
-
-interface FetchResponse {
-  results: Movie[];
-}
+import { FetchResponse } from "@/interfaces/FetchResponse";
 
 const useSimilarMovies = (page: number, movieId: number) => {
-  const { data, error, isLoading } = useQuery<FetchResponse, Error>({
+  const { data, error, isLoading } = useQuery<FetchResponse<Movie>, Error>({
     queryKey: ["similarMovies", movieId],
     queryFn: async () => {
       return axiosInstance
-        .get<FetchResponse>(`/movie/${movieId}/similar`, { params: { page } })
+        .get<FetchResponse<Movie>>(`/movie/${movieId}/similar`, { params: { page } })
         .then((res) => res.data);
     },
   });

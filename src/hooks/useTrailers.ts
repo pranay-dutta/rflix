@@ -1,21 +1,14 @@
 import axiosInstance from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
-
-interface Trailer {
-  id: number;
-  key: string;
-  type: string;
-}
-interface FetchResponse {
-  results: Trailer[];
-}
+import { Trailer } from "@/interfaces/Trailer";
+import { FetchResponse } from "@/interfaces/FetchResponse";
 
 const useTrailers = (movieId: number) => {
-  const { data, error, isLoading } = useQuery<FetchResponse, Error>({
+  const { data, error, isLoading } = useQuery<FetchResponse<Trailer>, Error>({
     queryKey: ["trailer", movieId],
     queryFn: async () =>
       axiosInstance
-        .get<FetchResponse>(`/movie/${movieId}/videos`)
+        .get<FetchResponse<Trailer>>(`/movie/${movieId}/videos`)
         .then((res) => res.data),
   });
   const trailers = data?.results;

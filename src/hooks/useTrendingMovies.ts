@@ -1,16 +1,14 @@
 import apiClient from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
-import { Movie } from "@/hooks/useMovies";
+import { Movie } from "../interfaces/Movie";
+import { FetchResponse } from "../interfaces/FetchResponse";
 
-interface FetchResponse {
-  results: Movie[];
-}
 const useTrendingMovies = (time: "day" | "week") => {
-  const { data, error, isLoading } = useQuery<FetchResponse, Error>({
+  const { data, error, isLoading } = useQuery<FetchResponse<Movie>, Error>({
     queryKey: ["movies", time],
     queryFn: async () => {
       return apiClient
-        .get<FetchResponse>(`/trending/movie/${time}`)
+        .get<FetchResponse<Movie>>(`/trending/movie/${time}`)
         .then((res) => res.data);
     },
     staleTime: 1000 * 60 * 60 * 24, // 1 day
