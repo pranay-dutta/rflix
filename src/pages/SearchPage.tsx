@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import MovieGrid from "@/components/MovieGrid";
 import TvShowsGrid from "@/components/TvSeriesGrid";
 import { Container } from "@chakra-ui/react";
@@ -6,9 +7,22 @@ import { FaTv } from "react-icons/fa";
 import { MdMovie } from "react-icons/md";
 
 const SearchPage = () => {
+  const [currentTab, setCurrentTab] = useState(() => {
+    return localStorage.getItem("search-tab") || "movies";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("search-tab", currentTab);
+  }, [currentTab]);
+
   return (
-    <Container py={10}>
-      <Tabs.Root defaultValue="movies" variant="plain" size="lg">
+    <Container py={5}>
+      <Tabs.Root
+        value={currentTab}
+        onValueChange={(details) => setCurrentTab(details.value)}
+        variant="plain"
+        size="lg"
+      >
         <Tabs.List
           bg="bg.muted"
           rounded="l3"
@@ -16,16 +30,17 @@ const SearchPage = () => {
           width="full"
           justifyContent="space-around"
         >
-          <Tabs.Trigger value="movies" w={"50%"}>
+          <Tabs.Trigger value="movies" w="50%">
             <MdMovie />
             Movies
           </Tabs.Trigger>
-          <Tabs.Trigger value="tvshows" w={"50%"}>
+          <Tabs.Trigger value="tvshows" w="50%">
             <FaTv />
             Tv Shows
           </Tabs.Trigger>
           <Tabs.Indicator rounded="l2" />
         </Tabs.List>
+
         <Tabs.Content value="movies">
           <MovieGrid />
         </Tabs.Content>
