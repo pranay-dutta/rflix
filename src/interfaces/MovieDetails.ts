@@ -1,13 +1,6 @@
-interface Genre {
-  id: number;
-  name: string;
-}
-interface ProductionCompany {
-  id: number;
-  logo_path: string;
-  name: string;
-  origin_country: string;
-}
+import { Genre } from "./Genre";
+import { ProductionCompany } from "./ProductionCompany";
+
 export interface MovieDetails {
   adult: boolean;
   backdrop_path: string;
