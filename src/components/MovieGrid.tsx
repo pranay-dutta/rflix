@@ -1,41 +1,43 @@
-import useMovies from "@/hooks/useMovies";
-import { Box, Container, SimpleGrid } from "@chakra-ui/react";
-import { useState } from "react";
-import MovieCard from "./OldMovieCard";
-import Pagination from "./Pagination";
+import useMoviesQuery from "@/hooks/useMoviesQuery";
+import { SimpleGrid, Spinner } from "@chakra-ui/react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { Fragment } from "react/jsx-runtime";
+import Card from "./Card";
 
 const MovieGrid = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const { movies, isLoading, error } = useMovies(currentPage, "popular");
+  const {
+    data,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+    isLoading,
+    error,
+  } = useMoviesQuery();
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error || !movies) return <div>Something went wrong</div>;
+  if (isLoading) return <Spinner size="md" />;
+  if (error) return <div>Error: {error.message}</div>;
+
+  const resCount =
+    data?.pages.reduce((acc, page) => acc + page.results.length, 0) || 0;
 
   return (
-    <>
-      <Container maxW="7xl" py={10}>
-        <SimpleGrid
-          justifyItems="center"
-          gap={4}
-          columns={{
-            base: 1,
-            md: 3,
-            lg: 4,
-            xl: 5,
-          }}
-        >
-          {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie}></MovieCard>
-          ))}
-        </SimpleGrid>
-        <Box mt={16}>
-          <Pagination
-            changePage={(pageNo) => setCurrentPage(pageNo)}
-            currentPage={currentPage}
-          />
-        </Box>
-      </Container>
-    </>
+    <InfiniteScroll
+      dataLength={resCount}
+      hasMore={hasNextPage}
+      next={fetchNextPage}
+      loader={isFetchingNextPage && <Spinner my={3} size="md" />}
+      style={{ overflow: "unset" }} // Important! To prevent scroll jump
+    >
+      <SimpleGrid className="grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        {data?.pages.map((page, index) => (
+          <Fragment key={index}>
+            {page.results.map((movie) => (
+              <Card key={movie.id} media={movie} />
+            ))}
+          </Fragment>
+        ))}
+      </SimpleGrid>
+    </InfiniteScroll>
   );
 };
 
