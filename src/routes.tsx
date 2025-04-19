@@ -2,9 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./pages/Layout";
 import HomePage from "./pages/HomePage";
 import WatchPage from "./pages/WatchPage";
-import InfoPage from "./pages/InfoPage";
-import InfoPageCopy from "./pages/InfoPageCopy";
 import SearchPage from "./pages/SearchPage";
+import MovieInfoPage from "./pages/MovieInfoPage";
+import TvSeriesInfoPage from "./pages/TvSeriesInfoPage";
 
 const router = createBrowserRouter([
   {
@@ -17,11 +17,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/info/movie/:id",
-        element: <InfoPage />,
+        element: <MovieInfoPage />,
       },
       {
         path: "/info/tv/:id",
-        element: <h1>Tv info page</h1>,
+        element: <TvSeriesInfoPage />,
       },
       {
         path: "/watch/:id",
@@ -30,10 +30,6 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: <SearchPage />,
-      },
-      {
-        path: "/info-copy/:id",
-        element: <InfoPageCopy />,
       },
     ],
   },
