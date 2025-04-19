@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./pages/Layout";
 import HomePage from "./pages/HomePage";
-import WatchPage from "./pages/WatchPage";
 import SearchPage from "./pages/SearchPage";
 import MovieInfoPage from "./pages/MovieInfoPage";
 import TvSeriesInfoPage from "./pages/TvSeriesInfoPage";
+import MovieWatchPage from "./pages/MovieWatchPage";
+import TvSeriesWatchPage from "./pages/TVSeriesWatchPage";
 
 const router = createBrowserRouter([
   {
@@ -24,8 +25,12 @@ const router = createBrowserRouter([
         element: <TvSeriesInfoPage />,
       },
       {
-        path: "/watch/:id",
-        element: <WatchPage />,
+        path: "/watch/movie/:id",
+        element: <MovieWatchPage />,
+      },
+      {
+        path: "/watch/tv/:id/:season/:episode",
+        element: <TvSeriesWatchPage />,
       },
       {
         path: "/search",
