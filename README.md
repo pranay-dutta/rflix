@@ -1,9 +1,9 @@
-# 🎬 nunmovies
+# 🎬 Rflix
 
-**nunmovies** is a sleek movie browsing app powered by the TMDB API.  
+**Rflix** is a sleek movie browsing app powered by the TMDB API.  
 It lets users discover and explore a wide range of movies and shows with ease.
 
-> ⚠️ **Note:** nunmovies does **not** host or store any media files.
+> ⚠️ **Note:** Rflix does **not** host or store any media files.
 
 ---
 
@@ -56,9 +56,9 @@ Before you begin 🏁, make sure the following tools are installed on your machi
 ## ⚠️ Disclaimer
 
 > **Legal Notice**  
-> nunmovies does **not** host or store any media content. It only provides links to third-party services.  
+> Rflix does **not** host or store any media content. It only provides links to third-party services.  
 > Any copyright or legal concerns should be addressed with the respective content hosts.  
-> nunmovies is **not liable** for the media content streamed from external providers.
+> Rflix is **not liable** for the media content streamed from external providers.
 
 ---
 
