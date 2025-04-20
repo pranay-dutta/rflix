@@ -13,7 +13,7 @@ const useMoviesQuery = () => {
     initialPageParam: 1,
     queryFn: async ({ pageParam = 1 }) => {
       return axiosInstance
-        .get<FetchResponse<Movie>>("/search/movie?", {
+        .get<FetchResponse<Movie>>("/search/movie", {
           params: { query: query, page: pageParam },
         })
         .then((res) => res.data);
