@@ -1,21 +1,14 @@
-import axiosInstance from "@/services/api-client";
+import ApiClient from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
 import { Images } from "../interfaces/Images";
 
 const useLogoImages = (movieId: number) => {
-  const {
-    data: logoImages,
-    error,
-    isLoading,
-  } = useQuery<Images, Error>({
+  const apiClient = new ApiClient<Images>(`/movie/${movieId}/images`);
+  const { data, error, isLoading } = useQuery<Images, Error>({
     queryKey: ["logoImages", movieId],
-    queryFn: async () => {
-      return axiosInstance
-        .get<Images>(`/movie/${movieId}/images`)
-        .then((res) => res.data);
-    },
+    queryFn: apiClient.get,
   });
-  return { logoImages, error, isLoading };
+  return { logoImages: data, error, isLoading };
 };
 
 export default useLogoImages;
