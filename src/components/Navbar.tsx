@@ -1,36 +1,44 @@
-import { ColorModeButton } from "@/ui/color-mode";
-import { Box, HStack, SegmentGroup } from "@chakra-ui/react";
-import { BiSearch } from "react-icons/bi";
+import { HStack, useMediaQuery } from "@chakra-ui/react";
 import Sidebar from "./Sidebar";
 import Title from "./Title";
-import { items } from "./constants";
+// import { items } from "./constants";
+import { useState, useEffect } from "react";
+import SearchInput from "./SearchInput";
+
+interface Pos {
+  y: number;
+  show: boolean;
+}
 
 const Navbar = () => {
+  const [position, setPosition] = useState<Pos>({ y: 0, show: true });
+  const [isLargerThan768] = useMediaQuery(["(min-width: 768px)"]);
+  useEffect(() => {
+    const handleScroll = () => {
+      setPosition((prev) => ({ ...prev, show: window.scrollY < 10 }));
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <HStack
       px={5}
       py={2}
       justifyContent="space-between"
-      w={"100%"}
+      w={"full"}
+      bg="gray.950"
+      transform={position.show ? "translateY(0)" : "translateY(-100%)"}
+      transition="transform 0.3s ease-in-out"
       position="fixed"
-      backdropFilter="blur(10px)"
-      zIndex="10"
+      top={0}
+      zIndex="100"
     >
       <Title />
 
-      <Box mx="auto" display="none" md={{ display: "block" }}>
-        <SegmentGroup.Root defaultValue="Home">
-          <SegmentGroup.Indicator />
-          <SegmentGroup.Items items={items.map((item) => item.label)} />
-        </SegmentGroup.Root>
-      </Box>
-
       <HStack gap={4}>
-        <BiSearch size={24} />
-        <ColorModeButton size="sm" />
-        <Box display={{ md: "none" }}>
-          <Sidebar />
-        </Box>
+        {isLargerThan768 && <SearchInput />}
+        {!isLargerThan768 && <Sidebar />}
       </HStack>
     </HStack>
   );
