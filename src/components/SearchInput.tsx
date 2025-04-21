@@ -11,10 +11,7 @@ const SearchInput = () => {
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Enter") {
       const searchTerm = inputRef.current?.value;
-      if (searchTerm) {
-        navigate(`/search?query=${searchTerm}`);
-        if (inputRef.current) inputRef.current.value = "";
-      }
+      if (searchTerm) navigate(`/search?query=${searchTerm}`);
     }
   };
   return (
