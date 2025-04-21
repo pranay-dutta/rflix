@@ -1,8 +1,7 @@
-import { SimpleGrid, Spinner } from "@chakra-ui/react";
+import useSearchResponse from "@/hooks/useSearchResponse";
+import { Spinner } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Fragment } from "react/jsx-runtime";
-import Card from "./Card";
-import useSearch from "@/hooks/useSearch";
+import MediaGrid from "./MediaGrid";
 
 const MovieGrid = () => {
   const {
@@ -13,10 +12,11 @@ const MovieGrid = () => {
     isLoading,
     error,
     resCount,
-  } = useSearch("movie");
+  } = useSearchResponse("movie");
 
   if (isLoading) return <Spinner size="md" />;
   if (error) return <div>Error: {error.message}</div>;
+  if (!data) return <h1>No data found</h1>;
 
   return (
     <InfiniteScroll
@@ -26,15 +26,7 @@ const MovieGrid = () => {
       loader={isFetchingNextPage && <Spinner my={3} size="md" />}
       style={{ overflow: "unset" }} // Important! To prevent scroll jump
     >
-      <SimpleGrid className="grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-        {data?.pages.map((page, index) => (
-          <Fragment key={index}>
-            {page.results.map((movie) => (
-              <Card key={movie.id} media={movie} />
-            ))}
-          </Fragment>
-        ))}
-      </SimpleGrid>
+      <MediaGrid media={data} />
     </InfiniteScroll>
   );
 };
