@@ -41,11 +41,12 @@ const SearchPage = () => {
           <Tabs.Indicator rounded="l2" />
         </Tabs.List>
 
+        {/* Disable tabs when inactive */}
         <Tabs.Content value="movies">
-          <MovieGrid />
+          {currentTab === "movies" && <MovieGrid />}
         </Tabs.Content>
         <Tabs.Content value="tvshows">
-          <TvShowsGrid />
+          {currentTab === "tvshows" && <TvShowsGrid />}
         </Tabs.Content>
       </Tabs.Root>
     </Container>
