@@ -1,8 +1,8 @@
-import useMoviesQuery from "@/hooks/useMoviesQuery";
 import { SimpleGrid, Spinner } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Fragment } from "react/jsx-runtime";
 import Card from "./Card";
+import useSearch from "@/hooks/useSearch";
 
 const MovieGrid = () => {
   const {
@@ -12,13 +12,11 @@ const MovieGrid = () => {
     fetchNextPage,
     isLoading,
     error,
-  } = useMoviesQuery();
+    resCount,
+  } = useSearch("movie");
 
   if (isLoading) return <Spinner size="md" />;
   if (error) return <div>Error: {error.message}</div>;
-
-  const resCount =
-    data?.pages.reduce((acc, page) => acc + page.results.length, 0) || 0;
 
   return (
     <InfiniteScroll

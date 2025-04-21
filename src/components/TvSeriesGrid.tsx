@@ -1,24 +1,23 @@
-import useTvSeriesQuery from "@/hooks/useTvSeriesQuery";
+// import useTvSeriesQuery from "@/hooks/useTvSeriesQuery";
 import { SimpleGrid, Spinner } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Card from "./Card";
 import { Fragment } from "react/jsx-runtime";
+import useSearch from "@/hooks/useSearch";
 
 const TvShowsGrid = () => {
   const {
     data,
-    isFetchingNextPage,
-    hasNextPage,
-    fetchNextPage,
-    isLoading,
     error,
-  } = useTvSeriesQuery();
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    resCount,
+  } = useSearch("tv");
 
   if (isLoading) return <Spinner size="md" />;
   if (error) return <div>Error: {error.message}</div>;
-
-  const resCount =
-    data?.pages.reduce((acc, page) => acc + page.results.length, 0) || 0;
 
   return (
     <InfiniteScroll
