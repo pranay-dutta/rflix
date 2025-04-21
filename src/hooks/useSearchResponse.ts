@@ -1,13 +1,19 @@
 import { FetchResponse } from "@/interfaces/FetchResponse";
-import TvSeries from "@/interfaces/TvSeries";
+import { Movie } from "@/interfaces/Movie";
 import ApiClient from "@/services/api-client";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
+import TvSeries from "@/interfaces/TvSeries";
 
-const apiClient = new ApiClient<TvSeries>("/search/tv");
+type SearchType = {
+  movie: Movie;
+  tv: TvSeries;
+};
 
-//Returns multiple tv series
-const useTvSeriesQuery = () => {
+const useSearchResponse = <T extends keyof SearchType>(search_type: T) => {
+  type MediaType = SearchType[T];
+  const apiClient = new ApiClient<MediaType>("/search/" + search_type);
+
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
 
@@ -18,16 +24,18 @@ const useTvSeriesQuery = () => {
     hasNextPage,
     isFetchingNextPage,
     isLoading,
-  } = useInfiniteQuery<FetchResponse<TvSeries>>({
-    queryKey: ["tvSeries", query],
+  } = useInfiniteQuery<FetchResponse<MediaType>, Error>({
+    queryKey: ["search", query, search_type],
     initialPageParam: 1,
-    queryFn: async ({ pageParam = 1 }) =>
-      apiClient.getAll({ params: { query: query, page: pageParam } }),
+    queryFn: ({ pageParam }) =>
+      apiClient.getAll({ params: { query, page: pageParam } }),
 
     getNextPageParam: (lastPage, pages) => {
-      return lastPage.results.length ? pages.length + 1 : undefined;
+      if (lastPage.results.length === 0) return undefined;
+      return pages.length + 1;
     },
   });
+
   const resCount =
     data?.pages.reduce((acc, page) => acc + page.results.length, 0) || 0;
 
@@ -41,4 +49,4 @@ const useTvSeriesQuery = () => {
     resCount,
   };
 };
-export default useTvSeriesQuery;
+export default useSearchResponse;

@@ -6,6 +6,8 @@ import MovieInfoPage from "./pages/MovieInfoPage";
 import TvSeriesInfoPage from "./pages/TvSeriesInfoPage";
 import MovieWatchPage from "./pages/MovieWatchPage";
 import TvSeriesWatchPage from "./pages/TVSeriesWatchPage";
+import TvShowsGrid from "./components/TvSeriesGrid";
+import MovieGrid from "./components/MovieGrid";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: <SearchPage />,
+      },
+      {
+        path: "/movies",
+        element: <MovieGrid />,
+      },
+      {
+        path: "/tvshows",
+        element: <TvShowsGrid />,
       },
     ],
   },
