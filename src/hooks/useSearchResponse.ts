@@ -17,14 +17,7 @@ const useSearchResponse = <T extends keyof SearchType>(search_type: T) => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
 
-  const {
-    data,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-  } = useInfiniteQuery<FetchResponse<MediaType>, Error>({
+  const res = useInfiniteQuery<FetchResponse<MediaType>, Error>({
     queryKey: ["search", query, search_type],
     initialPageParam: 1,
     queryFn: ({ pageParam }) =>
@@ -37,16 +30,8 @@ const useSearchResponse = <T extends keyof SearchType>(search_type: T) => {
   });
 
   const resCount =
-    data?.pages.reduce((acc, page) => acc + page.results.length, 0) || 0;
+    res.data?.pages.reduce((acc, page) => acc + page.results.length, 0) || 0;
 
-  return {
-    data,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-    resCount,
-  };
+  return { ...res, resCount };
 };
 export default useSearchResponse;
