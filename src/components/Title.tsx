@@ -1,14 +1,16 @@
-import { Box, Heading } from "@chakra-ui/react";
-import { RiMovie2AiFill } from "react-icons/ri";
+import { Box, Heading, Highlight } from "@chakra-ui/react";
+import { BiMoviePlay } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 const Title = () => {
   return (
     <Link to="/">
-      <Box display="flex" alignItems="center" gap={2}>
-        <RiMovie2AiFill color="aqua" size={24} />
+      <Box display="flex" alignItems="center" gap={1}>
+        <BiMoviePlay display="inline" size={20} />
         <Heading fontSize="xl" fontWeight="bold">
-          Nunmovies
+          <Highlight styles={{ color: "red.300" }} query="Rf">
+            Rflix
+          </Highlight>
         </Heading>
       </Box>
     </Link>

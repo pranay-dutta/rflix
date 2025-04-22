@@ -1,18 +1,18 @@
-import useSearchResponse from "@/hooks/useSearchResponse";
+import useTvSeriesLists from "@/hooks/useTvSeriesLists";
 import { Spinner } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import MediaGrid from "./MediaGrid";
 
-const TvShowsGrid = () => {
+const TvSereisGrid = () => {
   const {
     data,
-    error,
-    fetchNextPage,
-    hasNextPage,
     isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
     isLoading,
+    error,
     resCount,
-  } = useSearchResponse("tv");
+  } = useTvSeriesLists("popular");
 
   if (isLoading) return <Spinner size="md" />;
   if (error) return <div>Error: {error.message}</div>;
@@ -24,11 +24,10 @@ const TvShowsGrid = () => {
       hasMore={hasNextPage}
       next={fetchNextPage}
       loader={isFetchingNextPage && <Spinner my={3} size="md" />}
-      style={{ overflow: "unset" }}
+      style={{ overflow: "unset" }} // Important! To prevent scroll jump
     >
       <MediaGrid media={data} />
     </InfiniteScroll>
   );
 };
-
-export default TvShowsGrid;
+export default TvSereisGrid;

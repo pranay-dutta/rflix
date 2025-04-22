@@ -1,9 +1,10 @@
-import { HStack, useMediaQuery } from "@chakra-ui/react";
+import { Box, Button, HStack, useMediaQuery } from "@chakra-ui/react";
 import Sidebar from "./Sidebar";
 import Title from "./Title";
-// import { items } from "./constants";
+import { items } from "./constants";
 import { useState, useEffect } from "react";
 import SearchInput from "./SearchInput";
+import { Link } from "react-router-dom";
 
 interface Pos {
   y: number;
@@ -12,7 +13,7 @@ interface Pos {
 
 const Navbar = () => {
   const [position, setPosition] = useState<Pos>({ y: 0, show: true });
-  const [isLargerThan768] = useMediaQuery(["(min-width: 768px)"]);
+  const [isLargerThan1024] = useMediaQuery(["(min-width: 1024px)"]);
   useEffect(() => {
     const handleScroll = () => {
       setPosition((prev) => ({ ...prev, show: window.scrollY < 10 }));
@@ -35,10 +36,22 @@ const Navbar = () => {
       zIndex="100"
     >
       <Title />
+      {isLargerThan1024 && (
+        <Box display="flex">
+          {items.map(({ icon: Icon, label, to }) => (
+            <Link to={to} key={label}>
+              <Button size="md" variant="ghost">
+                <Icon />
+                {label}
+              </Button>
+            </Link>
+          ))}
+        </Box>
+      )}
 
       <HStack gap={4}>
-        {isLargerThan768 && <SearchInput />}
-        {!isLargerThan768 && <Sidebar />}
+        {isLargerThan1024 && <SearchInput />}
+        {!isLargerThan1024 && <Sidebar />}
       </HStack>
     </HStack>
   );

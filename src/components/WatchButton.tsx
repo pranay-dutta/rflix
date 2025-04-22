@@ -9,7 +9,7 @@ interface Props {
   id: number;
 }
 
-const WatchButton = ({ children, icon, id }: Props) => {
+const MovieWatchButton = ({ children, icon, id }: Props) => {
   const Icon = icon;
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ const WatchButton = ({ children, icon, id }: Props) => {
       rounded="md"
       _hover={{ scale: 1.1, opacity: 0.9 }}
       width="fit-content"
-      onClick={() => navigate("/watch/" + id)}
+      onClick={() => navigate("/watch/movie/" + id)}
     >
       <Icon />
       {children}
@@ -34,4 +34,4 @@ const WatchButton = ({ children, icon, id }: Props) => {
   );
 };
 
-export default WatchButton;
+export default MovieWatchButton;

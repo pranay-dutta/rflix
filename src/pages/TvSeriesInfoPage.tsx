@@ -13,7 +13,6 @@ import Rating from "@/components/Rating";
 import ReleaseDate from "@/components/ReleaseDate";
 import Runtime from "@/components/Runtime";
 import TvSeriesWatchButton from "@/components/TvSeriesWatchButton";
-import useTvSeriesDetails from "@/hooks/useTvSeriesDetails";
 import { TvSeriesDetails } from "@/interfaces/TvSeriesDetails";
 import {
   Box,
@@ -25,28 +24,34 @@ import {
   HStack,
   Badge,
   Text,
-  // Highlight,
+  Highlight,
 } from "@chakra-ui/react";
 import { BiPlay } from "react-icons/bi";
 import { Link, useParams } from "react-router-dom";
 import useSeason from "@/hooks/useSeason";
 import { RiMovieLine } from "react-icons/ri";
+import useTvSeries from "@/hooks/useTvSeries";
+import MovieScroll from "@/components/MovieScroll";
 
 const TvSeriesInfoPage = () => {
   const { id } = useParams();
   if (!id) throw new Error("tv info page");
 
-  const { data: series } = useTvSeriesDetails(parseInt(id));
+  const { data: series } = useTvSeries(parseInt(id), "details");
+  const { data: similarSeries } = useTvSeries(parseInt(id), "similar");
   if (!series) return null;
 
   return (
     <>
-      <BackButton />
+      <Box my={3}>
+        <BackButton />
+      </Box>
       <Box position="relative" height="fit-content">
         {/* Movie Poster */}
         <Box className="opacity-50 hidden! md:block! rounded-lg">
           {/* <MovieBackdropImage movieId={tvShow.id} /> */}
           <Image
+            borderRadius="md"
             src={
               series.backdrop_path
                 ? getTMDBImage(series.backdrop_path, "original")
@@ -142,16 +147,16 @@ const TvSeriesInfoPage = () => {
           </GridItem>
         </SimpleGrid>
       </Box>
+      <Season series={series} />
       {/* Similar tv shows scroll compoent */}
-      {/* <Box mt={10}>
+      <Box mt={10}>
         <Heading fontSize="2xl" fontWeight="bold" filter={"contrast(2)"}>
           <Highlight query={"Tv Shows"} styles={{ color: "red.600" }}>
             Similar Tv Shows
           </Highlight>
         </Heading>
-        <MovieScroll movies={similarMovies} />
-      </Box> */}
-      <Season series={series} />
+        {similarSeries && <MovieScroll media={similarSeries.results} />}
+      </Box>
     </>
   );
 };

@@ -1,4 +1,3 @@
-import WatchButton from "@/components/WatchButton";
 import { getPlaceHolder, getTMDBImage } from "@/components/constants";
 import useMovie from "@/hooks/useMovie";
 import { BiPlay } from "react-icons/bi";
@@ -6,7 +5,6 @@ import {
   Highlight,
   Badge,
   Box,
-  Container,
   GridItem,
   Heading,
   HStack,
@@ -20,11 +18,11 @@ import ReleaseDate from "@/components/ReleaseDate";
 import Rating from "@/components/Rating";
 import MovieScroll from "@/components/MovieScroll";
 import useSimilarMovies from "@/hooks/useSimilarMovies";
-import MovieBackdropImage from "@/components/MovieBackdropImage";
 import Gradient from "@/components/Gradient";
 import { Quote } from "../components/Quote";
 import Runtime from "@/components/Runtime";
 import BackButton from "@/components/BackButton";
+import MovieWatchButton from "@/components/WatchButton";
 
 const MovieInfoPage = () => {
   const { id } = useParams();
@@ -32,15 +30,28 @@ const MovieInfoPage = () => {
 
   const { similarMovies } = useSimilarMovies(1, parseInt(id));
   const { movie } = useMovie(parseInt(id));
+
   if (!movie || !similarMovies) return null;
 
   return (
-    <Container>
-      <BackButton />
+    <>
+      <Box my={3}>
+        <BackButton />
+      </Box>
       <Box position="relative" height="fit-content">
         {/* Movie Poster */}
         <Box className="opacity-50 hidden! md:block! rounded-lg">
-          <MovieBackdropImage movieId={movie.id} />
+          <Image
+            className="opacity-70 w-full"
+            borderRadius="md"
+            fit="cover"
+            src={
+              movie.backdrop_path
+                ? getTMDBImage(movie?.backdrop_path, "original")
+                : getPlaceHolder("original")
+            }
+            alt={movie.original_title}
+          />
         </Box>
         <Gradient />
 
@@ -81,9 +92,9 @@ const MovieInfoPage = () => {
               <Text lineClamp={2} fontSize={{ sm: "sm", md: "normal" }}>
                 {movie.overview}
               </Text>
-              <WatchButton id={movie.id} icon={BiPlay}>
+              <MovieWatchButton id={movie.id} icon={BiPlay}>
                 Watch Now
-              </WatchButton>
+              </MovieWatchButton>
             </Box>
 
             <Stack mt={5}>
@@ -113,6 +124,7 @@ const MovieInfoPage = () => {
                     )}
                   </HStack>
                 </Box>
+
                 <Box>
                   <Text fontWeight="medium">Language</Text>
                   <Text fontSize="sm" fontStyle="italic" color="gray.300">
@@ -121,7 +133,6 @@ const MovieInfoPage = () => {
                 </Box>
               </HStack>
             </Stack>
-            <HStack></HStack>
           </GridItem>
         </SimpleGrid>
       </Box>
@@ -132,9 +143,9 @@ const MovieInfoPage = () => {
             Similar Movies
           </Highlight>
         </Heading>
-        <MovieScroll movies={similarMovies} />
+        <MovieScroll media={similarMovies} />
       </Box>
-    </Container>
+    </>
   );
 };
 

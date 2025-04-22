@@ -4,7 +4,7 @@ import Rating from "@/components/Rating";
 import ReleaseDate from "@/components/ReleaseDate";
 import Runtime from "@/components/Runtime";
 import useMovie from "@/hooks/useMovie";
-import { Container, Text, Heading, HStack, Stack } from "@chakra-ui/react";
+import { Container, Text, Heading, HStack, Stack, Box } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
 const MovieWatchPage = () => {
@@ -16,7 +16,9 @@ const MovieWatchPage = () => {
 
   return (
     <Container py={5}>
-      <BackButton />
+      <Box my={3}>
+        <BackButton />
+      </Box>
       <div className="w-full aspect-square md:aspect-video">
         <iframe
           className="rounded-lg"

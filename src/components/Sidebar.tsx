@@ -2,17 +2,18 @@ import { Drawer, Heading, HStack, List, Portal, Text } from "@chakra-ui/react";
 import { FaBars } from "react-icons/fa";
 import Title from "./Title";
 import { items } from "./constants";
+import SearchInput from "./SearchInput";
 
 const Sidebar = () => {
   return (
-    <Drawer.Root size="xs">
+    <Drawer.Root>
       <Drawer.Trigger asChild>
         <FaBars size={24} />
       </Drawer.Trigger>
       <Portal>
         <Drawer.Backdrop />
         <Drawer.Positioner>
-          <Drawer.Content>
+          <Drawer.Content maxWidth="250px">
             <Drawer.Header>
               <Title />
             </Drawer.Header>
@@ -40,6 +41,7 @@ const DrawerMenu = () => {
             </HStack>
           </List.Item>
         ))}
+        <SearchInput />
       </List.Root>
     </>
   );

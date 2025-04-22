@@ -6,16 +6,17 @@ import { FaPlay } from "react-icons/fa6";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import AspectRatioContainer from "./AspectRatioContainer";
-import Button from "./Button";
 import MovieLanguage from "./MovieLanguage";
 import MovieLogo from "./MovieLogo";
 import MovieOverview from "./MovieOverview";
 import MovieTrailer from "./MovieTrailer";
 import Rating from "./Rating";
 import ReleaseDate from "./ReleaseDate";
+import InfoButton from "./InfoButton";
+import MovieWatchButton from "./WatchButton";
 
 const Hero2 = () => {
-  const { movies } = useMovies(1, "upcoming");
+  const { movies } = useMovies(1, "popular");
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   if (!movies) return null;
@@ -23,7 +24,7 @@ const Hero2 = () => {
   return (
     <Swiper
       onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-      autoplay={{ delay: 12 * 1000 }}
+      autoplay={{ delay: 30 * 1000 }}
       modules={[Autoplay]}
     >
       {movies.map((movie, index) => {
@@ -39,9 +40,8 @@ const Hero2 = () => {
                 </AspectRatioContainer>
 
                 <Box
-                  filter="drop-shadow(0 4px 4px rgba(0, 0, 0, 0.6))"
                   fontSize="lg"
-                  className="w-full !px-5 flex flex-col gap-3 items-center md:items-start absolute bottom-5 left-0 md:bottom-[20%] md:left-[2%]"
+                  className="w-full !px-5 flex flex-col gap-3 items-center md:items-start absolute bottom-5 left-0 md:bottom-[25%] md:left-[1%]"
                 >
                   {/* Movie title logo */}
                   <Box maxH={500} maxW={500}>
@@ -57,8 +57,12 @@ const Hero2 = () => {
                   <MovieOverview overview={movie.overview} />
 
                   <HStack gap={5}>
-                    <Button icon={FaInfoCircle}>More info</Button>
-                    <Button icon={FaPlay}>Play</Button>
+                    <InfoButton icon={FaInfoCircle} id={movie.id}>
+                      More info
+                    </InfoButton>
+                    <MovieWatchButton id={movie.id} icon={FaPlay}>
+                      Play
+                    </MovieWatchButton>
                   </HStack>
                 </Box>
               </SwiperSlide>

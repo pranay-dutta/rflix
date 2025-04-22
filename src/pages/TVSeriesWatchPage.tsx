@@ -3,20 +3,22 @@ import { Quote } from "@/components/Quote";
 import Rating from "@/components/Rating";
 import ReleaseDate from "@/components/ReleaseDate";
 import Runtime from "@/components/Runtime";
-import useTvShow from "@/hooks/useTvShow";
-import { Container, Text, Heading, HStack, Stack } from "@chakra-ui/react";
+import useTvSeries from "@/hooks/useTvSeries";
+import { Container, Text, Heading, HStack, Stack, Box } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
 const TvSeriesWatchPage = () => {
   const { id, season, episode } = useParams();
   if (!id || !season || !episode) throw new Error();
 
-  const { data } = useTvShow(parseInt(id));
+  const { data } = useTvSeries(parseInt(id), "details");
   if (!data) return null;
 
   return (
     <Container py={5}>
-      <BackButton />
+      <Box my={3}>
+        <BackButton />
+      </Box>
       <div className="w-full aspect-square md:aspect-video">
         <iframe
           className="rounded-lg"

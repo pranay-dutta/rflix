@@ -1,8 +1,9 @@
-import { Movie } from "@/hooks/useMovies";
+import { Movie } from "@/interfaces/Movie";
 import { Swiper, SwiperSlide } from "swiper/react";
-import MovieCard from "./MovieCard";
+import Card from "./Card";
+import TvSeries from "@/interfaces/TvSeries";
 
-const MovieScroll = ({ movies }: { movies: Movie[] }) => {
+const MovieScroll = ({ media }: { media: Movie[] | TvSeries[] }) => {
   return (
     <Swiper
       breakpoints={{
@@ -33,9 +34,9 @@ const MovieScroll = ({ movies }: { movies: Movie[] }) => {
       }}
       loop
     >
-      {movies.map((movie) => (
-        <SwiperSlide>
-          <MovieCard key={movie.id} movie={movie} />
+      {media.map((media) => (
+        <SwiperSlide className="py-3!">
+          <Card key={media.id} media={media} />
         </SwiperSlide>
       ))}
     </Swiper>

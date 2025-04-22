@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
 });
 
 class ApiClient<T> {
-  endpoint: string;
+  private endpoint: string;
 
   constructor(endpoint: string) {
     this.endpoint = endpoint;
@@ -25,6 +25,4 @@ class ApiClient<T> {
       .then((res) => res.data);
   };
 }
-
-export default axiosInstance;
-export { ApiClient };
+export default ApiClient;
