@@ -245,7 +245,7 @@ const Episodes = ({
         <Box display="flex" gap={5} key={episode.id}>
           <Link to={`/watch/tv/${seriesId}/${seasonNumber}/${episode.episode_number}`}>
             <Image
-              width="350px"
+              maxW="350px"
               objectFit="cover"
               borderRadius="md"
               src={
