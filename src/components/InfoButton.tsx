@@ -26,7 +26,7 @@ const InfoButton = ({ children, icon, id }: Props) => {
       rounded="md"
       _hover={{ scale: 1.1, opacity: 0.9 }}
       width="fit-content"
-      onClick={() => navigate("/info/" + id)}
+      onClick={() => navigate("/info/movie/" + id)}
     >
       <Icon />
       {children}
