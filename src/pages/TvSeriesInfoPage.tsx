@@ -17,7 +17,6 @@ import useTvSeriesDetails from "@/hooks/useTvSeriesDetails";
 import { TvSeriesDetails } from "@/interfaces/TvSeriesDetails";
 import {
   Box,
-  Container,
   GridItem,
   SimpleGrid,
   Image,
@@ -41,7 +40,7 @@ const TvSeriesInfoPage = () => {
   if (!series) return null;
 
   return (
-    <Container py={5}>
+    <>
       <BackButton />
       <Box position="relative" height="fit-content">
         {/* Movie Poster */}
@@ -153,7 +152,7 @@ const TvSeriesInfoPage = () => {
         <MovieScroll movies={similarMovies} />
       </Box> */}
       <Season series={series} />
-    </Container>
+    </>
   );
 };
 
@@ -239,11 +238,12 @@ const Episodes = ({
 
   if (!data) return <h1>No data found</h1>;
   return (
-    // <Container>
     <Box display="flex" flexDirection="column" gap={5}>
       {data.episodes.map((episode) => (
         <Box display="flex" gap={5} key={episode.id}>
-          <Link to={`/watch/tv/${seriesId}/${seasonNumber}/${episode.episode_number}`}>
+          <Link
+            to={`/watch/tv/${seriesId}/${seasonNumber}/${episode.episode_number}`}
+          >
             <Image
               maxW="350px"
               objectFit="cover"
@@ -261,7 +261,9 @@ const Episodes = ({
                 <RiMovieLine />
                 {episode.episode_number}
               </Badge>
-              <Link to={`/watch/tv/${seriesId}/${seasonNumber}/${episode.episode_number}`}>
+              <Link
+                to={`/watch/tv/${seriesId}/${seasonNumber}/${episode.episode_number}`}
+              >
                 <Text fontSize="xl" fontWeight="medium">
                   {episode.name}
                 </Text>
@@ -277,6 +279,5 @@ const Episodes = ({
         </Box>
       ))}
     </Box>
-    // </Container>
   );
 };

@@ -1,20 +1,29 @@
-import { FetchResponse } from "@/interfaces/FetchResponse";
 import TvSeries from "@/interfaces/TvSeries";
+import { TvSeriesDetails } from "@/interfaces/TvSeriesDetails";
 import ApiClient from "@/services/api-client";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { FetchResponse } from "@/interfaces/FetchResponse";
+import ms from "ms";
 
-//not using
-const useTvSeries = (endpoint: "popular" | "top_rated") => {
-  const apiClient = new ApiClient<TvSeries>("/tv/" + endpoint);
-  return useInfiniteQuery<FetchResponse<TvSeries>>({
-    queryKey: [endpoint, "series"],
-    initialPageParam: 1,
-    queryFn: ({ pageParam = 1 }) =>
-      apiClient.getAll({ params: { page: pageParam } }),
+type ResponseType = {
+  details: TvSeriesDetails;
+  similar: FetchResponse<TvSeries>;
+};
+const useTvSeries = <T extends keyof ResponseType>(
+  seriesId: number,
+  endpoint?: T
+) => {
+  type ResponseData = ResponseType[T];
+  const newEndpoint = endpoint === "details" ? undefined : "/" + endpoint;
 
-    getNextPageParam(lastPage, allPages) {
-      return lastPage.results.length ? allPages.length + 1 : undefined;
-    },
+  const apiClient = new ApiClient<ResponseData>(
+    "/tv/" + seriesId + newEndpoint
+  );
+
+  return useQuery<ResponseData, Error>({
+    queryKey: ["series", seriesId, endpoint],
+    queryFn: apiClient.get,
+    staleTime: ms("1h"),
   });
 };
 
