@@ -28,7 +28,7 @@ const MovieScroll = ({ media }: { media: Movie[] | TvSeries[] }) => {
           spaceBetween: 15,
         },
         1536: {
-          slidesPerView: 8,
+          slidesPerView: 7,
           spaceBetween: 15,
         },
       }}
