@@ -6,6 +6,7 @@ import Rating from "./Rating";
 import ReleaseDate from "./ReleaseDate";
 import { Link } from "react-router-dom";
 import TvSeries from "@/interfaces/TvSeries";
+import Gradient from "./Gradient";
 
 interface Props {
   media: Movie | TvSeries;
@@ -20,7 +21,8 @@ const Card = ({ media }: Props) => {
   return (
     <Link to={`/info/${isMovie(media) ? "movie/" : "tv/"}` + media.id}>
       <Box
-        className="cursor-pointer relative"
+        className="cursor-pointer relative overflow-hidden"
+        borderRadius="md"
         _hover={{
           scale: 1.03,
           transition: "all 0.3s ease-in-out",
@@ -43,12 +45,12 @@ const Card = ({ media }: Props) => {
             alt={isMovie(media) ? media.title : media.original_name}
             objectFit="cover"
           />
-          {
-            /* Bottom gradient */
-            show && (
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/90" />
-            )
-          }
+          {show && (
+            <>
+              <Gradient.Bottom />
+              <Gradient.Top />
+            </>
+          )}
         </Box>
 
         {/* Movie card rating and release date*/}
