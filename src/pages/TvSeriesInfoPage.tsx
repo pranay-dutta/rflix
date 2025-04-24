@@ -4,7 +4,7 @@ import {
   Skeleton,
   createListCollection,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BackButton from "@/components/BackButton";
 import { getPlaceHolder, getTMDBImage } from "@/components/constants";
 import Gradient from "@/components/Gradient";
@@ -36,9 +36,6 @@ import MovieScroll from "@/components/MovieScroll";
 const TvSeriesInfoPage = () => {
   const { id } = useParams();
   if (!id) throw new Error("tv info page");
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const { data: series, isLoading } = useTvSeries(parseInt(id), "details");
 
