@@ -11,7 +11,9 @@ const useMovieLists = (
   const res = useInfiniteQuery<FetchResponse<Movie>>({
     queryKey: ["movies", endpoint],
     initialPageParam: 1,
-    queryFn: apiClient.getAll,
+    queryFn: ({ pageParam }) =>
+      apiClient.getAll({ params: { page: pageParam } }),
+    
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.results.length ? allPages.length + 1 : undefined;
     },
