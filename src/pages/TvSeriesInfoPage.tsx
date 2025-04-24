@@ -32,6 +32,7 @@ import useSeason from "@/hooks/useSeason";
 import { RiMovieLine } from "react-icons/ri";
 import useTvSeries from "@/hooks/useTvSeries";
 import MovieScroll from "@/components/MovieScroll";
+import { Episode } from "@/interfaces/Season";
 
 const TvSeriesInfoPage = () => {
   const { id } = useParams();
@@ -81,7 +82,7 @@ const Season = ({ series }: { series: TvSeriesDetails }) => {
         onValueChange={(d) => setSeason(d.value[0])}
         collection={seasons}
         size="md"
-        width="350px"
+        maxW="350px"
         variant="subtle"
         my={5}
       >
@@ -139,18 +140,19 @@ const Episodes = ({
   return (
     <Box display="flex" flexDirection="column" gap={5}>
       {data.episodes.map((episode) => (
-        <Box display="flex" gap={5} key={episode.id}>
+        <Box
+          display="flex"
+          flexDirection={{ base: "column", md: "row" }}
+          gap={5}
+          key={episode.id}
+        >
           <Link
             to={`/watch/tv/${seriesId}/${seasonNumber}/${episode.episode_number}`}
           >
-            <SeasonImage key={episode.id} still_path={episode.still_path} />
+            <SeasonImage key={episode.id} episode={episode} />
           </Link>
           <Box>
             <HStack gap={4} alignItems="center">
-              <Badge size="md" variant="outline" colorPalette="purple">
-                <RiMovieLine />
-                {episode.episode_number}
-              </Badge>
               <Link
                 to={`/watch/tv/${seriesId}/${seasonNumber}/${episode.episode_number}`}
               >
@@ -164,7 +166,7 @@ const Episodes = ({
               <Rating rating={episode.vote_average} />
               <Runtime runtime={episode.runtime} />
             </HStack>
-            <Text>{episode.overview}</Text>
+            <Text fontSize="sm">{episode.overview}</Text>
           </Box>
         </Box>
       ))}
@@ -187,8 +189,8 @@ const TvHero = ({ series }: { series: TvSeriesDetails }) => {
                 : getPlaceHolder("original")
             }
           />
+          <Gradient.Bottom />
         </Box>
-        <Gradient.Bottom />
 
         <SimpleGrid
           className="md:absolute left-[2%] md:top-2 md:bottom-auto lg:top-auto lg:bottom-[3%]"
@@ -289,17 +291,24 @@ const TvHero = ({ series }: { series: TvSeriesDetails }) => {
     </>
   );
 };
-const SeasonImage = ({ still_path }: { still_path?: string }) => {
+const SeasonImage = ({ episode }: { episode: Episode }) => {
   return (
-    <Image
-      maxW="350px"
-      objectFit="cover"
-      borderRadius="md"
-      src={
-        still_path
-          ? getTMDBImage(still_path, "w500")
-          : getPlaceHolder("original")
-      }
-    />
+    <Box position="relative">
+      <Image
+        maxW={{ base: "full", md: "350px" }}
+        objectFit="cover"
+        borderRadius="md"
+        src={
+          episode.still_path
+            ? getTMDBImage(episode.still_path, "w500")
+            : getPlaceHolder("original")
+        }
+      />
+
+      <Badge size="md" variant="surface" position="absolute" top={2} left={2}>
+        <RiMovieLine />
+        {episode.episode_number}
+      </Badge>
+    </Box>
   );
 };

@@ -12,7 +12,7 @@ interface Actor {
   profile_path: string;
 }
 
-interface Episode {
+export interface Episode {
   air_date: string;
   episode_number: number;
   id: number;
