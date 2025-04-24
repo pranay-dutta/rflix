@@ -211,7 +211,9 @@ const TvHero = ({ series }: { series: TvSeriesDetails }) => {
           <GridItem colSpan={{ md: 3 }} px={2}>
             <Box display="flex" flexDirection="column" gap={5}>
               <Stack gap={4}>
-                <Heading fontSize="4xl">{series.name}</Heading>
+                <Heading mt={{ base: 2, md: 0 }} fontSize="4xl">
+                  {series.name}
+                </Heading>
                 <Quote tagline={series.tagline} />
               </Stack>
               <HStack flexWrap="wrap">
