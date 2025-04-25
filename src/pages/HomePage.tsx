@@ -2,13 +2,13 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import MovieScroll from "@/components/MovieScroll";
 import Navbar from "@/components/Navbar";
-import useMovies from "@/hooks/useMovies";
+import useMovieLists from "@/hooks/useMovieLists";
 import useTrendingMovies from "@/hooks/useTrendingMovies";
 import useTvSeriesLists from "@/hooks/useTvSeriesLists";
 import { Box, Heading, Highlight } from "@chakra-ui/react";
 
 const HomePage = () => {
-  const { movies: topMovies } = useMovies(1, "top_rated");
+  const { data: topMovies } = useMovieLists("top_rated");
   const { movies: trendingMovies } = useTrendingMovies("week");
   const { data: popularSeries } = useTvSeriesLists("popular");
   const { data: topSeries } = useTvSeriesLists("top_rated");
@@ -34,7 +34,7 @@ const HomePage = () => {
               Top Rated Movies
             </Highlight>
           </Heading>
-          <MovieScroll media={topMovies} />
+          <MovieScroll media={topMovies.pages[0].results || []} />
         </div>
         <div>
           <Heading fontSize="2xl" fontWeight="bold" filter={"contrast(2)"}>

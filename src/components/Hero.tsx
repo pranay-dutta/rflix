@@ -1,4 +1,3 @@
-import useMovies from "@/hooks/useMovies";
 import { Box, HStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
@@ -14,9 +13,10 @@ import Rating from "./Rating";
 import ReleaseDate from "./ReleaseDate";
 import InfoButton from "./InfoButton";
 import MovieWatchButton from "./WatchButton";
+import useMovieLists from "@/hooks/useMovieLists";
 
 const Hero2 = () => {
-  const { movies } = useMovies(1, "popular");
+  const { data: movies } = useMovieLists("popular");
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   if (!movies) return null;
@@ -27,16 +27,13 @@ const Hero2 = () => {
       autoplay={{ delay: 30 * 1000 }}
       modules={[Autoplay]}
     >
-      {movies.map((movie, index) => {
+      {movies.pages[0].results.map((movie, index) => {
         return (
           <>
             <div className="relative">
               <SwiperSlide key={movie.id} className="transition-all relative">
                 <AspectRatioContainer>
-                  <MovieTrailer
-                    movieId={movie.id}
-                    isActive={activeIndex === index}
-                  />
+                  <MovieTrailer movieId={movie.id} isActive={activeIndex === index} />
                 </AspectRatioContainer>
 
                 <Box
