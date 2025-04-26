@@ -7,6 +7,7 @@ import ReleaseDate from "./ReleaseDate";
 import { Link } from "react-router-dom";
 import TvSeries from "@/interfaces/TvSeries";
 import Gradient from "./Gradient";
+import isMovie from "@/utils/isMovie";
 
 interface Props {
   media: Movie | TvSeries;
@@ -14,9 +15,6 @@ interface Props {
 
 const Card = ({ media }: Props) => {
   const [show, setShow] = useState<boolean>(false);
-  const isMovie = (media: Movie | TvSeries): media is Movie => {
-    return (media as Movie).title !== undefined;
-  };
 
   return (
     <Link to={`/info/${isMovie(media) ? "movie/" : "tv/"}` + media.id}>
@@ -38,9 +36,7 @@ const Card = ({ media }: Props) => {
             borderRadius="md"
             filter={show ? "brightness(0.8)" : "brightness(1)"}
             src={
-              media.poster_path
-                ? getTMDBImage(media.poster_path, "w500")
-                : getPlaceHolder("w500")
+              media.poster_path ? getTMDBImage(media.poster_path, "w500") : getPlaceHolder("w500")
             }
             alt={isMovie(media) ? media.title : media.original_name}
             objectFit="cover"
@@ -56,18 +52,8 @@ const Card = ({ media }: Props) => {
         {/* Movie card rating and release date*/}
         {show && (
           <>
-            <HStack
-              position="absolute"
-              top={4}
-              px={2}
-              w="full"
-              justify="space-between"
-            >
-              <ReleaseDate
-                date={
-                  isMovie(media) ? media.release_date : media.first_air_date
-                }
-              />
+            <HStack position="absolute" top={4} px={2} w="full" justify="space-between">
+              <ReleaseDate date={isMovie(media) ? media.release_date : media.first_air_date} />
               <Rating rating={media.vote_average} />
             </HStack>
             <Stack position="absolute" bottom={10} px={2} w="full" gap={2}>

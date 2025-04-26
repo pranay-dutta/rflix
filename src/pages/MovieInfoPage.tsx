@@ -2,7 +2,6 @@ import { getPlaceHolder, getTMDBImage } from "@/components/constants";
 import useMovie from "@/hooks/useMovie";
 import { BiPlay } from "react-icons/bi";
 import {
-  Highlight,
   Badge,
   Box,
   GridItem,
@@ -16,13 +15,13 @@ import {
 import { useParams } from "react-router-dom";
 import ReleaseDate from "@/components/ReleaseDate";
 import Rating from "@/components/Rating";
-import MovieScroll from "@/components/MovieScroll";
 import useSimilarMovies from "@/hooks/useSimilarMovies";
 import Gradient from "@/components/Gradient";
 import { Quote } from "../components/Quote";
 import Runtime from "@/components/Runtime";
 import BackButton from "@/components/BackButton";
 import MovieWatchButton from "@/components/WatchButton";
+import { MediaScroll, MediaScrollHeading } from "@/components/common";
 
 const MovieInfoPage = () => {
   const { id } = useParams();
@@ -109,18 +108,11 @@ const MovieInfoPage = () => {
                   <HStack>
                     {movie.production_companies.map((company, index) =>
                       index <= 2 ? (
-                        <Text
-                          key={company.id}
-                          fontSize="sm"
-                          fontStyle="italic"
-                          color="gray.300"
-                        >
+                        <Text key={company.id} fontSize="sm" fontStyle="italic" color="gray.300">
                           {company.name}
-                          {index + 1 != movie.production_companies.length && (
-                            <span>{" •"}</span>
-                          )}
+                          {index + 1 != movie.production_companies.length && <span>{" •"}</span>}
                         </Text>
-                      ) : null
+                      ) : null,
                     )}
                   </HStack>
                 </Box>
@@ -137,14 +129,12 @@ const MovieInfoPage = () => {
         </SimpleGrid>
       </Box>
       {/* Similar movies scroll compoent */}
-      <Box mt={10}>
-        <Heading fontSize="2xl" fontWeight="bold" filter={"contrast(2)"}>
-          <Highlight query={"Movies"} styles={{ color: "red.600" }}>
-            Similar Movies
-          </Highlight>
-        </Heading>
-        <MovieScroll media={similarMovies} />
-      </Box>
+      {similarMovies && (
+        <Box mt={10}>
+          <MediaScrollHeading highlight="Movies">Similar Movies</MediaScrollHeading>
+          <MediaScroll media={similarMovies} />
+        </Box>
+      )}
     </>
   );
 };
