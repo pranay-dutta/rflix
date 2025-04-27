@@ -9,16 +9,11 @@ type ResponseType = {
   details: TvSeriesDetails;
   similar: FetchResponse<TvSeries>;
 };
-const useTvSeries = <T extends keyof ResponseType>(
-  seriesId: number,
-  endpoint?: T
-) => {
+const useTvSeries = <T extends keyof ResponseType>(seriesId: number, endpoint?: T) => {
   type ResponseData = ResponseType[T];
   const newEndpoint = endpoint === "details" ? undefined : "/" + endpoint;
 
-  const apiClient = new ApiClient<ResponseData>(
-    "/tv/" + seriesId + newEndpoint
-  );
+  const apiClient = new ApiClient<ResponseData>("/tv/" + seriesId + newEndpoint);
 
   return useQuery<ResponseData, Error>({
     queryKey: ["series", seriesId, endpoint],

@@ -3,6 +3,7 @@ export default interface TvSeries {
   backdrop_path: string;
   genre_ids: number[];
   id: number;
+  media_type?: string;
   origin_country: string[];
   original_language: string;
   original_name: string;
