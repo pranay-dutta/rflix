@@ -16,7 +16,7 @@ interface Reel {
 }
 const HomePage = () => {
   const { data: topMovies } = useMovieLists("top_rated");
-  const { data: trendingMovies } = useTrendingMovies("week");
+  const { data: trendingMovies } = useTrendingMovies("movie", "day");
   const { data: popularSeries } = useTvSeriesLists("popular");
   const { data: topSeries } = useTvSeriesLists("top_rated");
 
