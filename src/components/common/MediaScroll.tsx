@@ -4,6 +4,8 @@ import Card from "../Card";
 import TvSeries from "@/interfaces/TvSeries";
 
 const MovieScroll = ({ media }: { media: Movie[] | TvSeries[] }) => {
+  if (!media.length) return null;
+
   return (
     <Swiper
       breakpoints={{
