@@ -10,7 +10,7 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import Gradient from "../Gradient";
-import { getPlaceHolder, getTMDBImage } from "../constants";
+import { getTMDBImage } from "../constants";
 import useTvSeries from "@/hooks/useTvSeries";
 import { TvSeriesDetails } from "@/interfaces/TvSeriesDetails";
 import TvSeriesWatchButton from "../TvSeriesWatchButton";
@@ -32,11 +32,7 @@ const TvHero = ({ series }: { series: TvSeriesDetails }) => {
         <Box className="opacity-50 hidden! md:block! rounded-lg">
           <Image
             borderRadius="md"
-            src={
-              series.backdrop_path
-                ? getTMDBImage(series.backdrop_path, "original")
-                : getPlaceHolder("original")
-            }
+            src={getTMDBImage(series.backdrop_path, "original", "horizontal")}
           />
           <Gradient.Bottom />
         </Box>
@@ -49,11 +45,7 @@ const TvHero = ({ series }: { series: TvSeriesDetails }) => {
           <GridItem>
             {/* Card image above poster */}
             <Image
-              src={
-                series.poster_path
-                  ? getTMDBImage(series.poster_path, "original")
-                  : getPlaceHolder("w500")
-              }
+              src={getTMDBImage(series.poster_path, "original", "vertical")}
               borderRadius="md"
             />
           </GridItem>

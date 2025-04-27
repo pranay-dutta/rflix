@@ -7,12 +7,14 @@ export const items: { icon: IconType; label: string; to: string }[] = [
   { icon: RiTvLine, label: "Tv Shows", to: "/tvshows" },
   { icon: RiMoneyDollarBoxLine, label: "Donate", to: "/donate" },
 ];
-export function getTMDBImage(url: string, quality: "original" | "w500") {
-  return `https://image.tmdb.org/t/p/${quality}` + url;
-}
+export function getTMDBImage(
+  url: string,
+  quality: "original" | "w500",
+  placeholderDimension: "vertical" | "horizontal",
+) {
+  const dimension = placeholderDimension === "horizontal" ? "1920x1080" : "500x750";
+  if (!url) return `https://fakeimg.pl/${dimension}?text=Media`;
+  
 
-export function getPlaceHolder(quality: "w500" | "original") {
-  return quality == "original"
-    ? "https://fakeimg.pl/1920x1080?text=Media"
-    : "https://fakeimg.pl/500x750?text=Media";
+  return `https://image.tmdb.org/t/p/${quality}` + url;
 }

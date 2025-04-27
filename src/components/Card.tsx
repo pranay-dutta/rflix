@@ -1,7 +1,7 @@
 import { Movie } from "@/interfaces/Movie";
 import { Box, HStack, Image, Text, Stack } from "@chakra-ui/react";
 import { useState } from "react";
-import { getPlaceHolder, getTMDBImage } from "./constants";
+import { getTMDBImage } from "./constants";
 import Rating from "./Rating";
 import ReleaseDate from "./ReleaseDate";
 import { Link } from "react-router-dom";
@@ -35,9 +35,7 @@ const Card = ({ media }: Props) => {
           <Image
             borderRadius="md"
             filter={show ? "brightness(0.8)" : "brightness(1)"}
-            src={
-              media.poster_path ? getTMDBImage(media.poster_path, "w500") : getPlaceHolder("w500")
-            }
+            src={getTMDBImage(media.poster_path, "w500", "vertical")}
             alt={isMovie(media) ? media.title : media.original_name}
             objectFit="cover"
           />

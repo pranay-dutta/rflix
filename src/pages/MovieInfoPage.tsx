@@ -1,4 +1,4 @@
-import { getPlaceHolder, getTMDBImage } from "@/components/constants";
+import { getTMDBImage } from "@/components/constants";
 import useMovie from "@/hooks/useMovie";
 import { BiPlay } from "react-icons/bi";
 import {
@@ -22,6 +22,7 @@ import Runtime from "@/components/Runtime";
 import BackButton from "@/components/BackButton";
 import MovieWatchButton from "@/components/WatchButton";
 import { MediaScroll, MediaScrollHeading } from "@/components/common";
+import { Movie } from "@/interfaces/Movie";
 
 const MovieInfoPage = () => {
   const { id } = useParams();
@@ -38,35 +39,20 @@ const MovieInfoPage = () => {
         <BackButton />
       </Box>
       <Box position="relative" height="fit-content">
-        {/* Movie Poster */}
-        <Box className="opacity-50 hidden! md:block! rounded-lg">
-          <Image
-            className="opacity-70 w-full"
-            borderRadius="md"
-            fit="cover"
-            src={
-              movie.backdrop_path
-                ? getTMDBImage(movie?.backdrop_path, "original")
-                : getPlaceHolder("original")
-            }
-            alt={movie.original_title}
-          />
+        <MediaPoster media={movie} />
+        <Box display={{ base: "none", md: "block" }}>
+          <Gradient.Bottom />
         </Box>
-        <Gradient />
 
         <SimpleGrid
           className="md:absolute left-[2%] md:top-2 md:bottom-auto lg:top-auto lg:bottom-[3%]"
           columns={{ base: 1, md: 4 }}
           gap={{ sm: 2, lg: 5 }}
         >
+          {/* Card image above poster */}
           <GridItem>
-            {/* Card image above poster */}
             <Image
-              src={
-                movie.poster_path
-                  ? getTMDBImage(movie.poster_path, "original")
-                  : getPlaceHolder("w500")
-              }
+              src={getTMDBImage(movie.poster_path, "original", "vertical")}
               borderRadius="md"
             />
           </GridItem>
@@ -128,15 +114,34 @@ const MovieInfoPage = () => {
           </GridItem>
         </SimpleGrid>
       </Box>
+
       {/* Similar movies scroll compoent */}
-      {similarMovies && (
-        <Box mt={10}>
-          <MediaScrollHeading highlight="Movies">Similar Movies</MediaScrollHeading>
-          <MediaScroll media={similarMovies} />
-        </Box>
-      )}
+      <SimilarMovies movies={similarMovies} />
     </>
   );
 };
 
+const SimilarMovies = ({ movies }: { movies: Movie[] }) => {
+  if (!movies.length) return null;
+  return (
+    <Box mt={10}>
+      <MediaScrollHeading highlight="Movies">Similar Movies</MediaScrollHeading>
+      <MediaScroll media={movies} />
+    </Box>
+  );
+};
+
 export default MovieInfoPage;
+
+const MediaPoster = ({ media }: { media: Movie }) => {
+  if (!media) return null;
+  return (
+    <Box className="opacity-50 hidden! md:block! rounded-lg">
+      <Image
+        className="opacity-70 w-full rounded-md object-cover"
+        src={getTMDBImage(media.backdrop_path, "original", "horizontal")}
+        alt={media.original_title}
+      />
+    </Box>
+  );
+};
