@@ -9,7 +9,6 @@ import {
   HStack,
   Badge,
 } from "@chakra-ui/react";
-import Gradient from "../Gradient";
 import { getTMDBImage } from "../constants";
 import useTvSeries from "@/hooks/useTvSeries";
 import { TvSeriesDetails } from "@/interfaces/TvSeriesDetails";
@@ -20,22 +19,16 @@ import Rating from "../Rating";
 import { BiPlay } from "react-icons/bi";
 import { Quote } from "../Quote";
 import Season from "./Season";
-import { MediaScroll, MediaScrollHeading } from "../common";
+import { MediaPoster, MediaScroll, MediaScrollHeading } from "../common";
+import { useParams } from "react-router-dom";
 
-const TvHero = ({ series }: { series: TvSeriesDetails }) => {
-  const { data: similarSeries } = useTvSeries(series.id, "similar");
+const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
+  if (!series) return null;
 
   return (
     <>
       <Box position="relative" height="fit-content">
-        {/* Movie Poster */}
-        <Box className="opacity-50 hidden! md:block! rounded-lg">
-          <Image
-            borderRadius="md"
-            src={getTMDBImage(series.backdrop_path, "original", "horizontal")}
-          />
-          <Gradient.Bottom />
-        </Box>
+        <MediaPoster backdrop_path={series.backdrop_path} />
 
         <SimpleGrid
           className="md:absolute left-[2%] md:top-2 md:bottom-auto lg:top-auto lg:bottom-[3%]"
@@ -110,13 +103,22 @@ const TvHero = ({ series }: { series: TvSeriesDetails }) => {
         </SimpleGrid>
       </Box>
       <Season series={series} />
-      {similarSeries && (
-        <Box mt={10}>
-          <MediaScrollHeading highlight="Tv Shows">Similar Tv Shows</MediaScrollHeading>
-          <MediaScroll media={similarSeries.results} />
-        </Box>
-      )}
+      <SimilarSeries />
     </>
   );
 };
+
+const SimilarSeries = () => {
+  const { id } = useParams();
+  if (!id) throw new Error("tv info page");
+
+  const { data: similarSeries } = useTvSeries(parseInt(id), "similar");
+  if (!similarSeries || !similarSeries.results.length) return null;
+
+  return <Box mt={10}>
+    <MediaScrollHeading highlight="Tv Shows">Similar Tv Shows</MediaScrollHeading>
+    <MediaScroll media={similarSeries.results} />
+  </Box>
+}
+
 export default TvHero;
