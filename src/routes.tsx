@@ -40,11 +40,11 @@ const router = createBrowserRouter([
         element: <SearchPage />,
       },
       {
-        path: "movies",
+        path: "movies/*",
         element: <MovieGrid />,
       },
       {
-        path: "tvshows",
+        path: "tvshows/*",
         element: <TvSereisGrid />,
       },
       {
