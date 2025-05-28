@@ -60,82 +60,91 @@ export default MovieInfoPage;
 const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
   if (!movie) return null;
 
-  return <>
-    <Box position="relative" height="fit-content">
-      <MediaPoster backdrop_path={movie.backdrop_path} />
+  return (
+    <>
+      <Box position="relative" height="fit-content">
+        <MediaPoster backdrop_path={movie.backdrop_path} />
 
-      <SimpleGrid
-        className="md:absolute left-[2%] md:top-2 md:bottom-auto lg:top-auto lg:bottom-[3%]"
-        columns={{ base: 1, md: 4 }}
-        gap={{ sm: 2, lg: 5 }}
-      >
-        {/* Card image above poster */}
-        <GridItem>
-          <Image
-            src={getTMDBImage(movie.poster_path, "original", "vertical")}
-            borderRadius="md"
-          />
-        </GridItem>
-        <GridItem colSpan={{ md: 3 }} px={2}>
-          <Box display="flex" flexDirection="column" gap={5}>
-            <Stack gap={4}>
-              <Heading fontSize="4xl">{movie.title}</Heading>
-              <Quote tagline={movie.tagline} />
+        <SimpleGrid
+          className="md:absolute left-[2%] md:top-2 md:bottom-auto lg:top-auto lg:bottom-[3%]"
+          columns={{ base: 1, md: 4 }}
+          gap={{ sm: 2, lg: 5 }}
+        >
+          {/* Card image above poster */}
+          <GridItem>
+            <Image
+              src={getTMDBImage(movie.poster_path, "original", "vertical")}
+              borderRadius="md"
+            />
+          </GridItem>
+          <GridItem colSpan={{ md: 3 }} px={2}>
+            <Box display="flex" flexDirection="column" gap={5}>
+              <Stack gap={4}>
+                <Heading fontSize="4xl">{movie.title}</Heading>
+                <Quote tagline={movie.tagline} />
+              </Stack>
+              <HStack flexWrap="wrap">
+                {movie.genres.map((genre) => (
+                  <Badge size="md" key={genre.id}>
+                    {genre.name}
+                  </Badge>
+                ))}
+              </HStack>
+              <HStack>
+                <ReleaseDate date={movie.release_date} />
+                <Runtime runtime={movie.runtime} />
+                <Rating rating={movie.vote_average} />
+              </HStack>
+              <Text lineClamp={2} fontSize={{ sm: "sm", md: "normal" }}>
+                {movie.overview}
+              </Text>
+              <MovieWatchButton id={movie.id} icon={BiPlay}>
+                Watch Now
+              </MovieWatchButton>
+            </Box>
+
+            <Stack mt={5}>
+              <HStack
+                flexDirection={{ base: "column", md: "row" }}
+                alignItems={{ base: "flex-start", md: "center" }}
+                maxW={{ md: "3/4" }}
+                justify="space-between"
+              >
+                <Box>
+                  <Text fontWeight="medium">Production</Text>
+                  <HStack>
+                    {movie.production_companies.map((company, index) =>
+                      index <= 2 ? (
+                        <Text
+                          key={company.id}
+                          fontSize="sm"
+                          fontStyle="italic"
+                          color="gray.300"
+                        >
+                          {company.name}
+                          {index + 1 != movie.production_companies.length && (
+                            <span>{" •"}</span>
+                          )}
+                        </Text>
+                      ) : null,
+                    )}
+                  </HStack>
+                </Box>
+
+                <Box>
+                  <Text fontWeight="medium">Language</Text>
+                  <Text fontSize="sm" fontStyle="italic" color="gray.300">
+                    {movie.original_language.toUpperCase()}
+                  </Text>
+                </Box>
+              </HStack>
             </Stack>
-            <HStack flexWrap="wrap">
-              {movie.genres.map((genre) => (
-                <Badge size="md" key={genre.id}>
-                  {genre.name}
-                </Badge>
-              ))}
-            </HStack>
-            <HStack>
-              <ReleaseDate date={movie.release_date} />
-              <Runtime runtime={movie.runtime} />
-              <Rating rating={movie.vote_average} />
-            </HStack>
-            <Text lineClamp={2} fontSize={{ sm: "sm", md: "normal" }}>
-              {movie.overview}
-            </Text>
-            <MovieWatchButton id={movie.id} icon={BiPlay}>
-              Watch Now
-            </MovieWatchButton>
-          </Box>
+          </GridItem>
+        </SimpleGrid>
+      </Box>
 
-          <Stack mt={5}>
-            <HStack
-              flexDirection={{ base: "column", md: "row" }}
-              alignItems={{ base: "flex-start", md: "center" }}
-              maxW={{ md: "3/4" }}
-              justify="space-between"
-            >
-              <Box>
-                <Text fontWeight="medium">Production</Text>
-                <HStack>
-                  {movie.production_companies.map((company, index) =>
-                    index <= 2 ? (
-                      <Text key={company.id} fontSize="sm" fontStyle="italic" color="gray.300">
-                        {company.name}
-                        {index + 1 != movie.production_companies.length && <span>{" •"}</span>}
-                      </Text>
-                    ) : null,
-                  )}
-                </HStack>
-              </Box>
-
-              <Box>
-                <Text fontWeight="medium">Language</Text>
-                <Text fontSize="sm" fontStyle="italic" color="gray.300">
-                  {movie.original_language.toUpperCase()}
-                </Text>
-              </Box>
-            </HStack>
-          </Stack>
-        </GridItem>
-      </SimpleGrid>
-    </Box>
-
-    {/* Similar movies scroll compoent */}
-    <SimilarMovies />
-  </>
-}
+      {/* Similar movies scroll compoent */}
+      <SimilarMovies />
+    </>
+  );
+};

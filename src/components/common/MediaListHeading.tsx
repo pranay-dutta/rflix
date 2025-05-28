@@ -9,9 +9,7 @@ export const MediaListHeading = ({
   tag: MovieTags | TvSeriesTags;
   mediaType: "Movies" | "TV Shows";
 }) => {
-  const formatted = tag
-    .replace(/_/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  const formatted = tag.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
   return (
     <Heading size="3xl" as={"h1"}>

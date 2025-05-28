@@ -3,7 +3,6 @@ import { Box, Image } from "@chakra-ui/react";
 import Gradient from "../Gradient";
 
 const MediaPoster = ({ backdrop_path }: { backdrop_path: string }) => {
-
   return (
     <Box className="opacity-50 hidden! md:block! rounded-lg">
       <Image

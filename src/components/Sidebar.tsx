@@ -1,7 +1,7 @@
 import { Drawer, Heading, HStack, List, Portal, Text } from "@chakra-ui/react";
 import { FaBars } from "react-icons/fa";
 import Title from "./Title";
-import { items } from "./constants";
+import { navItems } from "./constants";
 import SearchInput from "./SearchInput";
 
 const Sidebar = () => {
@@ -33,11 +33,11 @@ const DrawerMenu = () => {
         Menu
       </Heading>
       <List.Root listStyle="none" gap={4}>
-        {items.map((item) => (
-          <List.Item key={item.label}>
+        {navItems.map((navitem) => (
+          <List.Item key={navitem.label}>
             <HStack gap={4}>
-              <item.icon size={20} />
-              <Text fontSize="medium">{item.label}</Text>
+              <navitem.icon size={20} />
+              <Text fontSize="medium">{navitem.label}</Text>
             </HStack>
           </List.Item>
         ))}

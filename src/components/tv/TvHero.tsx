@@ -82,9 +82,16 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
                   <HStack>
                     {series.production_companies.map((company, index) =>
                       index <= 2 ? (
-                        <Text key={company.id} fontSize="sm" fontStyle="italic" color="gray.300">
+                        <Text
+                          key={company.id}
+                          fontSize="sm"
+                          fontStyle="italic"
+                          color="gray.300"
+                        >
                           {company.name}
-                          {index + 1 != series.production_companies.length && <span>{" •"}</span>}
+                          {index + 1 != series.production_companies.length && (
+                            <span>{" •"}</span>
+                          )}
                         </Text>
                       ) : null,
                     )}
@@ -115,10 +122,12 @@ const SimilarSeries = () => {
   const { data: similarSeries } = useTvSeries(parseInt(id), "similar");
   if (!similarSeries || !similarSeries.results.length) return null;
 
-  return <Box mt={10}>
-    <MediaScrollHeading highlight="Tv Shows">Similar Tv Shows</MediaScrollHeading>
-    <MediaScroll media={similarSeries.results} />
-  </Box>
-}
+  return (
+    <Box mt={10}>
+      <MediaScrollHeading highlight="Tv Shows">Similar Tv Shows</MediaScrollHeading>
+      <MediaScroll media={similarSeries.results} />
+    </Box>
+  );
+};
 
 export default TvHero;

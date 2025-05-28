@@ -23,13 +23,11 @@ const MovieTrailer = ({ movieId, isActive = false }: Props) => {
         func: isActive ? "playVideo" : "pauseVideo",
         args: [],
       }),
-      "*"
+      "*",
     );
   }, [isActive]);
 
-  const youtubeId = trailers?.find(
-    (trailer) => trailer.type === "Trailer"
-  )?.key;
+  const youtubeId = trailers?.find((trailer) => trailer.type === "Trailer")?.key;
 
   if (!youtubeId || window.innerWidth < 1024)
     return <MovieBackdropImage movieId={movieId} />;

@@ -51,7 +51,9 @@ const Card = ({ media }: Props) => {
         {show && (
           <>
             <HStack position="absolute" top={4} px={2} w="full" justify="space-between">
-              <ReleaseDate date={isMovie(media) ? media.release_date : media.first_air_date} />
+              <ReleaseDate
+                date={isMovie(media) ? media.release_date : media.first_air_date}
+              />
               <Rating rating={media.vote_average} />
             </HStack>
             <Stack position="absolute" bottom={10} px={2} w="full" gap={2}>

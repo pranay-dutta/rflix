@@ -1,12 +1,18 @@
-import useSeason from '@/hooks/useSeason';
-import { Box, Skeleton, HStack, Text } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import Rating from '../Rating';
-import ReleaseDate from '../ReleaseDate';
-import Runtime from '../Runtime';
-import SeasonImage from './SeasonImage';
+import useSeason from "@/hooks/useSeason";
+import { Box, Skeleton, HStack, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import Rating from "../Rating";
+import ReleaseDate from "../ReleaseDate";
+import Runtime from "../Runtime";
+import SeasonImage from "./SeasonImage";
 
-const Episodes = ({ seriesId, seasonNumber }: { seriesId: number; seasonNumber: number }) => {
+const Episodes = ({
+  seriesId,
+  seasonNumber,
+}: {
+  seriesId: number;
+  seasonNumber: number;
+}) => {
   const { data, error, isLoading } = useSeason(seriesId, seasonNumber);
   if (error) return <h1>Error: {error.message}</h1>;
 
@@ -24,13 +30,20 @@ const Episodes = ({ seriesId, seasonNumber }: { seriesId: number; seasonNumber: 
   return (
     <Box display="flex" flexDirection="column" gap={5}>
       {data.episodes.map((episode) => (
-        <Box display="flex" flexDirection={{ base: 'column', md: 'row' }} gap={5} key={episode.id}>
+        <Box
+          display="flex"
+          flexDirection={{ base: "column", md: "row" }}
+          gap={5}
+          key={episode.id}
+        >
           <Link to={`/watch/tv/${seriesId}/${seasonNumber}/${episode.episode_number}`}>
             <SeasonImage key={episode.id} episode={episode} />
           </Link>
           <Box>
             <HStack gap={4} alignItems="center">
-              <Link to={`/watch/tv/${seriesId}/${seasonNumber}/${episode.episode_number}`}>
+              <Link
+                to={`/watch/tv/${seriesId}/${seasonNumber}/${episode.episode_number}`}
+              >
                 <Text fontSize="xl" fontWeight="medium">
                   {episode.name}
                 </Text>

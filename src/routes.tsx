@@ -44,7 +44,7 @@ const router = createBrowserRouter([
         element: <MovieGrid />,
       },
       {
-        path: "tvshows/*",
+        path: "tvseries/*",
         element: <TvSereisGrid />,
       },
       {

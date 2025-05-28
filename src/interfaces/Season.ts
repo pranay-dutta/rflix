@@ -39,4 +39,4 @@ interface Season {
   season_number: number;
   vote_average: number;
 }
-export default Season
+export default Season;

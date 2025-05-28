@@ -3,9 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import Season from "@/interfaces/Season";
 
 const useSeason = (series_id: number, season_number: number) => {
-  const apiClient = new ApiClient<Season>(
-    `/tv/${series_id}/season/${season_number}`
-  );
+  const apiClient = new ApiClient<Season>(`/tv/${series_id}/season/${season_number}`);
   return useQuery<Season, Error>({
     queryKey: [series_id, season_number],
     queryFn: apiClient.get,

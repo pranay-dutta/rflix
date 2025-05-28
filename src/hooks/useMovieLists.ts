@@ -3,8 +3,8 @@ import { Movie } from "@/interfaces/Movie";
 import ApiClient from "@/services/api-client";
 import { FetchResponse } from "@/interfaces/FetchResponse";
 
-export type MediaTag = "now_playing" | "popular" | "top_rated" | "upcoming";
-const useMovieLists = (endpoint: MediaTag) => {
+export type MovieTags = "now_playing" | "popular" | "top_rated" | "upcoming";
+const useMovieLists = (endpoint: MovieTags) => {
   const apiClient = new ApiClient<Movie>("/movie/" + endpoint);
 
   const res = useInfiniteQuery<FetchResponse<Movie>>({
@@ -17,7 +17,8 @@ const useMovieLists = (endpoint: MediaTag) => {
     },
   });
 
-  const resCount = res.data?.pages.reduce((acc, page) => acc + page.results.length, 0) || 0;
+  const resCount =
+    res.data?.pages.reduce((acc, page) => acc + page.results.length, 0) || 0;
 
   return { ...res, resCount };
 };

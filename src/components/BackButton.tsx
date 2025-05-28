@@ -6,11 +6,7 @@ const BackButton = () => {
   const navigate = useNavigate();
 
   return (
-    <Button
-      onClick={() => navigate(-1)}
-      colorPalette="blackAlpha"
-      variant="outline"
-    >
+    <Button onClick={() => navigate(-1)} colorPalette="blackAlpha" variant="outline">
       <RiArrowLeftLine /> Back
     </Button>
   );

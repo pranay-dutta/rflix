@@ -11,6 +11,8 @@ import Title from "./Title";
 import { navItems, NavItem } from "./constants";
 import { useState, useEffect } from "react";
 import SearchInput from "./SearchInput";
+import { HoverCard } from "@chakra-ui/react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isLargerThan1024] = useMediaQuery(["(min-width: 1024px)"]);
@@ -54,11 +56,6 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
-
-import { HoverCard } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
-
 const DropDown = ({ navitem }: { navitem: NavItem }) => {
   const navigate = useNavigate();
 
@@ -87,8 +84,7 @@ const DropDown = ({ navitem }: { navitem: NavItem }) => {
             <Select.Root open collection={mediaTags} w={"200px"}>
               {mediaTags.items.map((mediaTag) => (
                 <>
-                  {
-                    mediaTag.tag == navitem.label.toLowerCase() &&
+                  {mediaTag.tag == navitem.label.toLowerCase() && (
                     <Select.Item
                       item={mediaTag}
                       key={mediaTag.value}
@@ -97,7 +93,7 @@ const DropDown = ({ navitem }: { navitem: NavItem }) => {
                       {mediaTag.label}
                       <Select.ItemIndicator />
                     </Select.Item>
-                  }
+                  )}
                 </>
               ))}
             </Select.Root>
@@ -114,10 +110,11 @@ const mediaTags = createListCollection({
     { label: "Now Playing", value: "now_playing", tag: "movies" },
     { label: "Upcoming", value: "upcoming", tag: "movies" },
 
-
     { label: "Popular", value: "popular", tag: "tv series" },
     { label: "Top Rated", value: "top_rated", tag: "tv series" },
     { label: "Airing Today", value: "airing_today", tag: "tv series" },
-    { label: "On The Air", value: "on_the_air", tag: "tv series" }
+    { label: "On The Air", value: "on_the_air", tag: "tv series" },
   ],
 });
+
+export default Navbar;

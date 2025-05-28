@@ -20,8 +20,7 @@ const useSearchResponse = <T extends keyof SearchType>(search_type: T) => {
   const res = useInfiniteQuery<FetchResponse<MediaType>, Error>({
     queryKey: ["search", query, search_type],
     initialPageParam: 1,
-    queryFn: ({ pageParam }) =>
-      apiClient.getAll({ params: { query, page: pageParam } }),
+    queryFn: ({ pageParam }) => apiClient.getAll({ params: { query, page: pageParam } }),
 
     getNextPageParam: (lastPage, pages) => {
       if (lastPage.results.length === 0) return undefined;

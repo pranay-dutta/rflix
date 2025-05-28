@@ -11,13 +11,7 @@ interface Props {
   episode: number;
 }
 
-const TvSeriesWatchButton = ({
-  children,
-  icon,
-  season,
-  id,
-  episode,
-}: Props) => {
+const TvSeriesWatchButton = ({ children, icon, season, id, episode }: Props) => {
   const Icon = icon;
   const navigate = useNavigate();
 

@@ -16,7 +16,7 @@ const Right = () => (
 );
 
 // Main Gradient component
-const Gradient = () => { 
+const Gradient = () => {
   return (
     <div className="hidden! md:relative! inset-0 pointer-events-none">
       <Gradient.Top />

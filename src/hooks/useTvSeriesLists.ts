@@ -3,15 +3,14 @@ import TvSeries from "@/interfaces/TvSeries";
 import ApiClient from "@/services/api-client";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-const useTvSeriesLists = (
-  endpoint: "popular" | "top_rated" | "airing_today" | "on_the_air"
-) => {
+export type TvSeriesTags = "popular" | "top_rated" | "airing_today" | "on_the_air";
+
+const useTvSeriesLists = (endpoint: TvSeriesTags) => {
   const apiClient = new ApiClient<TvSeries>("/tv/" + endpoint);
   const res = useInfiniteQuery<FetchResponse<TvSeries>>({
     queryKey: [endpoint, "series"],
     initialPageParam: 1,
-    queryFn: ({ pageParam = 1 }) =>
-      apiClient.getAll({ params: { page: pageParam } }),
+    queryFn: ({ pageParam = 1 }) => apiClient.getAll({ params: { page: pageParam } }),
 
     getNextPageParam(lastPage, allPages) {
       return lastPage.results.length ? allPages.length + 1 : undefined;

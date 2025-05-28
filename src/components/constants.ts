@@ -8,16 +8,21 @@ export interface NavItem {
   showDropdown: boolean;
 }
 
-export const items: NavItem[] = [
+export const navItems: NavItem[] = [
   { icon: RiHome2Line, label: "Home", to: "/", showDropdown: false },
   { icon: RiMovieLine, label: "Movies", to: "/movies", showDropdown: true },
-  { icon: RiTvLine, label: "Tv Shows", to: "/tvshows", showDropdown: true },
-  { icon: RiMoneyDollarBoxLine, label: "Donate", to: "/donate", showDropdown: false },
+  { icon: RiTvLine, label: "Tv Series", to: "/tvseries", showDropdown: true },
+  {
+    icon: RiMoneyDollarBoxLine,
+    label: "Donate",
+    to: "/donate",
+    showDropdown: false,
+  },
 ];
 export function getTMDBImage(
   url: string,
   quality: "original" | "w500",
-  placeholderDimension: "vertical" | "horizontal",
+  placeholderDimension?: "vertical" | "horizontal",
 ) {
   const dimension = placeholderDimension === "horizontal" ? "1920x1080" : "500x750";
   if (!url) return `https://fakeimg.ryd.tools/${dimension}/111?text=Media`;
