@@ -1,7 +1,14 @@
-import { Button, createListCollection, Flex, HStack, Select, useMediaQuery } from "@chakra-ui/react";
+import {
+  Button,
+  createListCollection,
+  Flex,
+  HStack,
+  Select,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import Sidebar from "./Sidebar";
 import Title from "./Title";
-import { items, NavItem } from "./constants";
+import { navItems, NavItem } from "./constants";
 import { useState, useEffect } from "react";
 import SearchInput from "./SearchInput";
 
@@ -32,7 +39,13 @@ const Navbar = () => {
     >
       <Title />
 
-      {isLargerThan1024 && <Flex>{items.map(item => <DropDown key={item.label} item={item} />)}</Flex>}
+      {isLargerThan1024 && (
+        <Flex>
+          {navItems.map((navitem) => (
+            <DropDown key={navitem.label} navitem={navitem} />
+          ))}
+        </Flex>
+      )}
       <HStack gap={4}>
         {isLargerThan1024 && <SearchInput />}
         {!isLargerThan1024 && <Sidebar />}
@@ -43,44 +56,49 @@ const Navbar = () => {
 
 export default Navbar;
 
-
 import { HoverCard } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 
-const DropDown = ({ item }: { item: NavItem }) => {
+const DropDown = ({ navitem }: { navitem: NavItem }) => {
   const navigate = useNavigate();
 
-  if (!item.showDropdown) return (
-    <Link to={item.to}>
-      <Button size="md" variant="ghost" >
-        <item.icon />
-        {item.label}
-      </Button>
-    </Link>
-  )
+  if (!navitem.showDropdown)
+    return (
+      <Link to={navitem.to}>
+        <Button size="md" variant="ghost">
+          <navitem.icon />
+          {navitem.label}
+        </Button>
+      </Link>
+    );
 
   return (
     <>
       <HoverCard.Root openDelay={100} closeDelay={200}>
         <HoverCard.Trigger asChild>
           <Button size="md" variant="ghost">
-            <item.icon />
-            {item.label}
+            <navitem.icon />
+            {navitem.label}
           </Button>
         </HoverCard.Trigger>
 
         <HoverCard.Positioner>
           <HoverCard.Content p={2}>
-            <Select.Root open collection={mediaTags} w={"200px"} >
-              {mediaTags.items.map((tag) => (
-                <Select.Item
-                  item={tag}
-                  key={tag.value}
-                  onClick={() => navigate(item.to + "/" + tag.value)}
-                >
-                  {tag.label}
-                  <Select.ItemIndicator />
-                </Select.Item>
+            <Select.Root open collection={mediaTags} w={"200px"}>
+              {mediaTags.items.map((mediaTag) => (
+                <>
+                  {
+                    mediaTag.tag == navitem.label.toLowerCase() &&
+                    <Select.Item
+                      item={mediaTag}
+                      key={mediaTag.value}
+                      onClick={() => navigate(navitem.to + "/" + mediaTag.value)}
+                    >
+                      {mediaTag.label}
+                      <Select.ItemIndicator />
+                    </Select.Item>
+                  }
+                </>
               ))}
             </Select.Root>
           </HoverCard.Content>
@@ -91,9 +109,15 @@ const DropDown = ({ item }: { item: NavItem }) => {
 };
 const mediaTags = createListCollection({
   items: [
-    { label: "Popular", value: "popular" },
-    { label: "Now Playing", value: "now_playing" },
-    { label: "Upcoming", value: "upcoming" },
-    { label: "Top Rated", value: "top_rated" },
+    { label: "Popular", value: "popular", tag: "movies" },
+    { label: "Top Rated", value: "top_rated", tag: "movies" },
+    { label: "Now Playing", value: "now_playing", tag: "movies" },
+    { label: "Upcoming", value: "upcoming", tag: "movies" },
+
+
+    { label: "Popular", value: "popular", tag: "tv series" },
+    { label: "Top Rated", value: "top_rated", tag: "tv series" },
+    { label: "Airing Today", value: "airing_today", tag: "tv series" },
+    { label: "On The Air", value: "on_the_air", tag: "tv series" }
   ],
 });
