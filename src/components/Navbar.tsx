@@ -9,7 +9,7 @@ import {
 import Sidebar from "./Sidebar";
 import Title from "./Title";
 import { navItems, NavItem } from "./constants";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import SearchInput from "./SearchInput";
 import { HoverCard } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
@@ -83,7 +83,7 @@ const DropDown = ({ navitem }: { navitem: NavItem }) => {
           <HoverCard.Content p={2}>
             <Select.Root open collection={mediaTags} w={"200px"}>
               {mediaTags.items.map((mediaTag, i) => (
-                <div key={i}>
+                <Fragment key={i}>
                   {mediaTag.tag == navitem.label.toLowerCase() && (
                     <Select.Item
                       item={mediaTag}
@@ -94,7 +94,7 @@ const DropDown = ({ navitem }: { navitem: NavItem }) => {
                       <Select.ItemIndicator />
                     </Select.Item>
                   )}
-                </div>
+                </Fragment>
               ))}
             </Select.Root>
           </HoverCard.Content>
