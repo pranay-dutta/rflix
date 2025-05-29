@@ -4,6 +4,7 @@ import ApiClient from "@/services/api-client";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import TvSeries from "@/interfaces/TvSeries";
+import ms from "ms";
 
 type SearchType = {
   movie: Movie;
@@ -20,7 +21,9 @@ const useSearchResponse = <T extends keyof SearchType>(search_type: T) => {
   const res = useInfiniteQuery<FetchResponse<MediaType>, Error>({
     queryKey: ["search", query, search_type],
     initialPageParam: 1,
-    queryFn: ({ pageParam }) => apiClient.getAll({ params: { query, page: pageParam } }),
+    staleTime: ms('2h'),
+    queryFn: ({ pageParam }) =>
+      apiClient.getAll({ params: { query,  page: pageParam } }),
 
     getNextPageParam: (lastPage, pages) => {
       if (lastPage.results.length === 0) return undefined;
