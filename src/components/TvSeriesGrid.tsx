@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import MediaGrid from "./MediaGrid";
 import { MediaListHeading } from "./common/MediaListHeading";
 
-const TvSereisGrid = () => {
+const TvSeriesGrid = () => {
   const { tag } = useParams();
   if (!tag) throw new Error("Movie Grid");
 
@@ -40,4 +40,4 @@ const TvSereisGrid = () => {
     </>
   );
 };
-export default TvSereisGrid;
+export default TvSeriesGrid;

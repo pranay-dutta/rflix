@@ -11,7 +11,7 @@ export interface NavItem {
 export const navItems: NavItem[] = [
   { icon: RiHome2Line, label: "Home", to: "/", showDropdown: false },
   { icon: RiMovieLine, label: "Movies", to: "/movies", showDropdown: true },
-  { icon: RiTvLine, label: "Tv Series", to: "/tvseries", showDropdown: true },
+  { icon: RiTvLine, label: "Tv Shows", to: "/tvshows", showDropdown: true },
   {
     icon: RiMoneyDollarBoxLine,
     label: "Donate",

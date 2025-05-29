@@ -7,8 +7,8 @@ import TvSeriesInfoPage from "./pages/TvSeriesInfoPage";
 import MovieWatchPage from "./pages/MovieWatchPage";
 import TvSeriesWatchPage from "./pages/TVSeriesWatchPage";
 import MovieGrid from "./components/MovieGrid";
-import TvSereisGrid from "./components/TvSeriesGrid";
 import DonatePage from "./pages/DonatePage";
+import TvSeriesGrid from "./components/TvSeriesGrid";
 
 const router = createBrowserRouter([
   {
@@ -44,8 +44,8 @@ const router = createBrowserRouter([
         element: <MovieGrid />,
       },
       {
-        path: "tvseries/:tag",
-        element: <TvSereisGrid />,
+        path: "tvshows/:tag",
+        element: <TvSeriesGrid />,
       },
       {
         path: "donate",

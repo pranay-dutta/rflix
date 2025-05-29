@@ -110,10 +110,10 @@ const mediaTags = createListCollection({
     { label: "Now Playing", value: "now_playing", tag: "movies" },
     { label: "Upcoming", value: "upcoming", tag: "movies" },
 
-    { label: "Popular", value: "popular", tag: "tv series" },
-    { label: "Top Rated", value: "top_rated", tag: "tv series" },
-    { label: "Airing Today", value: "airing_today", tag: "tv series" },
-    { label: "On The Air", value: "on_the_air", tag: "tv series" },
+    { label: "Popular", value: "popular", tag: "tv shows" },
+    { label: "Top Rated", value: "top_rated", tag: "tv shows" },
+    { label: "Airing Today", value: "airing_today", tag: "tv shows" },
+    { label: "On The Air", value: "on_the_air", tag: "tv shows" },
   ],
 });
 

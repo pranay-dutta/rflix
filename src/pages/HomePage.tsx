@@ -2,13 +2,13 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import useMovieLists from "@/hooks/useMovieLists";
-import useTrendingMovies from "@/hooks/useTrendingMovies";
 import useTvSeriesLists from "@/hooks/useTvSeriesLists";
 import { Box } from "@chakra-ui/react";
 import { MediaScroll, MediaScrollHeading } from "@/components/common";
 import { Movie } from "@/interfaces/Movie";
 import TvSeries from "@/interfaces/TvSeries";
 import isMovie from "@/utils/isMovie";
+import useTrending from "@/hooks/useTrending";
 
 interface Reel {
   media: Movie[] | TvSeries[] | undefined;
@@ -16,15 +16,17 @@ interface Reel {
 }
 const HomePage = () => {
   const { data: topMovies } = useMovieLists("top_rated");
-  const { data: trendingMovies } = useTrendingMovies("movie", "day");
-  const { data: popularSeries } = useTvSeriesLists("popular");
-  const { data: topSeries } = useTvSeriesLists("top_rated");
+  const { data: trendingMovies } = useTrending("movie", "day");
+  const { data: trendingShows } = useTrending("tv", "day");
+  const { data: popularShows } = useTvSeriesLists("popular");
+  const { data: topShows } = useTvSeriesLists("top_rated");
 
   const Reels: Reel[] = [
-    { media: topMovies?.pages[0].results, heading: "Top Movies" },
     { media: trendingMovies?.results, heading: "Trending Movies" },
-    { media: popularSeries?.pages[0].results, heading: "Popular Tv Series" },
-    { media: topSeries?.pages[0].results, heading: "Top Tv Series" },
+    { media: topMovies?.pages[0].results, heading: "Top Movies" },
+    { media: trendingShows?.results, heading: "Trending TV Shows" },
+    { media: popularShows?.pages[0].results, heading: "Popular TV Shows" },
+    { media: topShows?.pages[0].results, heading: "Top TV Shows" },
   ];
 
   return (
@@ -36,7 +38,7 @@ const HomePage = () => {
           ({ media, heading }) =>
             media && (
               <Box key={heading} my={5}>
-                <MediaScrollHeading highlight={isMovie(media) ? "Movies" : "Tv Series"}>
+                <MediaScrollHeading highlight={isMovie(media) ? "Movies" : "TV Shows"}>
                   {heading}
                 </MediaScrollHeading>
                 <MediaScroll media={media} />
