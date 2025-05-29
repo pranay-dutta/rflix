@@ -8,7 +8,7 @@ const SearchInput = () => {
   const navigate = useNavigate();
 
   const onKeyDown = (e: KeyboardEvent | MouseEvent) => {
-    if ('key' in e && e.key === "Enter" || e.type === 'click') {
+    if (("key" in e && e.key === "Enter") || e.type === "click") {
       const searchTerm = inputRef.current?.value;
       if (searchTerm) navigate(`/search?query=${searchTerm}`);
     }
@@ -17,9 +17,10 @@ const SearchInput = () => {
     <>
       <Group attached w="full" maxW="sm">
         <Input flex="1" ref={inputRef} onKeyDown={onKeyDown} placeholder="Search..." />
-        <Button variant="outline" onClick={onKeyDown}><LuSearch /></Button>
+        <Button variant="outline" onClick={onKeyDown}>
+          <LuSearch />
+        </Button>
       </Group>
-
     </>
   );
 };

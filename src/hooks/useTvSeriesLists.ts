@@ -11,7 +11,7 @@ const useTvSeriesLists = (endpoint: TvSeriesTags) => {
   const res = useInfiniteQuery<FetchResponse<TvSeries>>({
     queryKey: [endpoint, "series"],
     initialPageParam: 1,
-    staleTime: ms('2h'),
+    staleTime: ms("2h"),
     queryFn: ({ pageParam = 1 }) => apiClient.getAll({ params: { page: pageParam } }),
 
     getNextPageParam(lastPage, allPages) {

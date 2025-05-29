@@ -9,7 +9,7 @@ const useSimilarMovies = (page: number, movieId: number) => {
   const { data, error, isLoading } = useQuery<FetchResponse<Movie>, Error>({
     queryKey: ["similarMovies", movieId],
     queryFn: () => apiClient.getAll({ params: { page } }),
-    staleTime: ms('1d')
+    staleTime: ms("1d"),
   });
   const similarMovies = data?.results;
   return { similarMovies, error, isLoading };

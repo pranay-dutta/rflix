@@ -10,7 +10,7 @@ const useTrailers = (movieId: number) => {
   const { data, error, isLoading } = useQuery<FetchResponse<Trailer>, Error>({
     queryKey: ["trailer", movieId],
     queryFn: apiClient.getAll,
-    staleTime: ms('2h')
+    staleTime: ms("2h"),
   });
   const trailers = data?.results;
   return { trailers, error, isLoading };

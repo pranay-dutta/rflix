@@ -10,7 +10,6 @@ const SearchPage = () => {
 
   return (
     <>
-
       <Tabs.Root
         value={currentTab}
         onValueChange={(details) => setCurrentTab(details.value as Tab)}

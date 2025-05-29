@@ -8,7 +8,7 @@ const useSeason = (series_id: number, season_number: number) => {
   return useQuery<Season, Error>({
     queryKey: [series_id, season_number],
     queryFn: apiClient.get,
-    staleTime: ms('1d')
+    staleTime: ms("1d"),
   });
 };
 

@@ -17,7 +17,7 @@ const useTrending = <T extends keyof ResponseType>(endpoint: T, time: "day" | "w
   return useQuery<ResponseData, Error>({
     queryKey: ["movies", time],
     queryFn: apiClient.get,
-    staleTime: ms('2h')
+    staleTime: ms("2h"),
   });
 };
 
