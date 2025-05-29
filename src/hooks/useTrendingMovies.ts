@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Movie } from "../interfaces/Movie";
 import { FetchResponse } from "../interfaces/FetchResponse";
 import TvSeries from "@/interfaces/TvSeries";
+import ms from "ms";
 
 type ResponseType = {
   movie: FetchResponse<Movie>;
@@ -16,7 +17,7 @@ const useTrending = <T extends keyof ResponseType>(endpoint: T, time: "day" | "w
   return useQuery<ResponseData, Error>({
     queryKey: ["movies", time],
     queryFn: apiClient.get,
-    staleTime: 1000 * 60 * 60 * 24, // 1 day
+    staleTime: ms('2h')
   });
 };
 

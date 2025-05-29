@@ -2,6 +2,7 @@ import { FetchResponse } from "@/interfaces/FetchResponse";
 import TvSeries from "@/interfaces/TvSeries";
 import ApiClient from "@/services/api-client";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import ms from "ms";
 
 export type TvSeriesTags = "popular" | "top_rated" | "airing_today" | "on_the_air";
 
@@ -10,6 +11,7 @@ const useTvSeriesLists = (endpoint: TvSeriesTags) => {
   const res = useInfiniteQuery<FetchResponse<TvSeries>>({
     queryKey: [endpoint, "series"],
     initialPageParam: 1,
+    staleTime: ms('2h'),
     queryFn: ({ pageParam = 1 }) => apiClient.getAll({ params: { page: pageParam } }),
 
     getNextPageParam(lastPage, allPages) {

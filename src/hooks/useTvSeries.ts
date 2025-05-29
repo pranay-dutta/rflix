@@ -18,7 +18,7 @@ const useTvSeries = <T extends keyof ResponseType>(seriesId: number, endpoint?: 
   return useQuery<ResponseData, Error>({
     queryKey: ["series", seriesId, endpoint],
     queryFn: apiClient.get,
-    staleTime: ms("1h"),
+    staleTime: ms("2h"),
   });
 };
 
