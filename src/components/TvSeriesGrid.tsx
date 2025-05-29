@@ -6,9 +6,8 @@ import MediaGrid from "./MediaGrid";
 import { MediaListHeading } from "./common/MediaListHeading";
 
 const TvSereisGrid = () => {
-  const params = useParams();
-  if (!params) throw new Error("Movie Grid");
-  const tag = params["*"] as TvSeriesTags;
+  const { tag } = useParams();
+  if (!tag) throw new Error("Movie Grid");
 
   const {
     data,
@@ -18,7 +17,7 @@ const TvSereisGrid = () => {
     isLoading,
     error,
     resCount,
-  } = useTvSeriesLists(tag);
+  } = useTvSeriesLists(tag as TvSeriesTags);
 
   if (isLoading) return <Spinner size="md" />;
   if (error) return <div>Error: {error.message}</div>;
@@ -27,7 +26,7 @@ const TvSereisGrid = () => {
   return (
     <>
       <Box mb={5} mt={3}>
-        <MediaListHeading tag={tag} mediaType="TV Shows" />
+        <MediaListHeading tag={tag as TvSeriesTags} mediaType="TV Shows" />
       </Box>
       <InfiniteScroll
         dataLength={resCount}

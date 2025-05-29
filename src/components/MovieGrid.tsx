@@ -6,9 +6,8 @@ import { useParams } from "react-router-dom";
 import { MediaListHeading } from "./common/MediaListHeading";
 
 const MovieGrid = () => {
-  const params = useParams();
-  if (!params) throw new Error("Movie Grid");
-  const tag = params["*"] as MovieTags;
+  const { tag } = useParams();
+  if (!tag) throw new Error("Movie Grid");
 
   const {
     data,
@@ -18,7 +17,7 @@ const MovieGrid = () => {
     isLoading,
     error,
     resCount,
-  } = useMovieLists(tag);
+  } = useMovieLists(tag as MovieTags);
 
   if (isLoading) return <Spinner size="md" />;
   if (error) return <div>Error: {error.message}</div>;
@@ -27,7 +26,7 @@ const MovieGrid = () => {
   return (
     <>
       <Box mb={5} mt={3}>
-        <MediaListHeading tag={tag} mediaType="Movies" />
+        <MediaListHeading tag={tag as MovieTags} mediaType="Movies" />
       </Box>
       <InfiniteScroll
         dataLength={resCount}
