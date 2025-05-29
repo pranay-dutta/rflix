@@ -82,8 +82,8 @@ const DropDown = ({ navitem }: { navitem: NavItem }) => {
         <HoverCard.Positioner>
           <HoverCard.Content p={2}>
             <Select.Root open collection={mediaTags} w={"200px"}>
-              {mediaTags.items.map((mediaTag) => (
-                <>
+              {mediaTags.items.map((mediaTag, i) => (
+                <div key={i}>
                   {mediaTag.tag == navitem.label.toLowerCase() && (
                     <Select.Item
                       item={mediaTag}
@@ -94,7 +94,7 @@ const DropDown = ({ navitem }: { navitem: NavItem }) => {
                       <Select.ItemIndicator />
                     </Select.Item>
                   )}
-                </>
+                </div>
               ))}
             </Select.Root>
           </HoverCard.Content>

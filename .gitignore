@@ -23,5 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
+# Features that are in development
+/src/development
+
 #environment variables
 .env
