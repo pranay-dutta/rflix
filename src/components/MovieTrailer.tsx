@@ -34,7 +34,7 @@ const MovieTrailer = ({ movieId, isActive = false }: Props) => {
 
   return (
     <iframe
-      className="opacity-60 top-[2%]!" //top 2% hides the related videos below
+      className="opacity-80 top-[2%]!" //top 2% hides the related videos below
       ref={iframeRef}
       src={`https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&mute=1&autoplay=1&loop=1&rel=0&fs=0&controls=0&disablekb=1&playlist=${youtubeId}`}
       style={{ scale: 1.5 }}

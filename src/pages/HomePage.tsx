@@ -33,17 +33,23 @@ const HomePage = () => {
     <Box>
       <Navbar />
       <Hero />
-      <Box className="w-full md:-mt-40! !px-10 z-10 relative">
+
+      <Box className="w-full md:-mt-32! sm:!px-10 !px-2 z-10 relative">
         {Reels.map(
           ({ media, heading }) =>
             media && (
-              <Box key={heading} my={5}>
-                <MediaScrollHeading highlight={isMovie(media) ? "Movies" : "TV Shows"}>
-                  {heading}
-                </MediaScrollHeading>
+              <Box key={heading} my={5}
+                borderWidth="1px" borderColor="border.subtle"
+                bg="gray.950" px={{ lg: 10, base: 5 }} py={{ lg: 8, base: 3 }} borderRadius="10px">
+                <Box mb={3}>
+                  <MediaScrollHeading highlight={isMovie(media) ? "Movies" : "TV Shows"}>
+                    {heading}
+                  </MediaScrollHeading>
+                </Box>
+
                 <MediaScroll media={media} />
               </Box>
-            ),
+            )
         )}
       </Box>
       <Footer />
