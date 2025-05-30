@@ -14,7 +14,6 @@ import ReleaseDate from "./ReleaseDate";
 import InfoButton from "./InfoButton";
 import MovieWatchButton from "./WatchButton";
 import useMovieLists from "@/hooks/useMovieLists";
-import Gradient from "./Gradient";
 
 const Hero = () => {
   const { data: movies } = useMovieLists("popular");
@@ -37,8 +36,8 @@ const Hero = () => {
                   <MovieTrailer movieId={movie.id} isActive={activeIndex === index} />
                 </AspectRatioContainer>
 
-                  <Gradient.Bottom />
-
+                {/* Bottom shadow over hero component */}
+                <div className="absolute h-40 top-10/12 inset-0 bg-gradient-to-b from-transparent via-transparent to-black/100" />
                 <Box
                   fontSize="lg"
                   className="w-full !px-5 flex flex-col gap-3 items-center md:items-start absolute bottom-5 left-0 md:bottom-[20%] md:left-[1%]"
