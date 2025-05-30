@@ -14,8 +14,9 @@ import ReleaseDate from "./ReleaseDate";
 import InfoButton from "./InfoButton";
 import MovieWatchButton from "./WatchButton";
 import useMovieLists from "@/hooks/useMovieLists";
+import Gradient from "./Gradient";
 
-const Hero2 = () => {
+const Hero = () => {
   const { data: movies } = useMovieLists("popular");
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
@@ -35,13 +36,13 @@ const Hero2 = () => {
                 <AspectRatioContainer>
                   <MovieTrailer movieId={movie.id} isActive={activeIndex === index} />
                 </AspectRatioContainer>
-
+                <Gradient.Bottom />
                 <Box
                   fontSize="lg"
                   className="w-full !px-5 flex flex-col gap-3 items-center md:items-start absolute bottom-5 left-0 md:bottom-[25%] md:left-[1%]"
                 >
                   {/* Movie title logo */}
-                  <Box maxH={500} maxW={500}>
+                  <Box maxH={300} maxW={350} >
                     <MovieLogo movieId={movie.id} />
                   </Box>
 
@@ -63,12 +64,14 @@ const Hero2 = () => {
                   </HStack>
                 </Box>
               </SwiperSlide>
+
             </div>
           </>
         );
       })}
+
     </Swiper>
   );
 };
 
-export default Hero2;
+export default Hero;
