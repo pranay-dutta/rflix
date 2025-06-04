@@ -6,6 +6,7 @@ const MediaPoster = ({ backdrop_path }: { backdrop_path: string }) => {
   return (
     <Box className="opacity-50 hidden! md:block! rounded-lg">
       <Image
+        w="full"
         className="opacity-70 w-full rounded-md object-cover"
         src={getTMDBImage(backdrop_path, "original", "horizontal")}
       />

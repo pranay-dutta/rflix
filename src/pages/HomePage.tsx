@@ -9,6 +9,8 @@ import { Movie } from "@/interfaces/Movie";
 import TvSeries from "@/interfaces/TvSeries";
 import isMovie from "@/utils/isMovie";
 import useTrending from "@/hooks/useTrending";
+import AiRecommended from "@/components/AiRecommended";
+import { Fragment } from "react/jsx-runtime";
 
 interface Reel {
   media: Movie[] | TvSeries[] | undefined;
@@ -33,24 +35,22 @@ const HomePage = () => {
     <Box>
       <Navbar />
       <Hero />
-
       <Box className="w-full md:-mt-32! sm:!px-10 !px-2 z-10 relative">
-        {Reels.map(
-          ({ media, heading }) =>
-            media && (
-              <Box key={heading} my={5}
-                borderWidth="1px" borderColor="border.subtle"
-                bg="gray.950" px={{ lg: 10, base: 5 }} py={{ lg: 8, base: 3 }} borderRadius="10px">
-                <Box mb={3}>
-                  <MediaScrollHeading highlight={isMovie(media) ? "Movies" : "TV Shows"}>
-                    {heading}
-                  </MediaScrollHeading>
-                </Box>
-
-                <MediaScroll media={media} />
+        {Reels.map(({ media, heading }, index) => media && (
+          <Fragment key={heading}>
+            {index === 1 && <AiRecommended />}
+            <Box my={5}
+              borderWidth="1px" borderColor="border.subtle"
+              bg="gray.950" px={{ lg: 10, base: 5 }} py={{ lg: 8, base: 3 }} borderRadius="10px">
+              <Box mb={3}>
+                <MediaScrollHeading highlight={isMovie(media) ? "Movies" : "TV Shows"}>
+                  {heading}
+                </MediaScrollHeading>
               </Box>
-            )
-        )}
+              <MediaScroll media={media} />
+            </Box>
+          </Fragment>
+        ))}
       </Box>
       <Footer />
     </Box>

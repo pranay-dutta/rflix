@@ -1,6 +1,6 @@
 import MovieSeriesGrid from "@/components/MovieSearchGrid";
 import TvSeriesSearchGrid from "@/components/TvSeriesSearchGrid";
-import { Tab, useSearchTabStore } from "@/store/store";
+import { Tab, useSearchTabStore } from "@/store/searchTabStore";
 import { Tabs } from "@chakra-ui/react";
 import { FaTv } from "react-icons/fa";
 import { MdMovie } from "react-icons/md";
