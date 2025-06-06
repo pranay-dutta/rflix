@@ -8,7 +8,7 @@ const Title = () => {
       <Box display="flex" alignItems="center" gap={1}>
         <BiMoviePlay display="inline" size={20} />
         <Heading fontSize="xl" fontWeight="bold">
-          <Highlight styles={{ color: "red" }} query="lix">
+          <Highlight styles={{ color: "purple.400" }} query="lix">
             Rflix
           </Highlight>
         </Heading>

@@ -11,6 +11,7 @@ const useMovie = (movieId: number) => {
     queryFn: apiClient.get,
     staleTime: ms("2h"),
   });
+
   return { movie: data, error, isLoading };
 };
 export default useMovie;

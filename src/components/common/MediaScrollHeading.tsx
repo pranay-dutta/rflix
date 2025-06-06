@@ -8,7 +8,7 @@ interface Props {
 const MediaScrollHeading = ({ children, highlight }: Props) => {
   return (
     <Heading fontSize="2xl" fontWeight="bold" filter="contrast(2)">
-      <Highlight query={highlight} styles={{ color: "red.600" }}>
+      <Highlight query={highlight} styles={{ color: "purple.400" }}>
         {children}
       </Highlight>
     </Heading>

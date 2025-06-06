@@ -13,7 +13,7 @@ export const MediaListHeading = ({
 
   return (
     <Heading size="3xl" as={"h1"}>
-      <Highlight query={mediaType} styles={{ color: "red" }}>
+      <Highlight query={mediaType} styles={{ color: "purple.400" }}>
         {formatted + " " + mediaType}
       </Highlight>
     </Heading>

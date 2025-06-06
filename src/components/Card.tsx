@@ -21,12 +21,8 @@ const Card = ({ media }: Props) => {
       <Box
         className="cursor-pointer relative overflow-hidden"
         borderRadius="md"
-        _hover={{
-          scale: 1.03,
-          transition: "all 0.3s ease-in-out",
-          transform: "translateY(-5px)",
-        }}
         transition="all 0.3s ease-in-out"
+        _hover={{ transform: "translateY(-6px) scale(1.02)" }}
         onMouseEnter={() => setShow(true)}
         onMouseLeave={() => setShow(false)}
       >
