@@ -1,14 +1,15 @@
-import ApiClient from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
 import { Images } from "../interfaces/Images";
 import ms from "ms";
+import BackendClient from "@/services/backend-client";
 
 const useLogoImages = (movieId: number) => {
-  const apiClient = new ApiClient<Images>(`/movie/${movieId}/images`);
+  const backendClient = new BackendClient<Images>(`/movie/images/${movieId}`);
+
   const { data, error, isLoading } = useQuery<Images, Error>({
     staleTime: ms("1d"),
     queryKey: ["logoImages", movieId],
-    queryFn: apiClient.get,
+    queryFn: backendClient.get,
   });
   return { logoImages: data, error, isLoading };
 };

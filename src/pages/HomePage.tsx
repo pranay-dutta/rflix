@@ -11,7 +11,6 @@ import isMovie from "@/utils/isMovie";
 import useTrending from "@/hooks/useTrending";
 import AiRecommended from "@/components/AiRecommended";
 import { Fragment } from "react/jsx-runtime";
-
 interface Reel {
   media: Movie[] | TvSeries[] | undefined;
   heading: string;

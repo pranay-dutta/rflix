@@ -1,10 +1,10 @@
 import { FetchResponse } from "@/interfaces/FetchResponse";
 import { Movie } from "@/interfaces/Movie";
-import ApiClient from "@/services/api-client";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useSearchParams } from "react-router-dom";
 import TvSeries from "@/interfaces/TvSeries";
+import BackendClient from "@/services/backend-client";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import ms from "ms";
+import { useSearchParams } from "react-router-dom";
 
 type SearchType = {
   movie: Movie;
@@ -13,7 +13,7 @@ type SearchType = {
 
 const useSearchResponse = <T extends keyof SearchType>(search_type: T) => {
   type MediaType = SearchType[T];
-  const apiClient = new ApiClient<MediaType>("/search/" + search_type);
+  const backendClient = new BackendClient<MediaType>("/search/" + search_type);
 
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
@@ -22,7 +22,7 @@ const useSearchResponse = <T extends keyof SearchType>(search_type: T) => {
     queryKey: ["search", query, search_type],
     initialPageParam: 1,
     staleTime: ms("2h"),
-    queryFn: ({ pageParam }) => apiClient.getAll({ params: { query, page: pageParam } }),
+    queryFn: ({ pageParam }) => backendClient.getAll({ params: { query, page: pageParam } }),
 
     getNextPageParam: (lastPage, pages) => {
       if (lastPage.results.length === 0) return undefined;
