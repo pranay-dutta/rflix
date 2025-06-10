@@ -1,9 +1,9 @@
 import TvSeries from "@/interfaces/TvSeries";
 import { TvSeriesDetails } from "@/interfaces/TvSeriesDetails";
-import ApiClient from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
 import { FetchResponse } from "@/interfaces/FetchResponse";
 import ms from "ms";
+import BackendClient from "@/services/backend-client";
 
 type ResponseType = {
   details: TvSeriesDetails;
@@ -11,13 +11,13 @@ type ResponseType = {
 };
 const useTvSeries = <T extends keyof ResponseType>(seriesId: number, endpoint?: T) => {
   type ResponseData = ResponseType[T];
-  const newEndpoint = endpoint === "details" ? undefined : "/" + endpoint;
+  const newEndpoint = endpoint === "details" ? "" : "/" + endpoint;
 
-  const apiClient = new ApiClient<ResponseData>("/tv/" + seriesId + newEndpoint);
+  const backendClient = new BackendClient<ResponseData>("/tv/" + seriesId + newEndpoint);
 
   return useQuery<ResponseData, Error>({
     queryKey: ["series", seriesId, endpoint],
-    queryFn: apiClient.get,
+    queryFn: backendClient.get,
     staleTime: ms("2h"),
   });
 };
