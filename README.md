@@ -21,13 +21,13 @@ Before you begin 🏁, make sure the following tools are installed on your machi
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/pranay-dutta/nunmovies.git
+   git clone https://github.com/pranay-dutta/rflix.git
    ```
 
 2. **Navigate into the project directory:**
 
    ```bash
-   cd nunmovies
+   cd rflix
    ```
 
 3. **Install project dependencies:**

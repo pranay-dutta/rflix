@@ -2,7 +2,7 @@ import { FetchResponse } from "@/interfaces/FetchResponse";
 import axios, { AxiosRequestConfig } from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://tmdb-backend-9jo1.onrender.com",
+  baseURL: "https://rflix-backend.vercel.app",
 });
 
 class BackendClient<T> {
