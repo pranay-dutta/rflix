@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Sidebar = () => {
   return (
     <Drawer.Root>
-      <Drawer.Trigger asChild>
+      <Drawer.Trigger cursor="pointer" asChild>
         <FaBars size={24} />
       </Drawer.Trigger>
       <Portal>
@@ -37,7 +37,7 @@ const DrawerMenu = () => {
       <List.Root listStyle="none" gap={4}>
         {navItems.map((navitem) => (
           <List.Item key={navitem.label}>
-            <HStack gap={4} onClick={() => navigate(["/", "/donate"].includes(navitem.to) ? navitem.to : navitem.to + "/popular")} cursor="pointer">
+            <HStack gap={4} onClick={() => navigate(["/", "/about"].includes(navitem.to) ? navitem.to : navitem.to + "/popular")} cursor="pointer">
               <navitem.icon size={20} />
               <Text fontSize="medium">{navitem.label}</Text>
             </HStack>

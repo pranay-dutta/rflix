@@ -1,5 +1,5 @@
 import { IconType } from "react-icons";
-import { RiHome2Line, RiMoneyDollarBoxLine, RiMovieLine, RiTvLine } from "react-icons/ri";
+import { RiHome2Line,RiInformationLine, RiMovieLine, RiTvLine } from "react-icons/ri";
 
 export interface NavItem {
   icon: IconType;
@@ -12,12 +12,7 @@ export const navItems: NavItem[] = [
   { icon: RiHome2Line, label: "Home", to: "/", showDropdown: false },
   { icon: RiMovieLine, label: "Movies", to: "/movies", showDropdown: true },
   { icon: RiTvLine, label: "Tv Shows", to: "/tvshows", showDropdown: true },
-  {
-    icon: RiMoneyDollarBoxLine,
-    label: "Donate",
-    to: "/donate",
-    showDropdown: false,
-  },
+  { icon: RiInformationLine, label: "About", to: "/about", showDropdown: false },
 ];
 export function getTMDBImage(
   url: string,
