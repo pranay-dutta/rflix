@@ -21,8 +21,11 @@ import { Quote } from "../Quote";
 import Season from "./Season";
 import { MediaPoster, MediaScroll, MediaScrollHeading } from "../common";
 import { useParams } from "react-router-dom";
+import { useInView } from "react-intersection-observer"
 
 const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
+
   if (!series) return null;
 
   return (
@@ -45,7 +48,7 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
           <GridItem colSpan={{ md: 3 }} px={2}>
             <Box display="flex" flexDirection="column" gap={5}>
               <Stack gap={4}>
-                <Heading mt={{ base: 2, md: 0 }} fontSize="4xl">
+                <Heading mt={{ base: 2, md: 0 }} lineHeight="1" fontSize="4xl">
                   {series.name}
                 </Heading>
                 <Quote tagline={series.tagline} />
@@ -109,15 +112,16 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
           </GridItem>
         </SimpleGrid>
       </Box>
-      <Season series={series} />
-      <SimilarSeries />
+      <div ref={ref} style={{ minHeight: "300px" }}>
+        {inView && <> <Season series={series} /> <SimilarSeries /> </>}
+      </div>
     </>
   );
 };
 
 const SimilarSeries = () => {
   const { id } = useParams();
-  if (!id) throw new Error("tv info page");
+  if (!id) throw Error("Failed to get series id");
 
   const { data: similarSeries } = useTvSeries(parseInt(id), "similar");
   if (!similarSeries || !similarSeries.results.length) return null;

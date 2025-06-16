@@ -23,10 +23,12 @@ import BackButton from "@/components/BackButton";
 import MovieWatchButton from "@/components/WatchButton";
 import { MediaScroll, MediaScrollHeading, MediaPoster } from "@/components/common";
 import { MovieDetails } from "@/interfaces/MovieDetails";
+import { useInView } from "react-intersection-observer";
 
 const MovieInfoPage = () => {
   const { id } = useParams();
   if (!id) throw new Error("Info page");
+
 
   const { movie, isLoading } = useMovie(parseInt(id));
 
@@ -58,6 +60,7 @@ const SimilarMovies = () => {
 export default MovieInfoPage;
 
 const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
+  const { inView, ref } = useInView();
   if (!movie) return null;
 
   return (
@@ -144,7 +147,9 @@ const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
       </Box>
 
       {/* Similar movies scroll compoent */}
-      <SimilarMovies />
+      <div ref={ref}>
+        {inView && <SimilarMovies />}
+      </div>
     </>
   );
 };
