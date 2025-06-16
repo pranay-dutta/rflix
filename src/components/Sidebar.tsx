@@ -3,6 +3,7 @@ import { FaBars } from "react-icons/fa";
 import Title from "./Title";
 import { navItems } from "./constants";
 import SearchInput from "./SearchInput";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   return (
@@ -27,6 +28,7 @@ const Sidebar = () => {
   );
 };
 const DrawerMenu = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Heading fontWeight="medium" fontSize="xl" mb={5}>
@@ -35,7 +37,7 @@ const DrawerMenu = () => {
       <List.Root listStyle="none" gap={4}>
         {navItems.map((navitem) => (
           <List.Item key={navitem.label}>
-            <HStack gap={4}>
+            <HStack gap={4} onClick={() => navigate(["/", "/donate"].includes(navitem.to) ? navitem.to : navitem.to + "/popular")} cursor="pointer">
               <navitem.icon size={20} />
               <Text fontSize="medium">{navitem.label}</Text>
             </HStack>
