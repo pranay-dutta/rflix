@@ -59,7 +59,7 @@ const HomePage = () => {
           </Fragment>
         ))}
       </Box>}
-      <Footer />
+      {!isLoading && <Footer />}
     </Box>
   );
 };
