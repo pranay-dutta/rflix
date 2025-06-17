@@ -29,7 +29,6 @@ const MovieInfoPage = () => {
   const { id } = useParams();
   if (!id) throw new Error("Info page");
 
-
   const { movie, isLoading } = useMovie(parseInt(id));
 
   return (
@@ -83,7 +82,7 @@ const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
           <GridItem colSpan={{ md: 3 }} px={2}>
             <Box display="flex" flexDirection="column" gap={5}>
               <Stack gap={4}>
-                <Heading fontSize="4xl">{movie.title}</Heading>
+                <Heading mt={{ base: 2, md: 0 }} lineHeight="1" fontSize="4xl">{movie.title}</Heading>
                 <Quote tagline={movie.tagline} />
               </Stack>
               <HStack flexWrap="wrap">
