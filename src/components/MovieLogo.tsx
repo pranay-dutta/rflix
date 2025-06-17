@@ -4,10 +4,10 @@ import { getTMDBImage } from "./constants";
 import useLogoImages from "@/hooks/useLogoImages";
 
 const MovieLogo = ({ movieId }: { movieId: number }) => {
-  const { logoImages, isLoading } = useLogoImages(movieId);
+  const { logoImages } = useLogoImages(movieId);
   const { movie } = useMovie(movieId);
 
-  if (!logoImages || isLoading || !logoImages.logos.length)
+  if (!logoImages || !logoImages.logos.length)
     return (
       <Text className="!text-4xl md:!text-7xl !font-medium">{movie?.original_title}</Text>
     );
