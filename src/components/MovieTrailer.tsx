@@ -1,7 +1,7 @@
-import useMovie from "@/hooks/useMovie";
 import useTrailers from "@/hooks/useTrailers";
 import { useEffect, useRef } from "react";
 import MovieBackdropImage from "./MovieBackdropImage";
+import { Skeleton } from "@chakra-ui/react";
 
 interface Props {
   isActive: boolean;
@@ -9,8 +9,7 @@ interface Props {
 }
 
 const MovieTrailer = ({ movieId, isActive = false }: Props) => {
-  const { trailers } = useTrailers(movieId);
-  const { movie } = useMovie(movieId);
+  const { trailers, isLoading } = useTrailers(movieId);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // ▶️ Play or ⏸ Pause depending on isActive
@@ -29,6 +28,7 @@ const MovieTrailer = ({ movieId, isActive = false }: Props) => {
 
   const youtubeId = trailers?.find((trailer) => trailer.type === "Trailer")?.key;
 
+  if (isLoading) return <Skeleton width="100vw" height="100vh" />
   if (!youtubeId || window.innerWidth < 1024)
     return <MovieBackdropImage movieId={movieId} />;
 
@@ -38,7 +38,6 @@ const MovieTrailer = ({ movieId, isActive = false }: Props) => {
       ref={iframeRef}
       src={`https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&mute=1&autoplay=1&loop=1&rel=0&fs=0&controls=0&disablekb=1&playlist=${youtubeId}`}
       style={{ scale: 1.5 }}
-      title={movie?.original_title}
       allowFullScreen
       loading="lazy"
     />
