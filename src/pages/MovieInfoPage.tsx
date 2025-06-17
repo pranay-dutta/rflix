@@ -37,7 +37,7 @@ const MovieInfoPage = () => {
       <Box my={3}>
         <BackButton />
       </Box>
-      {isLoading ? <Skeleton w="full" h="774px" /> : <MovieHero movie={movie} />}
+      {isLoading ? <Skeleton w="full" h="80vh" /> : <MovieHero movie={movie} />}
     </>
   );
 };

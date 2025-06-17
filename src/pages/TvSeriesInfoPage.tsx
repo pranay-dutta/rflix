@@ -15,7 +15,7 @@ const TvSeriesInfoPage = () => {
       <Box my={3}>
         <BackButton />
       </Box>
-      {isLoading ? <Skeleton w="full" h="774px" /> : <TvHero series={series!} />}
+      {isLoading ? <Skeleton w="full" h="80vh" /> : <TvHero series={series!} />}
     </>
   );
 };
