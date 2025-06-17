@@ -15,26 +15,34 @@ interface Reel {
   media: Movie[] | TvSeries[] | undefined;
   heading: string;
 }
+
 const HomePage = () => {
-  const { data: topMovies } = useMovieLists("top_rated");
-  const { data: trendingMovies } = useTrending("movie", "day");
-  const { data: trendingShows } = useTrending("tv", "day");
-  const { data: popularShows } = useTvSeriesLists("popular");
-  const { data: topShows } = useTvSeriesLists("top_rated");
+  const {
+    isLoading, trendingMoviesDay, popularMovies, trendingMoviesWeek, topMovies, nowPlayingMovies,
+    trendingShowsDay, topShows, trendingShowsWeek, popularShows, onTheAirTvShows, showsAiringToday
+  } = useMedias();
 
   const Reels: Reel[] = [
-    { media: trendingMovies?.results, heading: "Trending Movies" },
-    { media: topMovies?.pages[0].results, heading: "Top Movies" },
-    { media: trendingShows?.results, heading: "Trending TV Shows" },
-    { media: popularShows?.pages[0].results, heading: "Popular TV Shows" },
+    { media: trendingMoviesDay?.results, heading: "Trending Movies Today" },
+    { media: popularMovies?.pages[0].results, heading: "Popular Movies" },
+    { media: trendingMoviesWeek?.results, heading: "Trending Movies This Week" },
+    { media: topMovies?.pages[0].results, heading: "Top Rated Movies" },
+    { media: nowPlayingMovies?.pages[0].results, heading: "Now Playing Movies" },
+
+
+    { media: trendingShowsDay?.results, heading: "Trending TV Shows Today" },
     { media: topShows?.pages[0].results, heading: "Top TV Shows" },
+    { media: trendingShowsWeek?.results, heading: "Trending TV Shows This Week" },
+    { media: popularShows?.pages[0].results, heading: "Popular TV Shows" },
+    { media: onTheAirTvShows?.pages[0].results, heading: "On The Air TV Shows" },
+    { media: showsAiringToday?.pages[0].results, heading: "TV Shows Airing Today" },
   ];
 
   return (
     <Box>
       <Navbar />
       <Hero />
-      <Box className="w-full md:-mt-32! sm:!px-10 !px-2 z-10 relative">
+      {!isLoading && <Box className="w-full md:-mt-32! sm:!px-10 !px-2 z-10 relative">
         {Reels.map(({ media, heading }, index) => media && (
           <Fragment key={heading}>
             {index === 1 && <AiRecommended />}
@@ -50,10 +58,52 @@ const HomePage = () => {
             </Box>
           </Fragment>
         ))}
-      </Box>
+      </Box>}
       <Footer />
     </Box>
   );
 };
 
 export default HomePage;
+const useMedias = () => {
+  const trendingMoviesDay = useTrending("movie", "day");
+  const trendingMoviesWeek = useTrending("movie", "week");
+  const nowPlayingMovies = useMovieLists("now_playing");
+  const popularMovies = useMovieLists("popular");
+  const topMovies = useMovieLists("top_rated");
+
+  const trendingShowsDay = useTrending("tv", "day");
+  const trendingShowsWeek = useTrending("tv", "week");
+  const onTheAirTvShows = useTvSeriesLists("on_the_air");
+  const showsAiringToday = useTvSeriesLists("airing_today");
+  const popularShows = useTvSeriesLists("popular");
+  const topShows = useTvSeriesLists("top_rated");
+
+  const isLoading =
+    trendingMoviesDay.isLoading ||
+    trendingMoviesWeek.isLoading ||
+    nowPlayingMovies.isLoading ||
+    popularMovies.isLoading ||
+    topMovies.isLoading ||
+    trendingShowsDay.isLoading ||
+    trendingShowsWeek.isLoading ||
+    onTheAirTvShows.isLoading ||
+    showsAiringToday.isLoading ||
+    popularShows.isLoading ||
+    topShows.isLoading;
+
+  return {
+    isLoading,
+    trendingMoviesDay: trendingMoviesDay.data,
+    trendingMoviesWeek: trendingMoviesWeek.data,
+    nowPlayingMovies: nowPlayingMovies.data,
+    popularMovies: popularMovies.data,
+    topMovies: topMovies.data,
+    trendingShowsDay: trendingShowsDay.data,
+    trendingShowsWeek: trendingShowsWeek.data,
+    onTheAirTvShows: onTheAirTvShows.data,
+    showsAiringToday: showsAiringToday.data,
+    popularShows: popularShows.data,
+    topShows: topShows.data,
+  };
+};
