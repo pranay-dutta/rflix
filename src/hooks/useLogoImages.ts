@@ -6,12 +6,11 @@ import BackendClient from "@/services/backend-client";
 const useLogoImages = (movieId: number) => {
   const backendClient = new BackendClient<Images>(`/movie/images/${movieId}`);
 
-  const { data, error, isLoading } = useQuery<Images, Error>({
+  return useQuery<Images, Error>({
     staleTime: ms("1d"),
     queryKey: ["logoImages", movieId],
     queryFn: backendClient.get,
   });
-  return { logoImages: data, error, isLoading };
 };
 
 export default useLogoImages;
