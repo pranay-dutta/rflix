@@ -4,7 +4,6 @@ import {
   Flex,
   HStack,
   Select,
-  useMediaQuery,
 } from "@chakra-ui/react";
 import Sidebar from "./Sidebar";
 import Title from "./Title";
@@ -13,9 +12,10 @@ import { useState, useEffect, Fragment } from "react";
 import SearchInput from "./SearchInput";
 import { HoverCard } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
+import { useMediaQuery } from "@uidotdev/usehooks"
 
 const Navbar = () => {
-  const [isLargerThan1024] = useMediaQuery(["(min-width: 1024px)"]);
+  const isLargerThan1024 = useMediaQuery("only screen and (min-width: 1024px)");
   const [show, setShow] = useState<boolean>(true);
 
   useEffect(() => {
