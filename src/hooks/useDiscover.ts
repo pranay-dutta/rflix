@@ -6,17 +6,21 @@ import {
 } from "@/store/selectedGenresStore";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import ms from "ms";
+import { useSearchParams } from "react-router-dom";
 
 const useDiscover = (endpoint: "movie" | "tv") => {
   const apiClient = new ApiClient<Movie>("/discover/" + endpoint);
   const genres = useGenres(endpoint);
 
+  const [searchParams] = useSearchParams();
+  const sort_by = searchParams.get("sort_by");
+
   const res = useInfiniteQuery({
-    queryKey: ["discover", endpoint, genres],
+    queryKey: ["discover", endpoint, genres, sort_by],
     initialPageParam: 1,
     staleTime: ms("2h"),
     queryFn: ({ pageParam }) =>
-      apiClient.getAll({ params: { page: pageParam, with_genres: genres } }),
+      apiClient.getAll({ params: { page: pageParam, with_genres: genres, sort_by } }),
 
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.results.length ? allPages.length + 1 : undefined;
