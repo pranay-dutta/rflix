@@ -2,6 +2,7 @@ import useSearchResponse from "@/hooks/useSearchResponse";
 import { Spinner } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import MediaGrid from "./MediaGrid";
+import InfiniteScrollEndMessage from "./common/InfiniteScrollEndMessage";
 
 const TvSeriesSearchGrid = () => {
   const {
@@ -23,6 +24,7 @@ const TvSeriesSearchGrid = () => {
       dataLength={resCount}
       hasMore={hasNextPage}
       next={fetchNextPage}
+      endMessage={<InfiniteScrollEndMessage />}
       loader={isFetchingNextPage && <Spinner my={3} size="md" />}
       style={{ overflow: "unset" }}
     >

@@ -4,6 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useParams } from "react-router-dom";
 import MediaGrid from "./MediaGrid";
 import { MediaListHeading } from "./common/MediaListHeading";
+import InfiniteScrollEndMessage from "./common/InfiniteScrollEndMessage";
 
 const TvSeriesGrid = () => {
   const { tag } = useParams();
@@ -32,6 +33,7 @@ const TvSeriesGrid = () => {
         dataLength={resCount}
         hasMore={hasNextPage}
         next={fetchNextPage}
+        endMessage={<InfiniteScrollEndMessage />}
         loader={isFetchingNextPage && <Spinner my={3} size="md" />}
         style={{ overflow: "unset" }} // Important! To prevent scroll jump
       >
