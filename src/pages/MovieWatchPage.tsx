@@ -4,7 +4,7 @@ import Rating from "@/components/Rating";
 import ReleaseDate from "@/components/ReleaseDate";
 import Runtime from "@/components/Runtime";
 import useMovie from "@/hooks/useMovie";
-import { Container, Text, Heading, HStack, Stack, Box } from "@chakra-ui/react";
+import { Text, Heading, HStack, Stack, Box } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
 const MovieWatchPage = () => {
@@ -15,7 +15,7 @@ const MovieWatchPage = () => {
   if (!movie) return null;
 
   return (
-    <Container py={5}>
+    <Box>
       <Box my={3}>
         <BackButton />
       </Box>
@@ -41,7 +41,7 @@ const MovieWatchPage = () => {
           <Runtime runtime={movie.runtime} />
         </HStack>
       </Stack>
-    </Container>
+    </Box>
   );
 };
 export default MovieWatchPage;

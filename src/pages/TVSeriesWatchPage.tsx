@@ -4,7 +4,7 @@ import Rating from "@/components/Rating";
 import ReleaseDate from "@/components/ReleaseDate";
 import Runtime from "@/components/Runtime";
 import useTvSeries from "@/hooks/useTvSeries";
-import { Container, Text, Heading, HStack, Stack, Box } from "@chakra-ui/react";
+import { Text, Heading, HStack, Stack, Box } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
 const TvSeriesWatchPage = () => {
@@ -15,7 +15,7 @@ const TvSeriesWatchPage = () => {
   if (!data) return null;
 
   return (
-    <Container py={5}>
+    <Box>
       <Box my={3}>
         <BackButton />
       </Box>
@@ -41,7 +41,7 @@ const TvSeriesWatchPage = () => {
           <Runtime runtime={data.episode_run_time[0]} />
         </HStack>
       </Stack>
-    </Container>
+    </Box>
   );
 };
 export default TvSeriesWatchPage;
