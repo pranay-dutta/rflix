@@ -28,7 +28,7 @@ const MovieTrailer = ({ movieId, isActive = false }: Props) => {
 
   const youtubeId = trailers?.find((trailer) => trailer.type === "Trailer")?.key;
 
-  if (isLoading) return <Skeleton width="100vw" height="100vh" />
+  if (isLoading) return <Skeleton width="100%" height="100%" />
   if (!youtubeId || window.innerWidth < 1024)
     return <MovieBackdropImage movieId={movieId} />;
 

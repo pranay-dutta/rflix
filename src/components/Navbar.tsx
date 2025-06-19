@@ -81,10 +81,10 @@ const DropDown = ({ navitem }: { navitem: NavItem }) => {
 
         <HoverCard.Positioner>
           <HoverCard.Content p={2}>
-            <Select.Root open collection={mediaTags} w={"200px"}>
+            <Select.Root open collection={mediaTags} w={"150px"}>
               {mediaTags.items.map((mediaTag, i) => (
                 <Fragment key={i}>
-                  {mediaTag.tag == navitem.label.toLowerCase() && (
+                  {mediaTag.tag === navitem.label.toLowerCase() && (
                     <Select.Item
                       item={mediaTag}
                       key={mediaTag.value}
@@ -109,6 +109,9 @@ const mediaTags = createListCollection({
     { label: "Top Rated", value: "top_rated", tag: "movies" },
     { label: "Now Playing", value: "now_playing", tag: "movies" },
     { label: "Upcoming", value: "upcoming", tag: "movies" },
+
+    { label: "Movies", value: "movie", tag: "discover" },
+    { label: "TV Shows", value: "tv", tag: "discover" },
 
     { label: "Popular", value: "popular", tag: "tv shows" },
     { label: "Top Rated", value: "top_rated", tag: "tv shows" },
