@@ -95,7 +95,7 @@ const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
               <HStack>
                 <ReleaseDate date={movie.release_date} />
                 <Runtime runtime={movie.runtime} />
-                <Rating rating={movie.vote_average} />
+                <Rating vote_average={movie.vote_average} />
               </HStack>
               <Text lineClamp={2} fontSize={{ sm: "sm", md: "normal" }}>
                 {movie.overview}

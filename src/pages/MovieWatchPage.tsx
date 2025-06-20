@@ -37,7 +37,7 @@ const MovieWatchPage = () => {
         <Text>{movie.overview}</Text>
         <HStack>
           <ReleaseDate date={movie.release_date} />
-          <Rating rating={movie.vote_average} />
+          <Rating vote_average={movie.vote_average} />
           <Runtime runtime={movie.runtime} />
         </HStack>
       </Stack>

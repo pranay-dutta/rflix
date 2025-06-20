@@ -50,7 +50,7 @@ const Card = ({ media }: Props) => {
               <ReleaseDate
                 date={isMovie(media) ? media.release_date : media.first_air_date}
               />
-              <Rating rating={media.vote_average} />
+              <Rating vote_average={media.vote_average} />
             </HStack>
             <Stack position="absolute" bottom={10} px={2} w="full" gap={2}>
               <Text fontSize="md" fontWeight="medium" lineClamp="1">

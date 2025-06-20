@@ -43,7 +43,7 @@ const AiRecommended = () => {
               <Text lineClamp="3">{media.overview}</Text>
               <Quote tagline={media.tagline} />
               <Box display="flex" gap={5}>
-                <Rating rating={media.vote_average || 0} />
+                <Rating vote_average={media.vote_average || 0} />
                 <ReleaseDate date={isMovieDetails(media) ? media.release_date : media.first_air_date} />
               </Box>
             </Box>

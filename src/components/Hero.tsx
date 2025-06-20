@@ -50,7 +50,7 @@ const Hero = () => {
 
                 {/* Movie Informations */}
                 <HStack filter="contrast(2)" gap={4}>
-                  <Rating rating={movie.vote_average} />
+                  <Rating vote_average={movie.vote_average} />
                   <ReleaseDate date={movie.release_date} />
                   <MovieLanguage language={movie.original_language} />
                 </HStack>

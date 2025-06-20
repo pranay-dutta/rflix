@@ -51,7 +51,7 @@ const Episodes = ({
             </HStack>
             <HStack>
               <ReleaseDate date={episode.air_date} />
-              <Rating rating={episode.vote_average} />
+              <Rating vote_average={episode.vote_average} />
               <Runtime runtime={episode.runtime} />
             </HStack>
             <Text fontSize="sm">{episode.overview}</Text>

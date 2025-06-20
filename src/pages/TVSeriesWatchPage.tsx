@@ -37,7 +37,7 @@ const TvSeriesWatchPage = () => {
         <Text>{data.overview}</Text>
         <HStack>
           <ReleaseDate date={data?.first_air_date} />
-          <Rating rating={data.vote_average} />
+          <Rating vote_average={data.vote_average} />
           <Runtime runtime={data.episode_run_time[0]} />
         </HStack>
       </Stack>

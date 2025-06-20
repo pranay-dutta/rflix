@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Card from "../Card";
 import TvSeries from "@/interfaces/TvSeries";
 
-const MovieScroll = ({ media }: { media: Movie[] | TvSeries[] }) => {
+const MediaScroll = ({ media }: { media: Movie[] | TvSeries[] }) => {
   if (!media.length) return null;
 
   return (
@@ -26,4 +26,4 @@ const MovieScroll = ({ media }: { media: Movie[] | TvSeries[] }) => {
     </Swiper>
   );
 };
-export default MovieScroll;
+export default MediaScroll;

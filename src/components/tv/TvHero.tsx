@@ -63,7 +63,7 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
               <HStack>
                 <ReleaseDate date={series.first_air_date} />
                 <Runtime runtime={series.episode_run_time[0]} /> {/* runtime */}
-                <Rating rating={series.vote_average} />
+                <Rating vote_average={series.vote_average} />
               </HStack>
               <Text lineClamp={2} fontSize={{ sm: "sm", md: "normal" }}>
                 {series.overview}
