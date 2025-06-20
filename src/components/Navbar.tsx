@@ -59,7 +59,7 @@ const Navbar = () => {
 const DropDown = ({ navitem }: { navitem: NavItem }) => {
   const navigate = useNavigate();
 
-  if (!navitem.showDropdown)
+  if (!navitem.hasDropdown)
     return (
       <Link to={navitem.to}>
         <Button size="md" variant="ghost">

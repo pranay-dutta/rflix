@@ -2,20 +2,64 @@ import { IconType } from "react-icons";
 import { RiHome2Line, RiInformationLine, RiMovieLine, RiTvLine } from "react-icons/ri";
 import { GrSearchAdvanced } from "react-icons/gr";
 
+export interface NavItemChild {
+  icon?: IconType;
+  label: string;
+  to: string;
+}
 export interface NavItem {
   icon: IconType;
   label: string;
   to: string;
-  showDropdown: boolean;
+  hasDropdown: boolean;
+  children: NavItemChild[];
 }
 
 export const navItems: NavItem[] = [
-  { icon: RiHome2Line, label: "Home", to: "/", showDropdown: false },
-  { icon: RiMovieLine, label: "Movies", to: "/movies", showDropdown: true },
-  { icon: RiTvLine, label: "Tv Shows", to: "/tvshows", showDropdown: true },
-  { icon: GrSearchAdvanced, label: "Discover", to: "/discover", showDropdown: true },
-  { icon: RiInformationLine, label: "About", to: "/about", showDropdown: false },
+  { icon: RiHome2Line, label: "Home", to: "/", hasDropdown: false, children: [] },
+  {
+    icon: RiMovieLine,
+    label: "Movies",
+    to: "/movies",
+    hasDropdown: true,
+    children: [
+      { label: "Popular", to: "/movies/popular" },
+      { label: "Top Rated", to: "/movies/top_rated" },
+      { label: "Now Playing", to: "/movies/now_playing" },
+      { label: "Upcoming", to: "/movies/upcoming" },
+    ],
+  },
+  {
+    icon: RiTvLine,
+    label: "Tv Shows",
+    to: "/tvshows",
+    hasDropdown: true,
+    children: [
+      { label: "Popular", to: "/tvshows/popular" },
+      { label: "Top Rated", to: "/tvshows/top_rated" },
+      { label: "Airing Today", to: "/tvshows/airing_today" },
+      { label: "On The Air", to: "/tvshows/on_the_air" },
+    ],
+  },
+  {
+    icon: GrSearchAdvanced,
+    label: "Discover",
+    to: "/discover",
+    hasDropdown: true,
+    children: [
+      { label: "Discover Movies", to: "/disocver/movie" },
+      { label: "Discover Tv", to: "/disocver/tv" },
+    ],
+  },
+  {
+    icon: RiInformationLine,
+    label: "About",
+    to: "/about",
+    hasDropdown: false,
+    children: [],
+  },
 ];
+
 export function getTMDBImage(
   url: string,
   quality: "original" | "w500",
