@@ -4,7 +4,7 @@ import Title from "./Title";
 import { NavItem, NavItemChild, navItems } from "./constants";
 import SearchInput from "./SearchInput";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 const Sidebar = () => {
@@ -37,7 +37,7 @@ const DrawerMenu = () => {
         Menu
       </Heading>
       <List.Root listStyle="none" gap={4}>
-        {navItems.map((navitem) => <ListItem navitem={navitem} />)}
+        {navItems.map((navitem) => <ListItem key={navitem.to} navitem={navitem} />)}
         <SearchInput />
       </List.Root >
     </>
@@ -46,7 +46,7 @@ const DrawerMenu = () => {
 export default Sidebar;
 
 // Each navitem on the sidebar
-const ListItem = ({ navitem }: { navitem: NavItem }) => {
+const ListItem = React.memo(({ navitem }: { navitem: NavItem }) => {
   const navigate = useNavigate();
 
   const [showChildren, setShowChildren] = useState(false);
@@ -74,21 +74,18 @@ const ListItem = ({ navitem }: { navitem: NavItem }) => {
         <Text fontSize="medium">{navitem.label}</Text>
 
         {/* Dropdown indicator for child routes */}
-        {(navitem.hasDropdown && showChildren) ?
-          <MdOutlineKeyboardArrowDown size={20} /> :
-          (navitem.hasDropdown && !showChildren) ?
-            <MdOutlineKeyboardArrowRight size={20} /> :
-            null
-        }
+        {navitem.hasDropdown && (
+          showChildren ? <MdOutlineKeyboardArrowDown size={20} /> : <MdOutlineKeyboardArrowRight size={20} />
+        )}
 
       </HStack>
       {(navitem.hasDropdown && showChildren) && <ChildrenCollapsible children={navitem.children} />}
     </List.Item>
   )
-}
+})
 
 // Child routes of perticualar navitem
-const ChildrenCollapsible = ({ children }: { children: NavItemChild[] }) => {
+const ChildrenCollapsible = React.memo(({ children }: { children: NavItemChild[] }) => {
   return (
     <Stack gap={2} marginStart={9} marginTop={4} >
       {children.map((child) =>
@@ -101,4 +98,4 @@ const ChildrenCollapsible = ({ children }: { children: NavItemChild[] }) => {
       )}
     </Stack>
   )
-}
+})
