@@ -1,10 +1,10 @@
-import { Drawer, Heading, HStack, List, Portal, Separator, Stack, Text } from "@chakra-ui/react";
+import { Box, Drawer, Heading, HStack, List, Portal, Separator, Stack, Text } from "@chakra-ui/react";
 import { FaBars } from "react-icons/fa";
 import Title from "./Title";
 import { NavItem, NavItemChild, navItems } from "./constants";
 import SearchInput from "./SearchInput";
 import { Link, useNavigate } from "react-router-dom";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 const Sidebar = () => {
@@ -64,6 +64,11 @@ const ListItem = ({ navitem }: { navitem: NavItem }) => {
         gap={4}
         onClick={() => handleClick(navitem)}
         cursor="pointer"
+        bg="gray.900"
+        borderRadius="5px"
+        _hover={{ bg: "gray.800" }}
+        px={4}
+        py={2}
       >
         <navitem.icon size={20} />
         <Text fontSize="medium">{navitem.label}</Text>
@@ -85,12 +90,14 @@ const ListItem = ({ navitem }: { navitem: NavItem }) => {
 // Child routes of perticualar navitem
 const ChildrenCollapsible = ({ children }: { children: NavItemChild[] }) => {
   return (
-    <Stack gap={1} marginStart={9} marginTop={4}>
+    <Stack gap={2} marginStart={9} marginTop={4} >
       {children.map((child) =>
-        <Fragment key={child.to}>
-          <Link to={child.to}>{child.label}</Link>
-          < Separator />
-        </Fragment>
+        <Box key={child.to} w="fit-content" _hover={{ color: "blue.400" }}>
+          <Link to={child.to} className="inline-block">
+            <Text fontWeight="medium">{child.label}</Text>
+          </Link>
+          <Separator _hover={{ color: "blue.400" }} minW="inherit" />
+        </Box>
       )}
     </Stack>
   )
