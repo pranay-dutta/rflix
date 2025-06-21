@@ -75,7 +75,7 @@ const Wrapper = ({ children }: PropsWithChildren) => {
       borderWidth="1px"
       borderRadius="10px"
       px={{ lg: 10, base: 5 }}
-      py={{ lg: 8, base: 3 }}
+      py={{ lg: 8, base: 5 }}
     >
       {children}
     </Box>
