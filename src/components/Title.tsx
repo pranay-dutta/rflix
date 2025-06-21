@@ -6,7 +6,7 @@ const Title = () => {
 
   return (
     <Box display="flex" alignItems="center" onClick={() => navigate("/")} gap={1} cursor="pointer" userSelect="none">
-      <Image src="favicon.png" w={5} h={5} />
+      <Image src="/favicon.png" w={5} h={5} />
       <Heading fontSize="xl" fontWeight="bold">
         <Highlight styles={{ color: "purple.400" }} query="lix">
           Rflix
