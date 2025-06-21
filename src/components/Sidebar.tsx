@@ -1,4 +1,4 @@
-import { Box, Drawer, Heading, HStack, List, Portal, Separator, Stack, Text } from "@chakra-ui/react";
+import { Box, CloseButton, Drawer, HStack, Heading, List, Portal, Separator, Stack, Text } from "@chakra-ui/react";
 import { FaBars } from "react-icons/fa";
 import Title from "./Title";
 import { NavItem, NavItemChild, navItems } from "./constants";
@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowRight } from "react-icons/md";
 
+//TODO extract componenets
 const Sidebar = () => {
   return (
     <Drawer.Root>
@@ -17,8 +18,11 @@ const Sidebar = () => {
         <Drawer.Backdrop />
         <Drawer.Positioner>
           <Drawer.Content maxWidth="250px">
-            <Drawer.Header>
+            <Drawer.Header display="flex" justifyContent="space-between">
               <Title />
+              <Drawer.CloseTrigger position="static" asChild>
+                <CloseButton size="sm" />
+              </Drawer.CloseTrigger>
             </Drawer.Header>
             <Drawer.Body>
               <DrawerMenu />
@@ -93,7 +97,7 @@ const ChildrenCollapsible = React.memo(({ children }: { children: NavItemChild[]
           <Link to={child.to} className="inline-block">
             <Text fontWeight="medium">{child.label}</Text>
           </Link>
-          <Separator _hover={{ color: "blue.400" }} minW="inherit" />
+          <Separator minW="inherit" />
         </Box>
       )}
     </Stack>
