@@ -7,6 +7,7 @@ import { getTMDBImage } from './constants';
 const AiRecommended = () => {
   const { data: media, isLoading: isFetchingMovie, isError } = useMedia();
   const aiError = useGeneratedMedia(s => s.aiError);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -24,7 +25,7 @@ const AiRecommended = () => {
         </Box>
 
         {(media) && (
-          <Box mt={4} bg="" p={4} borderRadius="md" display="flex"
+          <Box mt={4} p={4} borderRadius="md" display="flex"
             bgImage="radial-gradient(circle, #000 45%, #a854f7 300%)"
             flexDir={{ base: "column", sm: "row" }}
             gap={5}
@@ -37,6 +38,8 @@ const AiRecommended = () => {
               aspectRatio={16 / 9}
               objectFit="contain"
               borderRadius="md"
+              cursor="pointer"
+              onClick={() => isMovieDetails(media) ? navigate("/info/movie/" + media.id) : navigate("/info/tv/" + media.id)}
             />
             <Box p={2} gap="3" display="flex" flexDir="column">
               <Heading>{isMovieDetails(media) ? media.original_title : media.name}</Heading>
@@ -55,10 +58,6 @@ const AiRecommended = () => {
   );
 };
 
-
-
-
-
 export default AiRecommended;
 
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -71,6 +70,7 @@ import Rating from './Rating';
 import { Quote } from './Quote';
 import isMovieDetails from '@/utils/isMovieDetails';
 import ReleaseDate from './ReleaseDate';
+import { useNavigate } from 'react-router-dom';
 
 interface FormData {
   query: string,

@@ -6,7 +6,7 @@ const Title = () => {
   const navigate = useNavigate();
 
   return (
-    <Box display="flex" alignItems="center" onClick={() => navigate("/")} gap={1} cursor="pointer">
+    <Box display="flex" alignItems="center" onClick={() => navigate("/")} gap={1} cursor="pointer" userSelect="none">
       <BiMoviePlay display="inline" size={20} />
       <Heading fontSize="xl" fontWeight="bold">
         <Highlight styles={{ color: "purple.400" }} query="lix">
