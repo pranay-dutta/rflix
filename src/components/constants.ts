@@ -48,7 +48,7 @@ export const navItems: NavItem[] = [
     hasDropdown: true,
     children: [
       { label: "Discover Movies", to: "/discover/movie" },
-      { label: "Discover Tv", to: "/discover/tv" },
+      { label: "Discover TV Shows", to: "/discover/tv" },
     ],
   },
   {
