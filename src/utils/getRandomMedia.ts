@@ -1,21 +1,17 @@
-type RandomData = {
-  type: "movie" | "tv";
+const media = ["movie", "tv"];
+
+type Data = {
   id: number;
+  type: "movie" | "tv";
 };
 
-const dataLength = 1e4;
+const getRandomMedia = () => {
+  const id = Math.floor(Math.random() * 1.3e4);
+  const j = Math.floor(Math.random() * 2);
 
-const getRandomMedia = async (): Promise<RandomData> => {
-  const i = Math.floor(Math.random() * 2);
-  const j = Math.floor(Math.random() * dataLength);
+  const type = media[j];
 
-  if (i === 0) {
-    const { movies_data } = await import("@/data/movies_data");
-    return movies_data[j] as RandomData;
-  } else {
-    const { tv_series_data } = await import("@/data/tv_series_data");
-    return tv_series_data[j] as RandomData;
-  }
+  return { type, id } as Data;
 };
 
 export default getRandomMedia;
