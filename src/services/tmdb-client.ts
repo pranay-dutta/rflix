@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
   },
 });
 
-class ApiClient<T> {
+class TmdbClient<T> {
   private endpoint: string;
 
   constructor(endpoint: string) {
@@ -25,4 +25,4 @@ class ApiClient<T> {
       .then((res) => res.data);
   };
 }
-export default ApiClient;
+export default TmdbClient;

@@ -1,14 +1,20 @@
 import { FetchResponse } from "@/interfaces/FetchResponse";
 import { useQuery } from "@tanstack/react-query";
-import { Movie } from "../interfaces/Movie";
 import ms from "ms";
-import BackendClient from "@/services/backend-client";
+import { Movie } from "../interfaces/Movie";
+import createClient from "@/services/client";
+
+const { DEV } = import.meta.env;
 
 const useSimilarMovies = (page: number, movieId: number) => {
-  const backendClient = new BackendClient<Movie>("/movie/similar/" + movieId);
+  const computedEndpoint = DEV
+    ? `/movie/${movieId}/similar`
+    : `/movie/similar/${movieId}`;
+
+  const client = createClient<Movie>(computedEndpoint);
   const { data, error, isLoading } = useQuery<FetchResponse<Movie>, Error>({
     queryKey: ["similarMovies", movieId],
-    queryFn: () => backendClient.getAll({ params: { page } }),
+    queryFn: () => client.getAll({ params: { page } }),
     staleTime: ms("1d"),
   });
   const similarMovies = data?.results;

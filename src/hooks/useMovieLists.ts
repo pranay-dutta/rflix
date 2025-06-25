@@ -2,17 +2,20 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { Movie } from "@/interfaces/Movie";
 import { FetchResponse } from "@/interfaces/FetchResponse";
 import ms from "ms";
-import BackendClient from "@/services/backend-client";
+import createClient from "@/services/client";
 
 export type MovieTags = "now_playing" | "popular" | "top_rated" | "upcoming";
+const { DEV } = import.meta.env;
+
 const useMovieLists = (endpoint: MovieTags) => {
-  const backendClient = new BackendClient<Movie>("/movie/tag/" + endpoint);
+  const computedEndpoint = DEV ? `/movie/${endpoint}` : `$/movie/tag/${endpoint}`;
+  const client = createClient<Movie>(computedEndpoint);
 
   const res = useInfiniteQuery<FetchResponse<Movie>>({
     queryKey: ["movies", endpoint],
     initialPageParam: 1,
     staleTime: ms("2h"),
-    queryFn: ({ pageParam }) => backendClient.getAll({ params: { page: pageParam } }),
+    queryFn: ({ pageParam }) => client.getAll({ params: { page: pageParam } }),
 
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.results.length ? allPages.length + 1 : undefined;

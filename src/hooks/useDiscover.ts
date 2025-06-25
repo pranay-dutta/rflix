@@ -1,5 +1,4 @@
 import { Movie } from "@/interfaces/Movie";
-import BackendClient from "@/services/backend-client";
 import {
   useSelectedMovieGenreStore,
   useSelectedTvGenreStore,
@@ -8,6 +7,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import ms from "ms";
 import { useSearchParams } from "react-router-dom";
 import TvSeries from "@/interfaces/TvSeries";
+import createClient from "@/services/client";
 
 type DiscoverType = {
   movie: Movie;
@@ -17,7 +17,7 @@ type DiscoverType = {
 const useDiscover = <T extends keyof DiscoverType>(endpoint: T) => {
   type MediaType = DiscoverType[T];
 
-  const backendClient = new BackendClient<MediaType>("/discover/" + endpoint);
+  const client = createClient<MediaType>("/discover/" + endpoint);
   const genres = useGenres(endpoint);
 
   const [searchParams] = useSearchParams();
@@ -28,7 +28,7 @@ const useDiscover = <T extends keyof DiscoverType>(endpoint: T) => {
     initialPageParam: 1,
     staleTime: ms("2h"),
     queryFn: ({ pageParam }) =>
-      backendClient.getAll({ params: { page: pageParam, with_genres: genres, sort_by } }),
+      client.getAll({ params: { page: pageParam, with_genres: genres, sort_by } }),
 
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.results.length ? allPages.length + 1 : undefined;

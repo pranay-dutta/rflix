@@ -2,14 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 import { Trailer } from "@/interfaces/Trailer";
 import { FetchResponse } from "@/interfaces/FetchResponse";
 import ms from "ms";
-import BackendClient from "@/services/backend-client";
+import createClient from "@/services/client";
+
+const { DEV } = import.meta.env;
 
 const useTrailers = (movieId: number) => {
-  const backendClient = new BackendClient<Trailer>(`/movie/videos/${movieId}`);
+  const computedEndpoint = DEV ? `/movie/${movieId}/videos` : `/movie/videos/${movieId}`;
+  const client = createClient<Trailer>(computedEndpoint);
 
   const { data, error, isLoading } = useQuery<FetchResponse<Trailer>, Error>({
     queryKey: ["trailer", movieId],
-    queryFn: backendClient.getAll,
+    queryFn: client.getAll,
     staleTime: ms("2h"),
   });
   const trailers = data?.results;
