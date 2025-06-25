@@ -8,7 +8,7 @@ export type MovieTags = "now_playing" | "popular" | "top_rated" | "upcoming";
 const { DEV } = import.meta.env;
 
 const useMovieLists = (endpoint: MovieTags) => {
-  const computedEndpoint = DEV ? `/movie/${endpoint}` : `$/movie/tag/${endpoint}`;
+  const computedEndpoint = DEV ? `/movie/${endpoint}` : `/movie/tag/${endpoint}`;
   const client = createClient<Movie>(computedEndpoint);
 
   const res = useInfiniteQuery<FetchResponse<Movie>>({

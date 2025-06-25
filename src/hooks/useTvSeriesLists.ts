@@ -8,7 +8,7 @@ export type TvSeriesTags = "popular" | "top_rated" | "airing_today" | "on_the_ai
 const { DEV } = import.meta.env;
 
 const useTvSeriesLists = (endpoint: TvSeriesTags) => {
-  const computedEndpoint = DEV ? `/tv/${endpoint}` : `/tv/tag/${endpoint} `;
+  const computedEndpoint = DEV ? `/tv/${endpoint}` : `/tv/tag/${endpoint}`;
 
   const client = createClient<TvSeries>(computedEndpoint);
   const res = useInfiniteQuery<FetchResponse<TvSeries>>({
