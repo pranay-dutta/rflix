@@ -68,7 +68,7 @@ const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
         <MediaPoster backdrop_path={movie.backdrop_path} />
 
         <SimpleGrid
-          className="md:absolute left-[2%] md:top-2 md:bottom-auto lg:top-auto lg:bottom-[3%]"
+          className="md:absolute left-[2%] md:bottom-[10%] lg:top-auto lg:bottom-[3%]"
           columns={{ base: 1, md: 4 }}
           gap={{ sm: 2, lg: 5 }}
         >
@@ -77,12 +77,16 @@ const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
             <Image
               src={getTMDBImage(movie.poster_path, "original", "vertical")}
               borderRadius="md"
+              objectFit="cover"
+              aspectRatio={2 / 3}
             />
           </GridItem>
           <GridItem colSpan={{ md: 3 }} px={2}>
             <Box display="flex" flexDirection="column" gap={5}>
               <Stack gap={4}>
-                <Heading mt={{ base: 2, md: 0 }} lineHeight="1" fontSize="4xl">{movie.title}</Heading>
+                <Heading mt={{ base: 2, md: 0 }} lineHeight="1" fontSize="4xl">
+                  {movie.title}
+                </Heading>
                 <Quote tagline={movie.tagline} />
               </Stack>
               <HStack flexWrap="wrap">
@@ -145,10 +149,8 @@ const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
         </SimpleGrid>
       </Box>
 
-      {/* Similar movies scroll compoent */}
-      <div ref={ref}>
-        {inView && <SimilarMovies />}
-      </div>
+      {/* Similar movies scroll component */}
+      <div ref={ref}>{inView && <SimilarMovies />}</div>
     </>
   );
 };

@@ -22,7 +22,7 @@ const Episodes = ({
       <Box display="flex" flexDirection="column" gap={5}>
         {skeletons.map((_, i) => (
           <Box key={i} display="flex" gap={5} flexDir={{ base: "column", md: "row" }}>
-            <Skeleton height="200px" width="350px" />
+            <Skeleton aspectRatio={12 / 7} w={{ base: "full", md: "350px" }} />
             <SkeletonText noOfLines={3} gap={2} />
           </Box>
         ))}

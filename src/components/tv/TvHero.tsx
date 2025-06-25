@@ -21,7 +21,7 @@ import { Quote } from "../Quote";
 import Season from "./Season";
 import { MediaPoster, MediaScroll, MediaScrollHeading } from "../common";
 import { useParams } from "react-router-dom";
-import { useInView } from "react-intersection-observer"
+import { useInView } from "react-intersection-observer";
 
 const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
@@ -34,7 +34,7 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
         <MediaPoster backdrop_path={series.backdrop_path} />
 
         <SimpleGrid
-          className="md:absolute left-[2%] md:top-2 md:bottom-auto lg:top-auto lg:bottom-[3%]"
+          className="md:absolute left-[2%] md:bottom-[10%] lg:top-auto lg:bottom-[3%]"
           columns={{ base: 1, md: 4 }}
           gap={{ sm: 2, lg: 5 }}
         >
@@ -43,6 +43,8 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
             <Image
               src={getTMDBImage(series.poster_path, "original", "vertical")}
               borderRadius="md"
+              objectFit="cover"
+              aspectRatio={2 / 3}
             />
           </GridItem>
           <GridItem colSpan={{ md: 3 }} px={2}>
@@ -113,7 +115,12 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
         </SimpleGrid>
       </Box>
       <div ref={ref} style={{ minHeight: "300px" }}>
-        {inView && <> <Season series={series} /> <SimilarSeries /> </>}
+        {inView && (
+          <>
+            {" "}
+            <Season series={series} /> <SimilarSeries />{" "}
+          </>
+        )}
       </div>
     </>
   );
