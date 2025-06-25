@@ -1,5 +1,5 @@
 import useSeason from "@/hooks/useSeason";
-import { Box, Skeleton, HStack, Text } from "@chakra-ui/react";
+import { Box, Skeleton, HStack, Text, SkeletonText } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import Rating from "../Rating";
 import ReleaseDate from "../ReleaseDate";
@@ -21,7 +21,10 @@ const Episodes = ({
     return (
       <Box display="flex" flexDirection="column" gap={5}>
         {skeletons.map((_, i) => (
-          <Skeleton key={i} height="200px" width="350px" />
+          <Box key={i} display="flex" gap={5} flexDir={{ base: "column", md: "row" }}>
+            <Skeleton height="200px" width="350px" />
+            <SkeletonText noOfLines={3} gap={2} />
+          </Box>
         ))}
       </Box>
     );

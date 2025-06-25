@@ -8,7 +8,9 @@ const SeasonImage = ({ episode }: { episode: Episode }) => {
     <Box position="relative">
       <Image
         className="object-cover rounded-md"
-        maxW={{ base: "full", md: "350px" }}
+        w={{ base: "full", md: "350px" }}
+        aspectRatio={12 / 7}
+        objectFit="cover"
         src={getTMDBImage(episode.still_path, "w500", "horizontal")}
       />
 
