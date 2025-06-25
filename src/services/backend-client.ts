@@ -1,8 +1,9 @@
 import { FetchResponse } from "@/interfaces/FetchResponse";
 import axios, { AxiosRequestConfig } from "axios";
+const { VITE_BACKEND_CLIENT, VITE_DEV_BACKEND_CLIENT, DEV } = import.meta.env;
 
 const axiosInstance = axios.create({
-  baseURL: "https://rflix-backend.vercel.app",
+  baseURL: DEV ? VITE_DEV_BACKEND_CLIENT : VITE_BACKEND_CLIENT,
 });
 
 class BackendClient<T> {
