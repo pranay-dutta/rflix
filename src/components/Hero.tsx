@@ -15,7 +15,6 @@ import InfoButton from "./InfoButton";
 import MovieWatchButton from "./WatchButton";
 import useMovieLists from "@/hooks/useMovieLists";
 
-
 const Hero = () => {
   const { data: movies } = useMovieLists("popular");
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -44,11 +43,9 @@ const Hero = () => {
                 className="w-full !px-5 flex flex-col gap-3 items-center md:items-start absolute bottom-5 left-0 md:bottom-[20%] md:left-[1%]"
               >
                 {/* Movie title logo */}
-                <Box maxH={300} maxW={350} >
-                  <MovieLogo movieId={movie.id} />
-                </Box>
+                <MovieLogo movieId={movie.id} />
 
-                {/* Movie Informations */}
+                {/* Movie Information */}
                 <HStack filter="contrast(2)" gap={4}>
                   <Rating vote_average={movie.vote_average} />
                   <ReleaseDate date={movie.release_date} />
@@ -69,9 +66,7 @@ const Hero = () => {
           </div>
         );
       })}
-
     </Swiper>
   );
 };
-
 export default Hero;
