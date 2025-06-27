@@ -14,7 +14,12 @@ const Providers = () => {
   return (
     <ClerkProvider
       publishableKey={VITE_CLERK_PUBLISHABLE_KEY}
-      appearance={{ baseTheme: dark }}
+      appearance={{
+        baseTheme: dark,
+        layout: {
+          unsafe_disableDevelopmentModeWarnings: true, // Disable development mode warnings in production
+        },
+      }}
     >
       <QueryClientProvider client={queryClient}>
         <Provider>
