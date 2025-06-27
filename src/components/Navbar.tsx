@@ -1,10 +1,4 @@
-import {
-  Button,
-  createListCollection,
-  Flex,
-  HStack,
-  Select,
-} from "@chakra-ui/react";
+import { Button, createListCollection, Flex, HStack, Select } from "@chakra-ui/react";
 import Sidebar from "./Sidebar";
 import Title from "./Title";
 import { navItems, NavItem } from "./constants";
@@ -12,7 +6,8 @@ import { useState, useEffect, Fragment } from "react";
 import SearchInput from "./SearchInput";
 import { HoverCard } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import { useMediaQuery } from "@uidotdev/usehooks"
+import { useMediaQuery } from "@uidotdev/usehooks";
+import LoginButton from "./common/LoginButton";
 
 const Navbar = () => {
   const isLargerThan1024 = useMediaQuery("only screen and (min-width: 1024px)");
@@ -28,6 +23,7 @@ const Navbar = () => {
 
   return (
     <HStack
+      as={"nav"}
       px={5}
       py={2}
       justifyContent="space-between"
@@ -39,19 +35,27 @@ const Navbar = () => {
       top={0}
       zIndex="100"
     >
-      <Title />
+      {isLargerThan1024 ? (
+        <>
+          <Title />
+          <Flex>
+            {navItems.map((navitem) => (
+              <DropDown key={navitem.label} navitem={navitem} />
+            ))}
+          </Flex>
 
-      {isLargerThan1024 && (
-        <Flex>
-          {navItems.map((navitem) => (
-            <DropDown key={navitem.label} navitem={navitem} />
-          ))}
-        </Flex>
+          <Flex width="250px" gap={4} alignItems="center">
+            <SearchInput />
+            <LoginButton />
+          </Flex>
+        </>
+      ) : (
+        <>
+          <LoginButton />
+          <Title />
+          <Sidebar />
+        </>
       )}
-      <HStack gap={4}>
-        {isLargerThan1024 && <SearchInput />}
-        {!isLargerThan1024 && <Sidebar />}
-      </HStack>
     </HStack>
   );
 };

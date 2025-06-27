@@ -1,5 +1,5 @@
 import { Box, HStack } from "@chakra-ui/react";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa6";
 import { Autoplay } from "swiper/modules";
@@ -69,4 +69,4 @@ const Hero = () => {
     </Swiper>
   );
 };
-export default Hero;
+export default memo(Hero);

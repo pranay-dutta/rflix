@@ -55,12 +55,12 @@ const router = createBrowserRouter([
       },
       {
         path: "discover/movie",
-        element: <MovieDiscoverPage />
+        element: <MovieDiscoverPage />,
       },
       {
         path: "discover/tv",
-        element: <TvDiscoverPage />
-      }
+        element: <TvDiscoverPage />,
+      },
     ],
   },
 ]);

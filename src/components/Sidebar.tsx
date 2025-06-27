@@ -1,4 +1,15 @@
-import { Box, CloseButton, Drawer, HStack, Heading, List, Portal, Separator, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  CloseButton,
+  Drawer,
+  HStack,
+  Heading,
+  List,
+  Portal,
+  Separator,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import { FaBars } from "react-icons/fa";
 import Title from "./Title";
 import { NavItem, NavItemChild, navItems } from "./constants";
@@ -7,7 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowRight } from "react-icons/md";
 
-//TODO extract componenets
+//TODO extract components
 const Sidebar = () => {
   return (
     <Drawer.Root>
@@ -41,9 +52,11 @@ const DrawerMenu = () => {
         Menu
       </Heading>
       <List.Root listStyle="none" gap={4}>
-        {navItems.map((navitem) => <ListItem key={navitem.to} navitem={navitem} />)}
+        {navItems.map((navitem) => (
+          <ListItem key={navitem.to} navitem={navitem} />
+        ))}
         <SearchInput />
-      </List.Root >
+      </List.Root>
     </>
   );
 };
@@ -58,9 +71,8 @@ const ListItem = React.memo(({ navitem }: { navitem: NavItem }) => {
     if (navitem.hasDropdown) {
       setShowChildren(!showChildren);
       return;
-    }
-    else navigate(navitem.to)
-  }
+    } else navigate(navitem.to);
+  };
 
   return (
     <List.Item>
@@ -78,28 +90,32 @@ const ListItem = React.memo(({ navitem }: { navitem: NavItem }) => {
         <Text fontSize="medium">{navitem.label}</Text>
 
         {/* Dropdown indicator for child routes */}
-        {navitem.hasDropdown && (
-          showChildren ? <MdOutlineKeyboardArrowDown size={20} /> : <MdOutlineKeyboardArrowRight size={20} />
-        )}
-
+        {navitem.hasDropdown &&
+          (showChildren ? (
+            <MdOutlineKeyboardArrowDown size={20} />
+          ) : (
+            <MdOutlineKeyboardArrowRight size={20} />
+          ))}
       </HStack>
-      {(navitem.hasDropdown && showChildren) && <ChildrenCollapsible children={navitem.children} />}
+      {navitem.hasDropdown && showChildren && (
+        <ChildrenCollapsible children={navitem.children} />
+      )}
     </List.Item>
-  )
-})
+  );
+});
 
-// Child routes of perticualar navitem
+// Child routes of particular navitem
 const ChildrenCollapsible = React.memo(({ children }: { children: NavItemChild[] }) => {
   return (
-    <Stack gap={2} marginStart={9} marginTop={4} >
-      {children.map((child) =>
+    <Stack gap={2} marginStart={9} marginTop={4}>
+      {children.map((child) => (
         <Box key={child.to} w="fit-content" _hover={{ color: "blue.400" }}>
           <Link to={child.to} className="inline-block">
             <Text fontWeight="medium">{child.label}</Text>
           </Link>
           <Separator minW="inherit" />
         </Box>
-      )}
+      ))}
     </Stack>
-  )
-})
+  );
+});
