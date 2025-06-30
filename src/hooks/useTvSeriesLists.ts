@@ -5,12 +5,15 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import ms from "ms";
 
 export type TvSeriesTags = "popular" | "top_rated" | "airing_today" | "on_the_air";
-const { DEV } = import.meta.env;
+const { VITE_USE_TMDB_CLIENT } = import.meta.env;
 
 const useTvSeriesLists = (endpoint: TvSeriesTags) => {
-  const computedEndpoint = DEV ? `/tv/${endpoint}` : `/tv/tag/${endpoint}`;
+  const computedEndpoint = VITE_USE_TMDB_CLIENT
+    ? `/tv/${endpoint}`
+    : `/tv/tag/${endpoint}`;
 
   const client = createClient<TvSeries>(computedEndpoint);
+
   const res = useInfiniteQuery<FetchResponse<TvSeries>>({
     queryKey: [endpoint, "series"],
     initialPageParam: 1,

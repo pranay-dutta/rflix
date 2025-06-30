@@ -4,10 +4,10 @@ import ms from "ms";
 import { Movie } from "../interfaces/Movie";
 import createClient from "@/services/client";
 
-const { DEV } = import.meta.env;
+const { VITE_USE_TMDB_CLIENT } = import.meta.env;
 
 const useSimilarMovies = (page: number, movieId: number) => {
-  const computedEndpoint = DEV
+  const computedEndpoint = VITE_USE_TMDB_CLIENT
     ? `/movie/${movieId}/similar`
     : `/movie/similar/${movieId}`;
 

@@ -5,10 +5,13 @@ import ms from "ms";
 import createClient from "@/services/client";
 
 export type MovieTags = "now_playing" | "popular" | "top_rated" | "upcoming";
-const { DEV } = import.meta.env;
+const { VITE_USE_TMDB_CLIENT } = import.meta.env;
 
 const useMovieLists = (endpoint: MovieTags) => {
-  const computedEndpoint = DEV ? `/movie/${endpoint}` : `/movie/tag/${endpoint}`;
+  const computedEndpoint = VITE_USE_TMDB_CLIENT
+    ? `/movie/${endpoint}`
+    : `/movie/tag/${endpoint}`;
+
   const client = createClient<Movie>(computedEndpoint);
 
   const res = useInfiniteQuery<FetchResponse<Movie>>({

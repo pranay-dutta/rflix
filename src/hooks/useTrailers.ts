@@ -4,10 +4,13 @@ import { FetchResponse } from "@/interfaces/FetchResponse";
 import ms from "ms";
 import createClient from "@/services/client";
 
-const { DEV } = import.meta.env;
+const { VITE_USE_TMDB_CLIENT } = import.meta.env;
 
 const useTrailers = (movieId: number) => {
-  const computedEndpoint = DEV ? `/movie/${movieId}/videos` : `/movie/videos/${movieId}`;
+  const computedEndpoint = VITE_USE_TMDB_CLIENT
+    ? `/movie/${movieId}/videos`
+    : `/movie/videos/${movieId}`;
+
   const client = createClient<Trailer>(computedEndpoint);
 
   const { data, error, isLoading } = useQuery<FetchResponse<Trailer>, Error>({

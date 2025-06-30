@@ -1,10 +1,12 @@
 import TmdbClient from "./tmdb-client";
 import BackendClient from "./backend-client";
 
-const { DEV } = import.meta.env;
+const { VITE_USE_TMDB_CLIENT } = import.meta.env;
 
 const createClient = <T>(endpoint: string) => {
-  return DEV ? new TmdbClient<T>(endpoint) : new BackendClient<T>(endpoint);
+  return VITE_USE_TMDB_CLIENT
+    ? new TmdbClient<T>(endpoint)
+    : new BackendClient<T>(endpoint);
 };
 
 export default createClient;
