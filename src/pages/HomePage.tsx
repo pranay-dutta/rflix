@@ -1,13 +1,14 @@
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
-import { Box } from "@chakra-ui/react";
+import { Box, Skeleton } from "@chakra-ui/react";
 import { MediaScroll, MediaScrollHeading } from "@/components/common";
 import isMovie from "@/utils/isMovie";
 import AiRecommended from "@/components/AiRecommended";
 import { Fragment } from "react/jsx-runtime";
-import { PropsWithChildren } from "react";
+import { ReactNode } from "react";
 import { useHomeData } from "@/hooks/useHomeData";
+import { useInView } from "react-intersection-observer";
 
 const HomePage = () => {
   const { isLoading, reels } = useHomeData();
@@ -18,23 +19,23 @@ const HomePage = () => {
       {!isLoading && (
         <Box className="w-full md:-mt-32! sm:!px-10 !px-2 z-10 relative">
           {reels.map(
-            ({ media, heading }, index) =>
-              media && (
-                <Fragment key={heading}>
+            (reel, index) =>
+              reel.media && (
+                <Fragment key={reel.heading}>
                   {index === 1 && (
-                    <Wrapper>
+                    <Wrapper isAi={true}>
                       <AiRecommended />
                     </Wrapper>
                   )}
                   <Wrapper>
                     <Box mb={3}>
                       <MediaScrollHeading
-                        highlight={isMovie(media) ? "Movies" : "TV Shows"}
+                        highlight={isMovie(reel.media) ? "Movies" : "TV Shows"}
                       >
-                        {heading}
+                        {reel.heading}
                       </MediaScrollHeading>
                     </Box>
-                    <MediaScroll media={media} />
+                    <MediaScroll media={reel.media} />
                   </Wrapper>
                 </Fragment>
               ),
@@ -45,10 +46,17 @@ const HomePage = () => {
     </Box>
   );
 };
+interface Props {
+  children: ReactNode;
+  isAi?: boolean;
+}
 
-const Wrapper = ({ children }: PropsWithChildren) => {
+const Wrapper = ({ children }: Props) => {
+  const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
   return (
-    <Box
+    <Skeleton
+      ref={ref}
+      loading={!inView}
       my={5}
       bg="gray.950"
       borderWidth="1px"
@@ -56,8 +64,8 @@ const Wrapper = ({ children }: PropsWithChildren) => {
       px={{ lg: 10, base: 5 }}
       py={{ lg: 8, base: 5 }}
     >
-      {children}
-    </Box>
+      {inView ? children : <Box h={"330px"} />}
+    </Skeleton>
   );
 };
 
