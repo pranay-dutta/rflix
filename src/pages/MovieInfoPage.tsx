@@ -78,6 +78,7 @@ const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
               src={getTMDBImage(movie.poster_path, "original", "vertical")}
               borderRadius="md"
               objectFit="cover"
+              className="lg:w-80"
               aspectRatio={2 / 3}
             />
           </GridItem>

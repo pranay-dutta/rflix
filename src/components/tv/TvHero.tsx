@@ -43,6 +43,7 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
             <Image
               src={getTMDBImage(series.poster_path, "original", "vertical")}
               borderRadius="md"
+              className="lg:w-80"
               objectFit="cover"
               aspectRatio={2 / 3}
             />
