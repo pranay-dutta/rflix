@@ -4,7 +4,7 @@ import { BsPersonFill } from "react-icons/bs";
 
 const LoginButton = () => {
   const { isSignedIn } = useSession();
-  if (isSignedIn) return <UserButton />;
+  if (isSignedIn) return <UserButton  />;
 
   return (
     <Box cursor="pointer">

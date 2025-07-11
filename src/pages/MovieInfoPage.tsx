@@ -1,6 +1,6 @@
 import { getTMDBImage } from "@/components/constants";
 import useMovie from "@/hooks/useMovie";
-import { BiPlay } from "react-icons/bi";
+import { FaPlay } from "react-icons/fa";
 import {
   Badge,
   Box,
@@ -20,10 +20,11 @@ import useSimilarMovies from "@/hooks/useSimilarMovies";
 import { Quote } from "../components/Quote";
 import Runtime from "@/components/Runtime";
 import BackButton from "@/components/BackButton";
-import MovieWatchButton from "@/components/WatchButton";
+import MovieWatchButton from "@/components/MovieWatchButton";
 import { MediaScroll, MediaScrollHeading, MediaPoster } from "@/components/common";
 import { MovieDetails } from "@/interfaces/MovieDetails";
 import { useInView } from "react-intersection-observer";
+import WatchListButton from "@/components/WatchListButton";
 
 const MovieInfoPage = () => {
   const { id } = useParams();
@@ -105,9 +106,18 @@ const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
               <Text lineClamp={2} fontSize={{ sm: "sm", md: "normal" }}>
                 {movie.overview}
               </Text>
-              <MovieWatchButton id={movie.id} icon={BiPlay}>
-                Watch Now
-              </MovieWatchButton>
+              <HStack gap={4}>
+                <MovieWatchButton id={movie.id} icon={FaPlay}>
+                  Watch Now
+                </MovieWatchButton>
+                <WatchListButton
+                  id={movie.id}
+                  type="movie"
+                  posterPath={movie.poster_path}
+                  title={movie.title}
+                  rating={movie.vote_average}
+                />
+              </HStack>
             </Box>
 
             <Stack mt={5}>

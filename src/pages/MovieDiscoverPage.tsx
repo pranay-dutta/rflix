@@ -7,7 +7,7 @@ import SortDropDown from "@/components/common/SortDropDown";
 import { useState } from "react";
 import MovieGenrePills from "@/components/movie/MovieGenrePills";
 import { CollapsibleWrapper } from "@/components/common/CollapsibleWrapper";
-import DiscoverPageHeading from "@/components/common/DiscoverPageHeading";
+import PageHeading from "@/components/common/PageHeading";
 import { CollapsibleToggleButton } from "@/components/common/CollapsibleToggleButton";
 
 const MovieDiscoverPage = () => {
@@ -18,12 +18,12 @@ const MovieDiscoverPage = () => {
     isFetchingNextPage,
     isLoading,
     data,
-    error
+    error,
   } = useDiscover("movie");
 
   if (isLoading) return <Spinner size="md" />;
-  if (!data) return <h1>No data found </h1>
-  if (error) return <h1>Error {error.message}</h1>
+  if (!data) return <h1>No data found </h1>;
+  if (error) return <h1>Error {error.message}</h1>;
 
   return (
     <InfiniteScroll
@@ -35,8 +35,8 @@ const MovieDiscoverPage = () => {
     >
       <MediaGrid media={data} />
     </InfiniteScroll>
-  )
-}
+  );
+};
 
 const Wrapper = () => {
   const [open, setOpen] = useState(false);
@@ -44,8 +44,8 @@ const Wrapper = () => {
   return (
     <>
       <Box mb={5} mt={3}>
-        <DiscoverPageHeading query="Movies">Discover Movies</DiscoverPageHeading>
-        <Flex my={3} gap={5} >
+        <PageHeading query="Movies">Discover Movies</PageHeading>
+        <Flex my={3} gap={5}>
           <CollapsibleToggleButton open={open} onClick={() => setOpen(!open)} />
           <Box flexGrow={{ base: 1, md: 0 }}>
             <SortDropDown mediaType="movie" />
@@ -59,13 +59,7 @@ const Wrapper = () => {
       {/* Isolated query grid to avoid erasing select component state on query*/}
       <MovieDiscoverPage />
     </>
-  )
-}
+  );
+};
 
-export default Wrapper
-
-
-
-
-
-
+export default Wrapper;

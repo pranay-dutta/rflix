@@ -147,7 +147,7 @@ const AiInput = ({ isFetchingMovie }: { isFetchingMovie: boolean }) => {
       {/* Search Button */}
       <Button
         variant="subtle"
-        color="purple.500"
+        color={"purple.500"}
         type="submit"
         disabled={isFetchingAi || isFetchingMovie}
       >

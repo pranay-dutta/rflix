@@ -1,6 +1,7 @@
 import { IconType } from "react-icons";
-import { RiHome2Line, RiInformationLine, RiMovieLine, RiTvLine } from "react-icons/ri";
+import { RiHome2Line, RiMovieLine, RiTvLine } from "react-icons/ri";
 import { GrSearchAdvanced } from "react-icons/gr";
+import { BiCustomize } from "react-icons/bi";
 
 export interface NavItemChild {
   icon?: IconType;
@@ -52,11 +53,15 @@ export const navItems: NavItem[] = [
     ],
   },
   {
-    icon: RiInformationLine,
-    label: "About",
-    to: "/about",
-    hasDropdown: false,
-    children: [],
+    icon: BiCustomize,
+    label: "Others",
+    to: "",
+    hasDropdown: true,
+    children: [
+      { label: "Customize", to: "/customize" },
+      { label: "About", to: "/about" },
+      { label: "Watch List", to: "/watchlist" },
+    ],
   },
 ];
 

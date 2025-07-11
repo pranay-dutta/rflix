@@ -1,11 +1,11 @@
 import { Heading, Highlight } from "@chakra-ui/react";
 
 interface Props {
-  query: string
-  children: string
+  query: string;
+  children: string;
 }
 
-const DiscoverPageHeading = ({ query, children }: Props) => {
+const PageHeading = ({ query, children }: Props) => {
   return (
     <Heading size="3xl" as={"h1"}>
       <Highlight query={query} styles={{ color: "purple.400" }}>
@@ -13,5 +13,5 @@ const DiscoverPageHeading = ({ query, children }: Props) => {
       </Highlight>
     </Heading>
   );
-}
-export default DiscoverPageHeading
+};
+export default PageHeading;

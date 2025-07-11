@@ -22,6 +22,7 @@ import Season from "./Season";
 import { MediaPoster, MediaScroll, MediaScrollHeading } from "../common";
 import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
+import WatchListButton from "../WatchListButton";
 
 const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
@@ -71,9 +72,19 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
               <Text lineClamp={2} fontSize={{ sm: "sm", md: "normal" }}>
                 {series.overview}
               </Text>
-              <TvSeriesWatchButton id={series.id} season={1} episode={1} icon={BiPlay}>
-                Watch Now
-              </TvSeriesWatchButton>
+
+              <HStack gap={4}>
+                <TvSeriesWatchButton id={series.id} season={1} episode={1} icon={BiPlay}>
+                  Watch Now
+                </TvSeriesWatchButton>
+                <WatchListButton
+                  id={series.id}
+                  type="tv"
+                  posterPath={series.poster_path}
+                  title={series.name}
+                  rating={series.vote_average}
+                />
+              </HStack>
             </Box>
 
             <Stack mt={5}>

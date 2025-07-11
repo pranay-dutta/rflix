@@ -44,7 +44,7 @@ const Navbar = () => {
             ))}
           </Flex>
 
-          <Flex width="250px" gap={4} alignItems="center">
+          <Flex w="250px" gap={4} alignItems="center">
             <SearchInput />
             <LoginButton />
           </Flex>
@@ -116,6 +116,10 @@ const mediaTags = createListCollection({
 
     { label: "Movies", value: "movie", tag: "discover" },
     { label: "TV Shows", value: "tv", tag: "discover" },
+
+    { label: "About", value: "about", tag: "others" },
+    { label: "Watch List", value: "watchlist", tag: "others" },
+    { label: "Customize", value: "customize", tag: "others" },
 
     { label: "Popular", value: "popular", tag: "tv shows" },
     { label: "Top Rated", value: "top_rated", tag: "tv shows" },

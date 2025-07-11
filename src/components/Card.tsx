@@ -61,7 +61,7 @@ const Card = ({ media }: Props) => {
           opacity={show ? 1 : 0}
           transition="opacity 0.3s ease-in-out"
           position="absolute"
-          bottom={10}
+          bottom={8}
           px={2}
           w="full"
           gap={2}

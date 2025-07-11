@@ -11,6 +11,8 @@ import AboutPage from "./pages/AboutPage";
 import TvSeriesGrid from "./components/TvSeriesGrid";
 import MovieDiscoverPage from "./pages/MovieDiscoverPage";
 import TvDiscoverPage from "./pages/TvDiscoverPage";
+import CustomizePage from "./pages/CustomizePage";
+import WatchListPage from "./pages/WatchListPage";
 
 const router = createBrowserRouter([
   {
@@ -50,16 +52,24 @@ const router = createBrowserRouter([
         element: <TvSeriesGrid />,
       },
       {
-        path: "about",
-        element: <AboutPage />,
-      },
-      {
         path: "discover/movie",
         element: <MovieDiscoverPage />,
       },
       {
         path: "discover/tv",
         element: <TvDiscoverPage />,
+      },
+      {
+        path: "about",
+        element: <AboutPage />,
+      },
+      {
+        path: "watchlist",
+        element: <WatchListPage />,
+      },
+      {
+        path: "customize",
+        element: <CustomizePage />,
       },
     ],
   },

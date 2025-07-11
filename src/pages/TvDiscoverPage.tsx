@@ -5,7 +5,7 @@ import MediaGrid from "@/components/MediaGrid";
 import InfiniteScrollEndMessage from "@/components/common/InfiniteScrollEndMessage";
 import TvGenrePills from "@/components/tv/TvGenrePills";
 import { useState } from "react";
-import DiscoverPageHeading from "@/components/common/DiscoverPageHeading";
+import PageHeading from "@/components/common/PageHeading";
 import { CollapsibleWrapper } from "@/components/common/CollapsibleWrapper";
 import SortDropDown from "@/components/common/SortDropDown";
 import { CollapsibleToggleButton } from "@/components/common/CollapsibleToggleButton";
@@ -18,13 +18,12 @@ const TvDiscoverPage = () => {
     isFetchingNextPage,
     isLoading,
     data,
-    error
+    error,
   } = useDiscover("tv");
 
-
   if (isLoading) return <Spinner size="md" />;
-  if (!data) return <h1>No data found </h1>
-  if (error) return <h1>Error {error.message}</h1>
+  if (!data) return <h1>No data found </h1>;
+  if (error) return <h1>Error {error.message}</h1>;
 
   return (
     <InfiniteScroll
@@ -36,8 +35,8 @@ const TvDiscoverPage = () => {
     >
       <MediaGrid media={data} />
     </InfiniteScroll>
-  )
-}
+  );
+};
 
 const Wrapper = () => {
   const [open, setOpen] = useState(false);
@@ -45,11 +44,9 @@ const Wrapper = () => {
   return (
     <>
       <Box mb={5} mt={3}>
-        <DiscoverPageHeading query="TV Shows">
-          Discover TV Shows
-        </DiscoverPageHeading>
+        <PageHeading query="TV Shows">Discover TV Shows</PageHeading>
 
-        <Flex my={3} gap={5} >
+        <Flex my={3} gap={5}>
           <CollapsibleToggleButton open={open} onClick={() => setOpen(!open)} />
           <Box flexGrow={{ base: 1, md: 0 }}>
             <SortDropDown mediaType="tv" />
@@ -63,6 +60,6 @@ const Wrapper = () => {
 
       <TvDiscoverPage />
     </>
-  )
-}
-export default Wrapper
+  );
+};
+export default Wrapper;
