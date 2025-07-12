@@ -81,7 +81,7 @@ const WatchList = () => {
         }}
         gap={4}
       >
-        {Array.from(wishListItems.values(), (item) => (
+        {[...wishListItems.values()].reverse().map((item) => (
           <WatchListCard key={item.id} watchListItem={item} />
         ))}
       </Grid>
