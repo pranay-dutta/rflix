@@ -2,9 +2,20 @@ import { Movie } from "@/interfaces/Movie";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Card from "../Card";
 import TvSeries from "@/interfaces/TvSeries";
+import { WatchListItem } from "@/store/watchListStore";
+import WatchListCard from "./WatchListCard";
 
-const MediaScroll = ({ media }: { media: Movie[] | TvSeries[] }) => {
-  if (!media.length) return null;
+interface Props {
+  media?: Movie[] | TvSeries[];
+  watchListItems?: WatchListItem[];
+  loop?: boolean;
+}
+
+const MediaScroll = ({ media, watchListItems, loop = true }: Props) => {
+  if (media && !media.length) return null;
+
+  //Show only top 10 watchlist items
+  const watchListItems10: WatchListItem[] = watchListItems?.slice(0, 10) || [];
 
   return (
     <Swiper
@@ -15,10 +26,16 @@ const MediaScroll = ({ media }: { media: Movie[] | TvSeries[] }) => {
         1024: { slidesPerView: 6 },
         1080: { slidesPerView: 7 },
       }}
-      loop
+      loop={loop}
       spaceBetween={15}
     >
-      {media.map((media) => (
+      {watchListItems10.map((watchListItem) => (
+        <SwiperSlide className="py-3!">
+          <WatchListCard watchListItem={watchListItem} />
+        </SwiperSlide>
+      ))}
+
+      {media?.map((media) => (
         <SwiperSlide className="py-3!">
           <Card key={media.id} media={media} />
         </SwiperSlide>

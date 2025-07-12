@@ -2,6 +2,7 @@ import useTrailers from "@/hooks/useTrailers";
 import { useEffect, useRef } from "react";
 import MovieBackdropImage from "./MovieBackdropImage";
 import { Skeleton } from "@chakra-ui/react";
+import useCustomizationStore from "@/store/customizationStore";
 
 interface Props {
   isActive: boolean;
@@ -10,6 +11,7 @@ interface Props {
 
 const MovieTrailer = ({ movieId, isActive = false }: Props) => {
   const { trailers, isLoading } = useTrailers(movieId);
+  const disableHomepageVideo = useCustomizationStore((s) => s.disableHomepageVideo);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // ▶️ Play or ⏸ Pause depending on isActive
@@ -29,7 +31,7 @@ const MovieTrailer = ({ movieId, isActive = false }: Props) => {
   const youtubeId = trailers?.find((trailer) => trailer.type === "Trailer")?.key;
 
   if (isLoading) return <Skeleton width="100%" height="100%" />;
-  if (!youtubeId || window.innerWidth < 1024)
+  if (!youtubeId || window.innerWidth < 1024 || disableHomepageVideo)
     return <MovieBackdropImage movieId={movieId} />;
 
   return (

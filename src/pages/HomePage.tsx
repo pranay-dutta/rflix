@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
-import { Box, Skeleton } from "@chakra-ui/react";
+import { Box, Flex, Skeleton, Text } from "@chakra-ui/react";
 import { MediaScroll, MediaScrollHeading } from "@/components/common";
 import isMovie from "@/utils/isMovie";
 import AiRecommended from "@/components/AiRecommended";
@@ -9,9 +9,18 @@ import { Fragment } from "react/jsx-runtime";
 import { ReactNode } from "react";
 import { useHomeData } from "@/hooks/useHomeData";
 import { useInView } from "react-intersection-observer";
+import useWatchListStore from "@/store/watchListStore";
+import useCustomizationStore from "@/store/customizationStore";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const { isLoading, reels } = useHomeData();
+  const watchList = useWatchListStore((s) => s.watchList);
+  const watchListItems = [...watchList.values()].reverse();
+  const disableWatchListHomepage = useCustomizationStore(
+    (s) => s.disableWatchListHomepage,
+  );
+
   return (
     <Box>
       <Navbar />
@@ -22,8 +31,21 @@ const HomePage = () => {
             (reel, index) =>
               reel.media && (
                 <Fragment key={reel.heading}>
+                  {index == 0 && watchList.size > 0 && !disableWatchListHomepage && (
+                    <Wrapper isWatchList>
+                      <Flex mb={3} justifyContent="space-between">
+                        <MediaScrollHeading highlight={"Watch List"}>
+                          Your Watch List
+                        </MediaScrollHeading>
+                        <Link to="/watchlist">
+                          <Text fontSize="md">View all</Text>
+                        </Link>
+                      </Flex>
+                      <MediaScroll loop={false} watchListItems={watchListItems} />
+                    </Wrapper>
+                  )}
                   {index === 1 && (
-                    <Wrapper isAi={true}>
+                    <Wrapper>
                       <AiRecommended />
                     </Wrapper>
                   )}
@@ -48,17 +70,21 @@ const HomePage = () => {
 };
 interface Props {
   children: ReactNode;
-  isAi?: boolean;
+  isWatchList?: boolean;
 }
 
-const Wrapper = ({ children }: Props) => {
+const Wrapper = ({ children, isWatchList }: Props) => {
   const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
+  const activePalette = useCustomizationStore((s) => s.activePalette);
+
   return (
     <Skeleton
       ref={ref}
       loading={!inView}
       my={5}
-      bg="gray.950"
+      background="gray.950"
+      borderBottomColor={isWatchList ? `${activePalette}` : "bg.subtle"}
+      borderTopColor={isWatchList ? `${activePalette}` : "bg.subtle"}
       borderWidth="1px"
       borderRadius="10px"
       px={{ lg: 10, base: 5 }}
