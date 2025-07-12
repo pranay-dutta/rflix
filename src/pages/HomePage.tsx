@@ -83,8 +83,9 @@ const Wrapper = ({ children, isWatchList }: Props) => {
       loading={!inView}
       my={5}
       background="gray.950"
-      borderBottomColor={isWatchList ? `${activePalette}` : "bg.subtle"}
-      borderTopColor={isWatchList ? `${activePalette}` : "bg.subtle"}
+      bgImage={
+        isWatchList ? `radial-gradient(circle, #000 45%, ${activePalette} 300%)` : "none"
+      }
       borderWidth="1px"
       borderRadius="10px"
       px={{ lg: 10, base: 5 }}

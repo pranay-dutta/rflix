@@ -8,7 +8,7 @@ import SignUp from "./SignUp";
 
 const Layout = () => {
   const { isSignedIn } = useSession();
-  if (!isSignedIn) return <SignUp />
+  if (!isSignedIn) return <SignUp />;
 
   return (
     <div>

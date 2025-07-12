@@ -77,6 +77,7 @@ const CustomizePage = () => {
     </>
   );
 };
+//TODO: Extract components
 
 interface CustomizationBoxProps {
   heading: string;

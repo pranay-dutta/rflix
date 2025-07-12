@@ -1,10 +1,11 @@
-import { Box, HStack, Image, Text, Stack } from "@chakra-ui/react";
+import useCustomizationStore from "@/store/customizationStore";
+import { WatchListItem } from "@/store/watchListStore";
+import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Rating from "../Rating";
-import { WatchListItem } from "@/store/watchListStore";
-import Gradient from "../Gradient";
 import { getTMDBImage } from "../constants";
+import Gradient from "../Gradient";
+import Rating from "../Rating";
 import WatchListButton from "../WatchListButton";
 
 interface Props {
@@ -13,6 +14,8 @@ interface Props {
 
 const WatchListCard = ({ watchListItem }: Props) => {
   const [show, setShow] = useState<boolean>(false);
+  const activePalette = useCustomizationStore((s) => s.activePalette);
+
   const navigate = useNavigate();
   const path =
     `/info/${watchListItem.type === "movie" ? "movie/" : "tv/"}` + watchListItem.id;
@@ -68,7 +71,7 @@ const WatchListCard = ({ watchListItem }: Props) => {
         <Text fontSize="md" fontWeight="medium" lineClamp="1">
           {watchListItem.title}
         </Text>
-        <Text fontSize="lg" fontWeight="medium" color="purple.400">
+        <Text fontSize="lg" fontWeight="medium" color={`${activePalette}.400`}>
           {watchListItem.type === "movie" ? "Movie" : "TV Series"}
         </Text>
       </Stack>

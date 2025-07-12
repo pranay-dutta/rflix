@@ -12,17 +12,19 @@ import { RiAiGenerate2 } from "react-icons/ri";
 import { BsStars } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi";
 import { getTMDBImage } from "./constants";
+import useCustomizationStore from "@/store/customizationStore";
 
 const AiRecommended = () => {
   const { data: media, isLoading: isFetchingMovie, isError } = useMedia();
   const aiError = useGeneratedMedia((s) => s.aiError);
+  const activePalette = useCustomizationStore((s) => s.activePalette);
 
   const navigate = useNavigate();
 
   return (
     <>
       <Box>
-        <Heading size="md" mb={4} color="purple.500">
+        <Heading size="md" mb={4} color={`${activePalette}.500`}>
           Get a random Movie or Tv Series
         </Heading>
         <AiInput isFetchingMovie={isFetchingMovie} />
@@ -45,7 +47,7 @@ const AiRecommended = () => {
             p={4}
             borderRadius="md"
             display="flex"
-            bgImage="radial-gradient(circle, #000 45%, #a854f7 300%)"
+            bgImage={`radial-gradient(circle, #000 45%, ${activePalette} 300%)`}
             flexDir={{ base: "column", sm: "row" }}
             gap={5}
           >
@@ -105,6 +107,7 @@ interface FormData {
 const AiInput = ({ isFetchingMovie }: { isFetchingMovie: boolean }) => {
   const setGeneratedMedia = useGeneratedMedia((s) => s.setGeneratedMedia);
   const setAiError = useGeneratedMedia((s) => s.setAiError);
+  const activePalette = useCustomizationStore((s) => s.activePalette);
   const [isFetchingAi, setFetchingAi] = useState(false);
 
   //Form Submission
@@ -147,7 +150,7 @@ const AiInput = ({ isFetchingMovie }: { isFetchingMovie: boolean }) => {
       {/* Search Button */}
       <Button
         variant="subtle"
-        color={"purple.500"}
+        color={`${activePalette}.500`}
         type="submit"
         disabled={isFetchingAi || isFetchingMovie}
       >
@@ -162,7 +165,7 @@ const AiInput = ({ isFetchingMovie }: { isFetchingMovie: boolean }) => {
             Loading <BsStars />
           </>
         }
-        color="purple.500"
+        color={`${activePalette}.500`}
         onClick={handleClick}
         loading={isFetchingAi || isFetchingMovie}
       >

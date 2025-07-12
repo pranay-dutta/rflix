@@ -15,6 +15,8 @@ interface Props {
 const WatchListButton = ({ type, id, posterPath, title, rating = 0, hideBg }: Props) => {
   const disableWatchList = useCustomizationStore((state) => state.disableWatchList);
   const inWishlist = useWatchListStore((state) => state.inWatchList(type, id));
+  const activePalette = useCustomizationStore((s) => s.activePalette);
+
   const addToWishlist = useWatchListStore((state) => state.addToWatchList);
   const removeFromWishlist = useWatchListStore((state) => state.removeFromWatchList);
 
@@ -45,7 +47,7 @@ const WatchListButton = ({ type, id, posterPath, title, rating = 0, hideBg }: Pr
       paddingY={2}
       backgroundColor="whiteAlpha.200"
       color="whiteAlpha.900"
-      background={inWishlist ? "blue.500" : "whiteAlpha.200"}
+      background={inWishlist ? `${activePalette}.500` : "whiteAlpha.200"}
       borderRadius="md"
       fontWeight={500}
       _focus={{ outline: "none", boxShadow: "outline" }}

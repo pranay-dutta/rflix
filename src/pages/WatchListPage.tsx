@@ -10,8 +10,11 @@ import { GiEmptyWoodBucket, GiSightDisabled } from "react-icons/gi";
 
 const WatchList = () => {
   const wishListItems = useWatchListStore((state) => state.watchList);
-  const disableWatchList = useCustomizationStore((state) => state.disableWatchList);
   const clearWatchList = useWatchListStore((state) => state.clearWatchList);
+
+  const disableWatchList = useCustomizationStore((state) => state.disableWatchList);
+  const activePalette = useCustomizationStore((s) => s.activePalette);
+
   const isBelow480 = useMediaQuery("only screen and (max-width: 480px)");
 
   if (disableWatchList) {
@@ -22,7 +25,7 @@ const WatchList = () => {
           Please enable the watch list feature in the customization settings.
           <br />
           <Link to="/customize">
-            <Text color="purple.300">Enable watch list from here</Text>
+            <Text color={`${activePalette}.300`}>Enable watch list from here</Text>
           </Link>
           <Flex
             justifyContent="center"

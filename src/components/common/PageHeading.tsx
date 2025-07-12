@@ -1,3 +1,4 @@
+import useCustomizationStore from "@/store/customizationStore";
 import { Heading, Highlight } from "@chakra-ui/react";
 
 interface Props {
@@ -6,9 +7,10 @@ interface Props {
 }
 
 const PageHeading = ({ query, children }: Props) => {
+  const activePalette = useCustomizationStore((s) => s.activePalette);
   return (
     <Heading size="3xl" as={"h1"}>
-      <Highlight query={query} styles={{ color: "purple.400" }}>
+      <Highlight query={query} styles={{ color: `${activePalette}.400` }}>
         {children}
       </Highlight>
     </Heading>
