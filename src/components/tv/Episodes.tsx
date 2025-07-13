@@ -65,7 +65,7 @@ const EpisodeItem = ({
   imageHeight,
 }: EpisodeItemProps) => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
-  const textHeight = 116;
+  const textHeight = episode.overview.length ? 136 : 70;
   const totalHeight = imageHeight + textHeight;
 
   return (
@@ -85,7 +85,7 @@ const EpisodeItem = ({
               <Link
                 to={`/watch/tv/${seriesId}/${seasonNumber}/${episode.episode_number}`}
               >
-                <Text fontSize="xl" fontWeight="medium">
+                <Text fontSize="xl" fontWeight="medium" lineClamp={1}>
                   {episode.name}
                 </Text>
               </Link>
