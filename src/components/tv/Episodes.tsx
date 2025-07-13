@@ -5,6 +5,9 @@ import Rating from "../Rating";
 import ReleaseDate from "../ReleaseDate";
 import Runtime from "../Runtime";
 import SeasonImage from "./SeasonImage";
+import { Episode } from "@/interfaces/Season";
+import { useInView } from "react-intersection-observer";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 const Episodes = ({
   seriesId,
@@ -14,6 +17,9 @@ const Episodes = ({
   seasonNumber: number;
 }) => {
   const { data, error, isLoading } = useSeason(seriesId, seasonNumber);
+  const { width } = useWindowSize();
+  const imageHeight = Math.ceil((width && ((width - 32) * 7) / 12) || 0);
+
   if (error) return <h1>Error: {error.message}</h1>;
 
   const skeletons = Array.from({ length: 5 });
@@ -33,11 +39,43 @@ const Episodes = ({
   return (
     <Box display="flex" flexDirection="column" gap={5}>
       {data.episodes.map((episode) => (
+        <EpisodeItem
+          key={episode.id}
+          episode={episode}
+          seasonNumber={seasonNumber}
+          seriesId={seriesId}
+          imageHeight={imageHeight}
+        />
+      ))}
+    </Box>
+  );
+};
+
+interface EpisodeItemProps {
+  episode: Episode;
+  seasonNumber: number;
+  seriesId: number;
+  imageHeight: number;
+}
+
+const EpisodeItem = ({
+  episode,
+  seriesId,
+  seasonNumber,
+  imageHeight,
+}: EpisodeItemProps) => {
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
+  const textHeight = 116;
+  const totalHeight = imageHeight + textHeight;
+
+  return (
+    <Box ref={ref} minHeight={{ base: totalHeight, md: "204px" }}>
+      {inView && (
         <Box
           display="flex"
           flexDirection={{ base: "column", md: "row" }}
+          height={{ base: totalHeight, md: "204px" }}
           gap={5}
-          key={episode.id}
         >
           <Link to={`/watch/tv/${seriesId}/${seasonNumber}/${episode.episode_number}`}>
             <SeasonImage key={episode.id} episode={episode} />
@@ -57,11 +95,14 @@ const Episodes = ({
               <Rating vote_average={episode.vote_average} />
               <Runtime runtime={episode.runtime} />
             </HStack>
-            <Text fontSize="sm">{episode.overview}</Text>
+            <Text lineClamp={{ base: 2, md: 5 }} fontSize="sm">
+              {episode.overview}
+            </Text>
           </Box>
         </Box>
-      ))}
+      )}
     </Box>
   );
 };
+
 export default Episodes;

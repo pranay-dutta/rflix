@@ -21,12 +21,9 @@ import { Quote } from "../Quote";
 import Season from "./Season";
 import { MediaPoster, MediaScroll, MediaScrollHeading } from "../common";
 import { useParams } from "react-router-dom";
-import { useInView } from "react-intersection-observer";
 import WatchListButton from "../WatchListButton";
 
 const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
-
   if (!series) return null;
 
   return (
@@ -126,14 +123,8 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
           </GridItem>
         </SimpleGrid>
       </Box>
-      <div ref={ref} style={{ minHeight: "300px" }}>
-        {inView && (
-          <>
-            {" "}
-            <Season series={series} /> <SimilarSeries />{" "}
-          </>
-        )}
-      </div>
+      <Season series={series} />
+      <SimilarSeries />
     </>
   );
 };
