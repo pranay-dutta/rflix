@@ -1,7 +1,7 @@
 import { TvSeriesDetails } from "@/interfaces/TvSeriesDetails";
 import { createListCollection, Portal, Select } from "@chakra-ui/react";
-import { useState } from "react";
 import Episodes from "./Episodes";
+import { useSeasonNumberStore } from "@/store/seasonNumberStore";
 interface Item {
   label: string;
   value: string;
@@ -17,13 +17,21 @@ const Season = ({ series }: { series: TvSeriesDetails }) => {
     itemToValue: (item) => item.value,
     itemToString: (item) => item.label,
   });
-  const [season, setSeason] = useState("1");
+  const currentSeason = useSeasonNumberStore((s) => s.currentSeason);
+  const changeSeason = useSeasonNumberStore((s) => s.changeSeason);
+  const seriesId = useSeasonNumberStore((s) => s.seriesId);
+  const changeSeriesId = useSeasonNumberStore((s) => s.changeSeriesId);
 
+  if (!seriesId) changeSeriesId(series.id);
+  else if (seriesId !== series.id) {
+    changeSeason(1);
+    changeSeriesId(series.id);
+  }
   return (
     <>
       <Select.Root
-        value={[season]}
-        onValueChange={(d) => setSeason(d.value[0])}
+        value={[currentSeason.toString()]}
+        onValueChange={(d) => changeSeason(parseInt(d.value[0]))}
         collection={seasons}
         size="md"
         maxW="350px"
@@ -55,7 +63,7 @@ const Season = ({ series }: { series: TvSeriesDetails }) => {
           </Select.Positioner>
         </Portal>
       </Select.Root>
-      <Episodes seriesId={series.id} seasonNumber={parseInt(season)} />
+      <Episodes seriesId={series.id} seasonNumber={currentSeason} />
     </>
   );
 };
