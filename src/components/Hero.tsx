@@ -1,5 +1,5 @@
 import { Box, HStack } from "@chakra-ui/react";
-import { memo, useState } from "react";
+import { memo, PropsWithChildren, useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa6";
 import { Autoplay } from "swiper/modules";
@@ -43,24 +43,35 @@ const Hero = () => {
                 className="w-full !px-5 flex flex-col gap-3 items-center md:items-start absolute bottom-5 left-0 md:bottom-[20%] md:left-[1%]"
               >
                 {/* Movie title logo */}
-                <MovieLogo movieId={movie.id} />
+                <DropShadowWrapper>
+                  <MovieLogo movieId={movie.id} />
+                </DropShadowWrapper>
 
                 {/* Movie Information */}
-                <HStack filter="contrast(2)" gap={4}>
-                  <Rating vote_average={movie.vote_average} />
-                  <ReleaseDate date={movie.release_date} />
-                  <MovieLanguage language={movie.original_language} />
-                </HStack>
-                <MovieOverview overview={movie.overview} />
+                <DropShadowWrapper>
+                  <HStack filter="contrast(2)" gap={4}>
+                    <Rating vote_average={movie.vote_average} />
+                    <ReleaseDate date={movie.release_date} />
+                    <MovieLanguage language={movie.original_language} />
+                  </HStack>
+                </DropShadowWrapper>
 
-                <HStack gap={5}>
-                  <InfoButton icon={FaInfoCircle} id={movie.id}>
-                    More info
-                  </InfoButton>
-                  <MovieWatchButton id={movie.id} icon={FaPlay}>
-                    Play
-                  </MovieWatchButton>
-                </HStack>
+                {/* Movie overview */}
+                <DropShadowWrapper>
+                  <MovieOverview overview={movie.overview} />
+                </DropShadowWrapper>
+
+                {/* Play and Info button */}
+                <DropShadowWrapper>
+                  <HStack gap={5}>
+                    <InfoButton icon={FaInfoCircle} id={movie.id}>
+                      More info
+                    </InfoButton>
+                    <MovieWatchButton id={movie.id} icon={FaPlay}>
+                      Play
+                    </MovieWatchButton>
+                  </HStack>
+                </DropShadowWrapper>
               </Box>
             </SwiperSlide>
           </div>
@@ -68,5 +79,9 @@ const Hero = () => {
       })}
     </Swiper>
   );
+};
+
+const DropShadowWrapper = ({ children }: PropsWithChildren) => {
+  return <div className="drop-shadow-2xl/35">{children}</div>;
 };
 export default memo(Hero);
