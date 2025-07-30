@@ -1,12 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { Images } from "../interfaces/Images";
 import ms from "ms";
-import createClient from "@/services/client";
-
-const { VITE_USE_TMDB_CLIENT } = import.meta.env;
+import createClient, { isActiveTmdbClient } from "@/services/client";
 
 const useLogoImages = (movieId: number) => {
-  const computedEndpoint = VITE_USE_TMDB_CLIENT
+  const computedEndpoint = isActiveTmdbClient
     ? `/movie/${movieId}/images`
     : `/movie/images/${movieId}`;
 

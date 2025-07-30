@@ -1,16 +1,13 @@
 import { FetchResponse } from "@/interfaces/FetchResponse";
 import TvSeries from "@/interfaces/TvSeries";
-import createClient from "@/services/client";
+import createClient, { isActiveTmdbClient } from "@/services/client";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import ms from "ms";
 
 export type TvSeriesTags = "popular" | "top_rated" | "airing_today" | "on_the_air";
-const { VITE_USE_TMDB_CLIENT } = import.meta.env;
 
 const useTvSeriesLists = (endpoint: TvSeriesTags) => {
-  const computedEndpoint = VITE_USE_TMDB_CLIENT
-    ? `/tv/${endpoint}`
-    : `/tv/tag/${endpoint}`;
+  const computedEndpoint = isActiveTmdbClient ? `/tv/${endpoint}` : `/tv/tag/${endpoint}`;
 
   const client = createClient<TvSeries>(computedEndpoint);
 

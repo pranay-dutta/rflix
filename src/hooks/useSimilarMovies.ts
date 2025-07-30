@@ -2,12 +2,10 @@ import { FetchResponse } from "@/interfaces/FetchResponse";
 import { useQuery } from "@tanstack/react-query";
 import ms from "ms";
 import { Movie } from "../interfaces/Movie";
-import createClient from "@/services/client";
-
-const { VITE_USE_TMDB_CLIENT } = import.meta.env;
+import createClient, { isActiveTmdbClient } from "@/services/client";
 
 const useSimilarMovies = (page: number, movieId: number) => {
-  const computedEndpoint = VITE_USE_TMDB_CLIENT
+  const computedEndpoint = isActiveTmdbClient
     ? `/movie/${movieId}/similar`
     : `/movie/similar/${movieId}`;
 

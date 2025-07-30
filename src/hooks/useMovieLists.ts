@@ -2,13 +2,12 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { Movie } from "@/interfaces/Movie";
 import { FetchResponse } from "@/interfaces/FetchResponse";
 import ms from "ms";
-import createClient from "@/services/client";
+import createClient, { isActiveTmdbClient } from "@/services/client";
 
 export type MovieTags = "now_playing" | "popular" | "top_rated" | "upcoming";
-const { VITE_USE_TMDB_CLIENT } = import.meta.env;
 
 const useMovieLists = (endpoint: MovieTags) => {
-  const computedEndpoint = VITE_USE_TMDB_CLIENT
+  const computedEndpoint = isActiveTmdbClient
     ? `/movie/${endpoint}`
     : `/movie/tag/${endpoint}`;
 
