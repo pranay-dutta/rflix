@@ -8,13 +8,14 @@ import WatchListCard from "./WatchListCard";
 interface Props {
   media?: Movie[] | TvSeries[];
   watchListItems?: WatchListItem[];
+  similarMedia?: boolean;
   loop?: boolean;
 }
 
-const MediaScroll = ({ media, watchListItems, loop = true }: Props) => {
+const MediaScroll = ({ similarMedia, media, watchListItems, loop = true }: Props) => {
   if (media && !media.length) return null;
 
-  //Show only top 10 watchlist items
+  //Show only top 10 watch list items
   const watchListItems10: WatchListItem[] = watchListItems?.slice(0, 10) || [];
 
   return (
@@ -37,7 +38,12 @@ const MediaScroll = ({ media, watchListItems, loop = true }: Props) => {
 
       {media?.map((media) => (
         <SwiperSlide className="py-3!">
-          <Card key={media.id} media={media} />
+          <Card
+            width={similarMedia ? "186px" : "240px"}
+            height={similarMedia ? "279px" : "360px"}
+            key={media.id}
+            media={media}
+          />
         </SwiperSlide>
       ))}
     </Swiper>

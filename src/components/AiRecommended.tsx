@@ -55,6 +55,7 @@ const AiRecommended = () => {
               src={getTMDBImage(media.backdrop_path, "original", "horizontal")}
               maxW={{ base: "100%", sm: "40%", lg: "40%" }}
               transition="all 0.3s ease-in-out"
+              loading="lazy"
               _hover={{ opacity: 0.8 }}
               aspectRatio={16 / 9}
               objectFit="contain"

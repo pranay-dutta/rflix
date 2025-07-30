@@ -15,7 +15,7 @@ const MediaGrid = ({ media }: Props) => {
       {media.pages.map((page, index) => (
         <Fragment key={index}>
           {page.results.map((movie) => (
-            <Card key={movie.id} media={movie} />
+            <Card width="260px" height="390px" key={movie.id} media={movie} />
           ))}
         </Fragment>
       ))}

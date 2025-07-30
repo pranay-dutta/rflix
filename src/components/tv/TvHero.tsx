@@ -44,6 +44,7 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
               className="lg:w-80"
               objectFit="cover"
               aspectRatio={2 / 3}
+              loading="lazy"
             />
           </GridItem>
           <GridItem colSpan={{ md: 3 }} px={2}>
@@ -139,7 +140,7 @@ const SimilarSeries = () => {
   return (
     <Box mt={10}>
       <MediaScrollHeading highlight="Tv Shows">Similar Tv Shows</MediaScrollHeading>
-      <MediaScroll media={similarSeries.results} />
+      <MediaScroll similarMedia media={similarSeries.results} />
     </Box>
   );
 };

@@ -11,6 +11,9 @@ const MovieBackdropImage = ({ movieId }: { movieId: number }) => {
       className="opacity-70 w-full object-cover"
       src={getTMDBImage(movie?.backdrop_path, "original", "horizontal")}
       alt={movie.original_title}
+      w="100%"
+      h="100%"
+      loading="lazy"
     />
   );
 };

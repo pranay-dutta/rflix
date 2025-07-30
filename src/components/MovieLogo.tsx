@@ -24,6 +24,7 @@ const MovieLogo = ({ movieId }: { movieId: number }) => {
       width={{ base: width - width * 0.3, md: width }}
       src={getTMDBImage(logo.file_path, "w500")}
       alt={movie?.original_title}
+      loading="lazy"
     />
   );
 };

@@ -65,9 +65,30 @@ export const navItems: NavItem[] = [
   },
 ];
 
+/**
+ * Get TMDB image URL with specified quality and placeholder dimension
+ *
+ * @param {string} url - The image URL
+ * @param {quality} quality - The quality of the image
+ * @param {("vertical" | "horizontal")} [placeholderDimension] - The placeholder dimension
+ *
+ * TMDB Sizes:
+ *
+ * **Poster:** `w92`, `w154`, `w185`, `w342`, `w500`, `w780`, `original`
+ * **Backdrop:** `w300`, `w780`, `w1280`, `original`
+ */
 export function getTMDBImage(
   url: string,
-  quality: "original" | "w500",
+  quality:
+    | "w92"
+    | "w154"
+    | "w185"
+    | "w342"
+    | "w500"
+    | "w300"
+    | "w780"
+    | "w1280"
+    | "original",
   placeholderDimension?: "vertical" | "horizontal",
 ) {
   const dimension = placeholderDimension === "horizontal" ? "1920x1080" : "500x750";

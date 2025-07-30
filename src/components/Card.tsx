@@ -1,5 +1,5 @@
 import { Movie } from "@/interfaces/Movie";
-import { Box, HStack, Image, Text, Stack } from "@chakra-ui/react";
+import { Box, HStack, Image, Text, Stack, Skeleton } from "@chakra-ui/react";
 import { useState } from "react";
 import { getTMDBImage } from "./constants";
 import Rating from "./Rating";
@@ -11,10 +11,13 @@ import isMovie from "@/utils/isMovie";
 
 interface Props {
   media: Movie | TvSeries;
+  width?: string;
+  height?: string;
 }
 
-const Card = ({ media }: Props) => {
+const Card = ({ media, width, height }: Props) => {
   const [show, setShow] = useState<boolean>(false);
+  const [imgLoading, setImgLoading] = useState<boolean>(true);
 
   return (
     <Link to={`/info/${isMovie(media) ? "movie/" : "tv/"}` + media.id}>
@@ -27,20 +30,24 @@ const Card = ({ media }: Props) => {
         onMouseLeave={() => setShow(false)}
       >
         {/* Image of movie card */}
-        <Box position="relative">
+        <Skeleton loading={imgLoading} position="relative" maxW={width} maxH={height}>
           <Image
             borderRadius="md"
+            onLoad={() => setImgLoading(false)}
             transition="filter 0.3s ease-in-out"
             filter={show ? "brightness(0.8)" : "brightness(1)"}
-            src={getTMDBImage(media.poster_path, "w500", "vertical")}
+            src={getTMDBImage(media.poster_path, "w342", "vertical")}
             alt={isMovie(media) ? media.title : media.original_name}
             objectFit="cover"
+            loading="lazy"
+            w="100%"
+            h="100%"
           />
           <Box transition="opacity 0.3s ease-in-out" opacity={show ? 0.8 : 0}>
             <Gradient.Bottom />
             <Gradient.Top />
           </Box>
-        </Box>
+        </Skeleton>
 
         {/* Movie card rating and release date*/}
         <HStack

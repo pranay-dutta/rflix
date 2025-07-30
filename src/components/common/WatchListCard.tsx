@@ -1,6 +1,6 @@
 import useCustomizationStore from "@/store/customizationStore";
 import { WatchListItem } from "@/store/watchListStore";
-import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react";
+import { Box, HStack, Image, Skeleton, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getTMDBImage } from "../constants";
@@ -14,6 +14,7 @@ interface Props {
 
 const WatchListCard = ({ watchListItem }: Props) => {
   const [show, setShow] = useState<boolean>(false);
+  const [imgLoading, setImgLoading] = useState<boolean>(true);
   const activePalette = useCustomizationStore((s) => s.activePalette);
 
   const navigate = useNavigate();
@@ -31,20 +32,24 @@ const WatchListCard = ({ watchListItem }: Props) => {
       onClick={() => navigate(path)}
     >
       {/* Image of movie card */}
-      <Box position="relative">
+      <Skeleton loading={imgLoading} position="relative" maxW="240px" maxH="360px">
         <Image
           borderRadius="md"
           transition="filter 0.3s ease-in-out"
           filter={show ? "brightness(0.8)" : "brightness(1)"}
-          src={getTMDBImage(watchListItem.posterPath, "w500", "vertical")}
+          src={getTMDBImage(watchListItem.posterPath, "w342", "vertical")}
           alt={watchListItem.title}
+          onLoad={() => setImgLoading(false)}
           objectFit="cover"
+          loading="lazy"
+          w="100%"
+          h="100%"
         />
         <Box transition="opacity 0.3s ease-in-out" opacity={show ? 0.8 : 0}>
           <Gradient.Bottom />
           <Gradient.Top />
         </Box>
-      </Box>
+      </Skeleton>
 
       {/* Movie card rating and release date*/}
       <HStack

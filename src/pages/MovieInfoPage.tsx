@@ -52,7 +52,7 @@ const SimilarMovies = () => {
   return (
     <Box mt={10}>
       <MediaScrollHeading highlight="Movies">Similar Movies</MediaScrollHeading>
-      <MediaScroll media={similarMovies} />
+      <MediaScroll similarMedia media={similarMovies} />
     </Box>
   );
 };
@@ -70,10 +70,11 @@ const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
 
         <SimpleGrid
           className="md:absolute left-[2%] md:bottom-[10%] lg:top-auto lg:bottom-[3%]"
+          alignItems="center"
           columns={{ base: 1, md: 4 }}
           gap={{ sm: 2, lg: 5 }}
         >
-          {/* Card image above poster */}
+          {/* Card image over poster */}
           <GridItem>
             <Image
               src={getTMDBImage(movie.poster_path, "original", "vertical")}
@@ -81,6 +82,7 @@ const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
               objectFit="cover"
               className="lg:w-80"
               aspectRatio={2 / 3}
+              loading="lazy"
             />
           </GridItem>
           <GridItem colSpan={{ md: 3 }} px={2}>
