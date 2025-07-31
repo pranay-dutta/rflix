@@ -21,6 +21,24 @@ const HomePage = () => {
     (s) => s.disableWatchListHomepage,
   );
 
+  if (isLoading)
+    return (
+      <Skeleton w="100%" h="100vh" variant="shine">
+        <Text
+          visibility="visible"
+          fontSize="x-large"
+          transform="translate(-50%, -50%)"
+          top="50%"
+          left="50%"
+          color="white"
+          textAlign="center"
+          position="absolute"
+        >
+          Loading Your Experience✨
+        </Text>
+      </Skeleton>
+    );
+
   return (
     <Box>
       <Navbar />
