@@ -4,7 +4,7 @@ import { FetchResponse } from "@/interfaces/FetchResponse";
 import ms from "ms";
 import createClient, { isActiveTmdbClient } from "@/services/client";
 
-const useTrailers = (movieId: number) => {
+const useMovieTrailer = (movieId: number) => {
   const computedEndpoint = isActiveTmdbClient
     ? `/movie/${movieId}/videos`
     : `/movie/videos/${movieId}`;
@@ -12,11 +12,11 @@ const useTrailers = (movieId: number) => {
   const client = createClient<Trailer>(computedEndpoint);
 
   const { data, error, isLoading } = useQuery<FetchResponse<Trailer>, Error>({
-    queryKey: ["trailer", movieId],
+    queryKey: ["movie trailer", movieId],
     queryFn: client.getAll,
     staleTime: ms("2h"),
   });
   const trailers = data?.results;
   return { trailers, error, isLoading };
 };
-export default useTrailers;
+export default useMovieTrailer;

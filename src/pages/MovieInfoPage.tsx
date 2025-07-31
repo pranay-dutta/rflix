@@ -110,7 +110,7 @@ const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
               </Text>
               <HStack gap={4}>
                 <MovieWatchButton id={movie.id} icon={FaPlay}>
-                  Watch Now
+                  Watch Trailer
                 </MovieWatchButton>
                 <WatchListButton
                   id={movie.id}

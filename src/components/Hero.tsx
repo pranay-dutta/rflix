@@ -68,7 +68,7 @@ const Hero = () => {
                       More info
                     </InfoButton>
                     <MovieWatchButton id={movie.id} icon={FaPlay}>
-                      Play
+                      Play Trailer
                     </MovieWatchButton>
                   </HStack>
                 </DropShadowWrapper>

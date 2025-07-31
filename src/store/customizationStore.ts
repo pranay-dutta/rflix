@@ -17,7 +17,7 @@ const useCustomizationStore = create<CustomizationStore>()(
   persist(
     (set) => ({
       activePalette: "purple",
-      disableHomepageVideo: false,
+      disableHomepageVideo: true,
       disableWatchList: false,
       disableWatchListHomepage: false,
 

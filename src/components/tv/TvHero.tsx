@@ -73,7 +73,7 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
 
               <HStack gap={4}>
                 <TvSeriesWatchButton id={series.id} season={1} episode={1} icon={BiPlay}>
-                  Watch Now
+                  Watch Trailer
                 </TvSeriesWatchButton>
                 <WatchListButton
                   id={series.id}

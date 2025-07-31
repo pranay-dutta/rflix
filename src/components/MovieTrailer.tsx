@@ -1,4 +1,4 @@
-import useTrailers from "@/hooks/useTrailers";
+import useMovieTrailer from "@/hooks/useMovieTrailer";
 import { useEffect, useRef } from "react";
 import MovieBackdropImage from "./MovieBackdropImage";
 import { Skeleton } from "@chakra-ui/react";
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const MovieTrailer = ({ movieId, isActive = false }: Props) => {
-  const { trailers, isLoading } = useTrailers(movieId);
+  const { trailers, isLoading } = useMovieTrailer(movieId);
   const disableHomepageVideo = useCustomizationStore((s) => s.disableHomepageVideo);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
