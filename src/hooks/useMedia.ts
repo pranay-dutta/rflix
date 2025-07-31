@@ -18,7 +18,7 @@ const useMedia = () => {
 
   return useQuery({
     queryKey: [type, id],
-    retry: 1,
+    retry: false,
     enabled: id !== 1,
     queryFn: () => client.get(),
   });
