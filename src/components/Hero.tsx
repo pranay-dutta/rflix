@@ -14,16 +14,23 @@ import ReleaseDate from "./ReleaseDate";
 import InfoButton from "./InfoButton";
 import MovieWatchButton from "./WatchButton";
 import useMovieLists from "@/hooks/useMovieLists";
+import { GoUnmute } from "react-icons/go";
+import { GoMute } from "react-icons/go";
+import useCustomizationStore from "@/store/customizationStore";
 
 const Hero = () => {
   const { data: movies } = useMovieLists("popular");
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isMuted, setIsMuted] = useState<boolean>(true);
+  const disableHomepageVideo = useCustomizationStore((s) => s.disableHomepageVideo);
 
   if (!movies) return null;
-
   return (
     <Swiper
-      onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+      onSlideChange={(swiper) => {
+        setActiveIndex(swiper.activeIndex);
+        setIsMuted(true);
+      }}
       autoplay={{ delay: 30 * 1000 }}
       modules={[Autoplay]}
       grabCursor
@@ -31,10 +38,27 @@ const Hero = () => {
       {movies.pages[0].results.map((movie, index) => {
         return (
           <div className="relative">
-            <SwiperSlide key={movie.id} className="transition-all relative">
+            <SwiperSlide key={movie.id} className="transition-all relative ">
               <AspectRatioContainer>
-                <MovieTrailer movieId={movie.id} isActive={activeIndex === index} />
+                <MovieTrailer
+                  movieId={movie.id}
+                  isMuted={isMuted}
+                  isActive={activeIndex === index}
+                />
               </AspectRatioContainer>
+              {!disableHomepageVideo && (
+                <Box
+                  position="absolute"
+                  color="whiteAlpha.700"
+                  zIndex={20}
+                  right={20}
+                  bottom={180}
+                  cursor="pointer"
+                  onClick={() => setIsMuted((prev) => !prev)}
+                >
+                  {isMuted ? <GoMute size={50} /> : <GoUnmute size={50} />}
+                </Box>
+              )}
 
               {/* Bottom shadow over hero component */}
               <div className="absolute h-40 top-10/12 inset-0 bg-gradient-to-b from-transparent via-transparent to-black/100" />

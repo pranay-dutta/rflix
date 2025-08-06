@@ -7,9 +7,10 @@ import useCustomizationStore from "@/store/customizationStore";
 interface Props {
   isActive: boolean;
   movieId: number;
+  isMuted?: boolean;
 }
 
-const MovieTrailer = ({ movieId, isActive = false }: Props) => {
+const MovieTrailer = ({ movieId, isActive = false, isMuted }: Props) => {
   const { trailers, isLoading } = useMovieTrailer(movieId);
   const disableHomepageVideo = useCustomizationStore((s) => s.disableHomepageVideo);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -18,15 +19,23 @@ const MovieTrailer = ({ movieId, isActive = false }: Props) => {
   useEffect(() => {
     if (!iframeRef.current) return;
 
-    iframeRef.current.contentWindow?.postMessage(
-      JSON.stringify({
+    const commands = [
+      {
         event: "command",
         func: isActive ? "playVideo" : "pauseVideo",
         args: [],
-      }),
-      "*",
-    );
-  }, [isActive]);
+      },
+      {
+        event: "command",
+        func: isMuted ? "mute" : "unMute",
+        args: [],
+      },
+    ];
+
+    commands.forEach((cmd) => {
+      iframeRef.current!.contentWindow?.postMessage(JSON.stringify(cmd), "*");
+    });
+  }, [isActive, isMuted]);
 
   const youtubeId = trailers?.find((trailer) => trailer.type === "Trailer")?.key;
 
@@ -36,7 +45,7 @@ const MovieTrailer = ({ movieId, isActive = false }: Props) => {
 
   return (
     <iframe
-      className="opacity-70 top-[2%]!" //top 2% hides the related videos below
+      className="opacity-80 top-[2%]!" //top 2% hides the related videos below
       ref={iframeRef}
       src={`https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&mute=1&autoplay=1&loop=1&rel=0&fs=0&controls=0&disablekb=1&playlist=${youtubeId}`}
       allow="autoplay; encrypted-media"
