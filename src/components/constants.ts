@@ -95,3 +95,8 @@ export function getTMDBImage(
   if (!url) return `https://fakeimg.ryd.tools/${dimension}/111?text=Media`;
   return `https://image.tmdb.org/t/p/${quality}` + url;
 }
+
+export function getCreditImage(url: string) {
+  if (!url) return "/person.png";
+  return `https://image.tmdb.org/t/p/w154` + url;
+}
