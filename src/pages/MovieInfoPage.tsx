@@ -25,7 +25,7 @@ import { MediaScroll, MediaScrollHeading, MediaPoster } from "@/components/commo
 import { MovieDetails } from "@/interfaces/MovieDetails";
 import { useInView } from "react-intersection-observer";
 import WatchListButton from "@/components/WatchListButton";
-import MovieCredits from "@/components/movie/MovieCredits";
+import Credits from "@/components/common/Credits";
 
 const MovieInfoPage = () => {
   const { id } = useParams();
@@ -165,7 +165,13 @@ const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
         </SimpleGrid>
       </Box>
 
-      <MovieCredits id={movie.id.toString()} />
+      {/* Movie credits component */}
+      <Box my={5}>
+        <MediaScrollHeading highlight="Cast">Top Billed Cast</MediaScrollHeading>
+        <Box mt={2}>
+          <Credits isTvShow={false} mediaId={movie.id.toString()} />
+        </Box>
+      </Box>
 
       {/* Similar movies scroll component */}
       <div ref={ref}>{inView && <SimilarMovies />}</div>

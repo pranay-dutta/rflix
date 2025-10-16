@@ -22,6 +22,7 @@ import Season from "./Season";
 import { MediaPoster, MediaScroll, MediaScrollHeading } from "../common";
 import { useParams } from "react-router-dom";
 import WatchListButton from "../WatchListButton";
+import Credits from "../common/Credits";
 
 const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
   if (!series) return null;
@@ -120,10 +121,18 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
                 </Box>
               </HStack>
             </Stack>
-            <HStack></HStack>
           </GridItem>
         </SimpleGrid>
       </Box>
+
+      {/* Tv Series Credits */}
+      <Box my={5}>
+        <MediaScrollHeading highlight="Cast">Series Cast</MediaScrollHeading>
+        <Box mt={2}>
+          <Credits isTvShow mediaId={series.id.toString()} />
+        </Box>
+      </Box>
+
       <Season series={series} />
       <SimilarSeries />
     </>

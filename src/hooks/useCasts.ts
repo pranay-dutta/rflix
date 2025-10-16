@@ -3,11 +3,13 @@ import { Credit } from "@/interfaces/Credit";
 import createClient from "@/services/client";
 import ms from "ms";
 
-const useCasts = (movieId: string) => {
-  const client = createClient<Credit>(`/movie/${movieId}/credits`);
+const useCasts = (mediaId: string, isTvShow: boolean) => {
+  const client = createClient<Credit>(
+    isTvShow ? `/tv/${mediaId}/credits` : `/movie/${mediaId}/credits`,
+  );
 
   return useQuery({
-    queryKey: ["casts", movieId],
+    queryKey: ["casts", mediaId],
     queryFn: () => client.get(),
     staleTime: ms("1d"),
   });

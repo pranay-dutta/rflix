@@ -1,26 +1,24 @@
 import useCasts from "@/hooks/useCasts";
-import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Link, Skeleton, Text } from "@chakra-ui/react";
 import { getCreditImage } from "../constants";
 import useCustomizationStore from "@/store/customizationStore";
-import { MediaScrollHeading } from "../common";
 import { BsArrowRight } from "react-icons/bs";
+import { useState } from "react";
 
 interface Props {
-  id: string;
+  mediaId: string;
+  isTvShow: boolean;
 }
-const MovieCredits = ({ id }: Props) => {
+const Credits = ({ mediaId, isTvShow }: Props) => {
   const activePalette = useCustomizationStore((s) => s.activePalette);
 
-  const { data } = useCasts(id);
+  const { data } = useCasts(mediaId, isTvShow);
   if (!data) return null;
 
   const casts = data.cast.slice(0, 13);
 
   return (
-    <>
-      <Box my={4}>
-        <MediaScrollHeading highlight="Cast">Top Billed Cast</MediaScrollHeading>
-      </Box>
+    <Box>
       <Flex flexWrap={"wrap"} gap={4}>
         {casts.map((cast) => (
           <Box
@@ -30,13 +28,7 @@ const MovieCredits = ({ id }: Props) => {
             backgroundColor={activePalette + ".900/20"}
             borderRadius="md"
           >
-            <Image
-              width={138}
-              borderRadius="sm"
-              aspectRatio={2 / 3}
-              objectFit="cover"
-              src={getCreditImage(cast.profile_path)}
-            />
+            <PersonImage profilePath={cast.profile_path} />
             <Box mt={2}>
               <Text>{cast.name}</Text>
               <Text color="gray.300" fontSize="sm">
@@ -50,8 +42,25 @@ const MovieCredits = ({ id }: Props) => {
           View more <BsArrowRight style={{ marginBottom: "-4px" }} />
         </Link>
       </Flex>
-    </>
+    </Box>
   );
 };
 
-export default MovieCredits;
+const PersonImage = ({ profilePath }: { profilePath: string }) => {
+  const [isLoading, setLoading] = useState(true);
+
+  return (
+    <Skeleton loading={isLoading}>
+      <Image
+        width={138}
+        borderRadius="sm"
+        aspectRatio={2 / 3}
+        objectFit="cover"
+        onLoad={() => setLoading(false)}
+        src={getCreditImage(profilePath)}
+      />
+    </Skeleton>
+  );
+};
+
+export default Credits;
