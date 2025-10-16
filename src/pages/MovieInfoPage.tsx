@@ -25,6 +25,7 @@ import { MediaScroll, MediaScrollHeading, MediaPoster } from "@/components/commo
 import { MovieDetails } from "@/interfaces/MovieDetails";
 import { useInView } from "react-intersection-observer";
 import WatchListButton from "@/components/WatchListButton";
+import MovieCredits from "@/components/movie/MovieCredits";
 
 const MovieInfoPage = () => {
   const { id } = useParams();
@@ -60,7 +61,9 @@ const SimilarMovies = () => {
 export default MovieInfoPage;
 
 const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
-  const { inView, ref } = useInView();
+  const { inView, ref } = useInView({
+    triggerOnce: true,
+  });
   if (!movie) return null;
 
   return (
@@ -161,6 +164,8 @@ const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
           </GridItem>
         </SimpleGrid>
       </Box>
+
+      <MovieCredits id={movie.id.toString()} />
 
       {/* Similar movies scroll component */}
       <div ref={ref}>{inView && <SimilarMovies />}</div>
