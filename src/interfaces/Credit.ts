@@ -1,9 +1,24 @@
 export interface Credit {
   id: number;
-  cast: Person[];
+  cast: Cast[];
+  crew: Crew[];
 }
 
-export interface Person {
+export interface Crew {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  credit_id: string;
+  department: string;
+  job: string;
+}
+
+export interface Cast {
   adult: boolean;
   gender: number;
   id: number;

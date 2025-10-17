@@ -13,6 +13,7 @@ import MovieDiscoverPage from "./pages/MovieDiscoverPage";
 import TvDiscoverPage from "./pages/TvDiscoverPage";
 import CustomizePage from "./pages/CustomizePage";
 import WatchListPage from "./pages/WatchListPage";
+import CastPageContainer from "./pages/cast/container/CastPageContainer";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: "customize",
         element: <CustomizePage />,
+      },
+      {
+        path: "cast/:id",
+        element: <CastPageContainer />,
       },
     ],
   },

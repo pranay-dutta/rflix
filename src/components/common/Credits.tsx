@@ -1,21 +1,26 @@
-import useCasts from "@/hooks/useCasts";
-import { Box, Flex, Image, Link, Skeleton, Text } from "@chakra-ui/react";
+import useCredits from "@/hooks/useCredits";
+import { Box, Flex, Image, Skeleton, Text } from "@chakra-ui/react";
 import { getCreditImage } from "../constants";
 import useCustomizationStore from "@/store/customizationStore";
 import { BsArrowRight } from "react-icons/bs";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface Props {
   mediaId: string;
   isTvShow: boolean;
 }
 const Credits = ({ mediaId, isTvShow }: Props) => {
+  const CAST_SIZE = 7;
   const activePalette = useCustomizationStore((s) => s.activePalette);
 
-  const { data } = useCasts(mediaId, isTvShow);
-  if (!data) return null;
+  const { data } = useCredits(mediaId, isTvShow);
+  if (!data || !data.cast.length)
+    return (
+      <Text color={`${activePalette}.400/90`}>Credit information is not available.</Text>
+    );
 
-  const casts = data.cast.slice(0, 13);
+  const casts = data.cast.slice(0, CAST_SIZE);
 
   return (
     <Box>
@@ -38,9 +43,18 @@ const Credits = ({ mediaId, isTvShow }: Props) => {
           </Box>
         ))}
 
-        <Link _hover={{ textDecoration: "none", opacity: 0.8 }} ms={4} alignSelf="center">
-          View more <BsArrowRight style={{ marginBottom: "-4px" }} />
-        </Link>
+        {data.cast.length > CAST_SIZE && (
+          <Link
+            to={`/cast/${mediaId}`}
+            state={{ isTvShow }}
+            style={{ textDecoration: "none", marginLeft: "16px", alignSelf: "center" }}
+          >
+            <Text _hover={{ opacity: 0.8 }} cursor="pointer">
+              View more{" "}
+              <BsArrowRight style={{ marginBottom: "-1px", display: "inline" }} />
+            </Text>
+          </Link>
+        )}
       </Flex>
     </Box>
   );
