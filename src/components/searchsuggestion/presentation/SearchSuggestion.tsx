@@ -47,8 +47,9 @@ const SearchSuggestion = ({ suggestion }: SearchSuggestionProps) => {
             </Text>
           </HStack>
           <HStack gap={2} fontSize="xs">
-            <Text color="gray.400">{new Date(releaseDate).getFullYear()}</Text>
-
+            {releaseDate && (
+              <Text color="gray.400">{new Date(releaseDate).getFullYear()}</Text>
+            )}
             <Text color="gray.500">•</Text>
             <Text color={accent} fontWeight="medium">
               {mediaType}
