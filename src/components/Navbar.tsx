@@ -38,13 +38,13 @@ const Navbar = () => {
       {isLargerThan1024 ? (
         <>
           <Title />
-          <Flex>
+          <Flex mr={{ lg: -20, xl: -300 }}>
             {navItems.map((navitem) => (
               <DropDown key={navitem.label} navitem={navitem} />
             ))}
           </Flex>
 
-          <Flex w="250px" gap={4} alignItems="center">
+          <Flex w={{ lg: "300px", xl: "440px" }} gap={4} justifyContent="space-between" alignItems="center">
             <SearchInput />
             <LoginButton />
           </Flex>
