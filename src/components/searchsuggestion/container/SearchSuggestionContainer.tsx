@@ -33,7 +33,7 @@ const SearchSuggestionContainer = ({ searchTerm, setShowSuggestions }: Props) =>
       position="absolute"
       top="100%"
       left={0}
-      right={0}
+      right={{ md: 0, base: "-35%" }}
       bg="gray.950"
       mt={2}
       p={2}
