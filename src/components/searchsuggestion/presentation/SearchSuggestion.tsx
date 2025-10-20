@@ -1,22 +1,16 @@
 import { getTMDBImage } from "@/components/constants";
-import { Movie } from "@/interfaces/Movie";
-import TvSeries from "@/interfaces/TvSeries";
-import isMovie from "@/utils/isMovie";
 import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import { MdOutlineLiveTv, MdOutlineMovie } from "react-icons/md";
+import { SearchSuggestionProps } from "../container/SearchSuggestionContainer";
 
-interface SearchSuggestionProps {
-  suggestion: Movie | TvSeries;
-}
-
-const SearchSuggestion = ({ suggestion }: SearchSuggestionProps) => {
-  const is_movie = isMovie(suggestion);
-  const accent = is_movie ? "blue.400" : "orange.400";
-  const title = is_movie ? suggestion.title : suggestion.name;
-  const mediaType = is_movie ? "Movie" : "TV Show";
-  const releaseDate = is_movie ? suggestion.release_date : suggestion.first_air_date;
-  const posterPath = suggestion.poster_path;
-
+const SearchSuggestion = ({
+  is_movie,
+  accent,
+  title,
+  mediaType,
+  releaseDate,
+  posterPath,
+}: SearchSuggestionProps) => {
   return (
     <Box>
       <HStack

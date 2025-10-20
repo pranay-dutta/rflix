@@ -11,6 +11,15 @@ interface Props {
   searchTerm: string;
 }
 
+export interface SearchSuggestionProps {
+  is_movie: boolean;
+  accent: string;
+  title: string;
+  mediaType: string;
+  releaseDate: string;
+  posterPath: string;
+}
+
 const SearchSuggestionContainer = ({ searchTerm, setShowSuggestions }: Props) => {
   const navigate = useNavigate();
   const { movieResponse, tvResponse, isLoading, error } = useSearchSuggestion(searchTerm);
@@ -22,9 +31,19 @@ const SearchSuggestionContainer = ({ searchTerm, setShowSuggestions }: Props) =>
   };
 
   const mediaSuggestion = [
-    ...(movieResponse?.results?.slice(0, 5) ?? []),
-    ...(tvResponse?.results?.slice(0, 5) ?? []),
+    ...(movieResponse?.results?.slice(0, 10) ?? []),
+    ...(tvResponse?.results?.slice(0, 10) ?? []),
   ];
+
+  const extractProperties = (media: TvSeries | Movie) => {
+    const is_movie = isMovie(media);
+    const accent = is_movie ? "blue.400" : "orange.400";
+    const title = is_movie ? media.title : media.name;
+    const mediaType = is_movie ? "Movie" : "TV Show";
+    const releaseDate = is_movie ? media.release_date : media.first_air_date;
+    const posterPath = media.poster_path;
+    return { is_movie, accent, title, mediaType, releaseDate, posterPath };
+  };
 
   if (isLoading || error || mediaSuggestion.length === 0) return null;
 
@@ -45,11 +64,13 @@ const SearchSuggestionContainer = ({ searchTerm, setShowSuggestions }: Props) =>
       maxH="400px"
       overflowY="auto"
     >
-      {mediaSuggestion.map((suggestion) => (
-        <Box onClick={() => handleSuggestionClick(suggestion)} key={suggestion.id}>
-          <SearchSuggestion suggestion={suggestion} />
-        </Box>
-      ))}
+      {mediaSuggestion.map((suggestion) => {
+        return (
+          <Box onClick={() => handleSuggestionClick(suggestion)} key={suggestion.id}>
+            <SearchSuggestion {...extractProperties(suggestion)} />
+          </Box>
+        );
+      })}
     </Box>
   );
 };
