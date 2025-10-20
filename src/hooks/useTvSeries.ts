@@ -19,6 +19,7 @@ const useTvSeries = <T extends keyof ResponseType>(seriesId: number, endpoint?: 
     queryKey: ["series", seriesId, endpoint],
     queryFn: client.get,
     staleTime: ms("2h"),
+    enabled: seriesId !== 0,
   });
 };
 

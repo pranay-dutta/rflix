@@ -27,14 +27,18 @@ export interface CastPageProps {
 }
 const CastPageContainer = () => {
   const { id } = useParams();
-  if (!id) throw new Error("Cast page requires movie ID");
+  if (!id) throw new Error("Cast page requires ID");
 
   const location = useLocation();
   const state = location.state as LocationState;
   const { isTvShow } = state;
 
-  const { movie, isLoading: movieLoading } = useMovie(parseInt(id));
-  const { data: tvData, isLoading: tvLoading } = useTvSeries(parseInt(id), "details");
+  const movieId = isTvShow ? 0 : parseInt(id);
+  const tvId = isTvShow ? parseInt(id) : 0;
+
+  const { movie, isLoading: movieLoading } = useMovie(movieId);
+  const { data: tvData, isLoading: tvLoading } = useTvSeries(tvId, "details");
+
   const activePalette = useCustomizationStore((s) => s.activePalette);
 
   const { data: credits } = useCredits(id, isTvShow);

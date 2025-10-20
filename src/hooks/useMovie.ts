@@ -10,6 +10,7 @@ const useMovie = (movieId: number) => {
     queryKey: ["movie", movieId],
     queryFn: client.get,
     staleTime: ms("2h"),
+    enabled: movieId !== 0,
   });
 
   return { movie: data, error, isLoading };
