@@ -12,6 +12,7 @@ import { useInView } from "react-intersection-observer";
 import useWatchListStore from "@/store/watchListStore";
 import useCustomizationStore from "@/store/customizationStore";
 import { Link } from "react-router-dom";
+import WatchProviderContainer from "@/components/watchproviders/container/WatchProviderContainer";
 
 const HomePage = () => {
   const { isLoading, reels } = useHomeData();
@@ -43,8 +44,10 @@ const HomePage = () => {
     <Box>
       <Navbar />
       <Hero />
+
       {!isLoading && (
         <Box className="w-full md:-mt-32! sm:!px-10 !px-2 z-10 relative">
+          <WatchProviderContainer />
           {reels.map(
             (reel, index) =>
               reel.media && (
@@ -109,7 +112,7 @@ const Wrapper = ({ children, isWatchList }: Props) => {
       px={{ lg: 10, base: 5 }}
       py={{ lg: 8, base: 5 }}
     >
-      {inView ? children : <Box h={"330px"} />}
+      {inView ? children : <Box minH={"330px"} />}
     </Skeleton>
   );
 };
