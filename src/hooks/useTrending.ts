@@ -10,7 +10,11 @@ type ResponseType = {
   tv: FetchResponse<TvSeries>;
 };
 
-const useTrending = <T extends keyof ResponseType>(endpoint: T, time: "day" | "week") => {
+const useTrending = <T extends keyof ResponseType>(
+  endpoint: T,
+  time: "day" | "week",
+  enabled?: boolean,
+) => {
   type ResponseData = ResponseType[T];
   const client = createClient<ResponseData>(`/trending/${endpoint}/${time}`);
 
@@ -18,6 +22,7 @@ const useTrending = <T extends keyof ResponseType>(endpoint: T, time: "day" | "w
     queryKey: ["trending", endpoint, time],
     queryFn: client.get,
     staleTime: ms("2h"),
+    enabled,
   });
 };
 

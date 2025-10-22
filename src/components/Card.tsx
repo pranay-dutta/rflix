@@ -8,11 +8,10 @@ import { Link } from "react-router-dom";
 import TvSeries from "@/interfaces/TvSeries";
 import Gradient from "./Gradient";
 import isMovie from "@/utils/isMovie";
+import { ImageProps } from "@chakra-ui/react";
 
-interface Props {
+interface Props extends ImageProps {
   media: Movie | TvSeries;
-  width?: string;
-  height?: string;
 }
 
 const Card = ({ media, width, height }: Props) => {
@@ -30,7 +29,7 @@ const Card = ({ media, width, height }: Props) => {
         onMouseLeave={() => setShow(false)}
       >
         {/* Image of movie card */}
-        <Skeleton loading={imgLoading} position="relative" maxW={width} maxH={height}>
+        <Skeleton loading={imgLoading} position="relative">
           <Image
             borderRadius="md"
             onLoad={() => setImgLoading(false)}
@@ -40,8 +39,8 @@ const Card = ({ media, width, height }: Props) => {
             alt={isMovie(media) ? media.title : media.original_name}
             objectFit="cover"
             loading="lazy"
-            w="100%"
-            h="100%"
+            h={height}
+            w={width}
           />
           <Box transition="opacity 0.3s ease-in-out" opacity={show ? 0.8 : 0}>
             <Gradient.Bottom />

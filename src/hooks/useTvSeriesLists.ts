@@ -6,7 +6,7 @@ import ms from "ms";
 
 export type TvSeriesTags = "popular" | "top_rated" | "airing_today" | "on_the_air";
 
-const useTvSeriesLists = (endpoint: TvSeriesTags) => {
+const useTvSeriesLists = (endpoint: TvSeriesTags, enabled?: boolean) => {
   const computedEndpoint = isActiveTmdbClient ? `/tv/${endpoint}` : `/tv/tag/${endpoint}`;
 
   const client = createClient<TvSeries>(computedEndpoint);
@@ -20,6 +20,7 @@ const useTvSeriesLists = (endpoint: TvSeriesTags) => {
     getNextPageParam(lastPage, allPages) {
       return lastPage.results.length ? allPages.length + 1 : undefined;
     },
+    enabled,
   });
   const resCount =
     res.data?.pages.reduce((acc, page) => acc + page.results.length, 0) || 0;

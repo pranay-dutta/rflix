@@ -6,11 +6,11 @@ import { WatchProviderProps } from "../container/WatchProviderContainer";
 const WatchProvider = ({
   media,
   selectedTab,
-  setSelectedTab,
+  setTab,
+  loading,
   tabItems,
   width,
 }: WatchProviderProps) => {
-  if (!media) return null;
 
   return (
     <>
@@ -19,7 +19,7 @@ const WatchProvider = ({
         orientation={width < 768 ? "vertical" : "horizontal"}
         defaultValue={selectedTab}
         onValueChange={(details) => {
-          setSelectedTab(details.value as WatchProviderType);
+          setTab(details.value as WatchProviderType);
         }}
       >
         <Tabs.List>
@@ -35,17 +35,17 @@ const WatchProvider = ({
           })}
         </Tabs.List>
 
-        {tabItems.map((item) => (
+        {/* {tabItems.map((item) => (
           <Tabs.Content my={3} key={item.value} value={item.value} color={item.color}>
             <MediaScrollHeading highlight="">
               {"Series on " + item.label}
             </MediaScrollHeading>
           </Tabs.Content>
-        ))}
+        ))} */}
       </Tabs.Root>
 
       {/* Media scroll for the selected tab */}
-      <MediaScroll loop={false} media={media} />
+      <MediaScroll loading={loading} loop={false} media={media} />
     </>
   );
 };

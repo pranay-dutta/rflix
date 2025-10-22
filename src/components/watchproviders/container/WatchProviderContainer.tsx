@@ -1,13 +1,13 @@
 import useWatchProvider, { WatchProviderType } from "@/hooks/useWatchProvider";
+import TvSeries from "@/interfaces/TvSeries";
 import { Box, Skeleton } from "@chakra-ui/react";
 import { useWindowSize } from "@uidotdev/usehooks";
-import { Dispatch, SetStateAction, useState } from "react";
-import { useInView } from "react-intersection-observer";
-import { SiAppletv, SiHbo, SiPrime, SiParamountplus } from "react-icons/si";
-import { TbBrandDisney } from "react-icons/tb";
-import { RiNetflixFill } from "react-icons/ri";
+import { useState } from "react";
 import { IconType } from "react-icons";
-import TvSeries from "@/interfaces/TvSeries";
+import { RiNetflixFill } from "react-icons/ri";
+import { SiAppletv, SiHbo, SiParamountplus, SiPrime } from "react-icons/si";
+import { TbBrandDisney } from "react-icons/tb";
+import { useInView } from "react-intersection-observer";
 import WatchProvider from "../presentation/WatchProvider";
 
 interface TabItem {
@@ -18,7 +18,8 @@ interface TabItem {
 }
 
 export interface WatchProviderProps {
-  setSelectedTab: Dispatch<SetStateAction<WatchProviderType>>;
+  setTab: (value: WatchProviderType) => void;
+  loading: boolean;
   selectedTab: WatchProviderType;
   width: number;
   media?: TvSeries[];
@@ -31,35 +32,23 @@ const WatchProviderContainer = () => {
   const { data, isLoading, isError } = useWatchProvider(selectedTab);
   const window = useWindowSize();
 
+  const setTab = (value: WatchProviderType) => {
+    setSelectedTab(value);
+  };
+
   if (isError) return null;
   if (!window.width) return null;
 
-  const loading = isLoading || !inView;
-
-  return (
-    <Skeleton
-      ref={ref}
-      my={5}
-      loading={loading}
-      background="gray.950"
-      borderWidth="1px"
-      borderRadius="10px"
-      px={{ lg: 10, base: 5 }}
-      py={{ lg: 8, base: 5 }}
-    >
-      {loading ? (
-        <Box minH={"492px"} />
-      ) : (
-        <WatchProvider
-          media={data?.results}
-          selectedTab={selectedTab}
-          setSelectedTab={setSelectedTab}
-          tabItems={tabItems}
-          width={window.width}
-        />
-      )}
-    </Skeleton>
-  );
+    return (
+      <WatchProvider
+        media={data?.results}
+        selectedTab={selectedTab}
+        setTab={setTab}
+        loading={isLoading}
+        tabItems={tabItems}
+        width={window.width}
+      />
+    );
 };
 
 const tabItems: TabItem[] = [

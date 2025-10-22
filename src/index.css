@@ -9,3 +9,10 @@ html {
     border-radius: 4px;
   }
 }
+:root {
+  --background: rgb(9, 9, 11);
+}
+* {
+  font-style: normal;
+  font-family: "Montserrat", sans-serif;
+}

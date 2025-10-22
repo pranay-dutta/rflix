@@ -6,7 +6,7 @@ import createClient, { isActiveTmdbClient } from "@/services/client";
 
 export type MovieTags = "now_playing" | "popular" | "top_rated" | "upcoming";
 
-const useMovieLists = (endpoint: MovieTags) => {
+const useMovieLists = (endpoint: MovieTags, enabled?: boolean) => {
   const computedEndpoint = isActiveTmdbClient
     ? `/movie/${endpoint}`
     : `/movie/tag/${endpoint}`;
@@ -18,10 +18,10 @@ const useMovieLists = (endpoint: MovieTags) => {
     initialPageParam: 1,
     staleTime: ms("2h"),
     queryFn: ({ pageParam }) => client.getAll({ params: { page: pageParam } }),
-
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.results.length ? allPages.length + 1 : undefined;
     },
+    enabled,
   });
 
   const resCount =

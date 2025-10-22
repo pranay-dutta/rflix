@@ -40,6 +40,7 @@ const WatchListCard = ({ watchListItem }: Props) => {
           src={getTMDBImage(watchListItem.posterPath, "w342", "vertical")}
           alt={watchListItem.title}
           onLoad={() => setImgLoading(false)}
+          _placeholder={{ bg: "gray.200" }}
           objectFit="cover"
           loading="lazy"
           w="100%"
