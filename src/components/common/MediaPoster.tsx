@@ -9,7 +9,7 @@ const MediaPoster = ({ backdrop_path }: { backdrop_path: string }) => {
         height="80vh"
         w="full"
         className="opacity-70 w-full rounded-md object-cover"
-        src={getTMDBImage(backdrop_path, "original", "horizontal")}
+        src={getTMDBImage(backdrop_path, "w1280", "horizontal")}
         loading="lazy"
       />
       <Gradient.Bottom />

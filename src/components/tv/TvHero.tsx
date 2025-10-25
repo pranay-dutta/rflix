@@ -40,7 +40,7 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
           <GridItem>
             {/* Card image above poster */}
             <Image
-              src={getTMDBImage(series.poster_path, "original", "vertical")}
+              src={getTMDBImage(series.poster_path, "w500", "vertical")}
               borderRadius="md"
               className="lg:w-80"
               objectFit="cover"
@@ -148,7 +148,9 @@ const SimilarSeries = () => {
 
   return (
     <Box mt={10}>
-      <MediaScrollHeading highlight="Tv Shows">Similar Tv Shows</MediaScrollHeading>
+      <Box my={3}>
+        <MediaScrollHeading highlight="Tv Shows">Similar Tv Shows</MediaScrollHeading>
+      </Box>
       <MediaScroll similarMedia media={similarSeries.results} />
     </Box>
   );

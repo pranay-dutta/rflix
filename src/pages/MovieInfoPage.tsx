@@ -52,7 +52,9 @@ const SimilarMovies = () => {
 
   return (
     <Box mt={10}>
-      <MediaScrollHeading highlight="Movies">Similar Movies</MediaScrollHeading>
+      <Box my={3}>
+        <MediaScrollHeading highlight="Movies">Similar Movies</MediaScrollHeading>
+      </Box>
       <MediaScroll similarMedia media={similarMovies} />
     </Box>
   );
@@ -80,7 +82,7 @@ const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
           {/* Card image over poster */}
           <GridItem>
             <Image
-              src={getTMDBImage(movie.poster_path, "original", "vertical")}
+              src={getTMDBImage(movie.poster_path, "w500", "vertical")}
               borderRadius="md"
               objectFit="cover"
               className="lg:w-80"
