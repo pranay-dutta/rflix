@@ -1,31 +1,37 @@
-import { Box, Button, Flex, HStack } from "@chakra-ui/react";
-import { memo, PropsWithChildren, useState } from "react";
+import Container from "@/components/Container";
+import useMovieLists from "@/hooks/useMovieLists";
+import useCustomizationStore from "@/store/customizationStore";
+import { Box, Button, Flex, HStack, Skeleton } from "@chakra-ui/react";
+import { PropsWithChildren, useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa6";
+import { GoMute, GoUnmute } from "react-icons/go";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import AspectRatioContainer from "./AspectRatioContainer";
+import InfoButton from "./InfoButton";
 import MovieLanguage from "./MovieLanguage";
 import MovieLogo from "./MovieLogo";
 import MovieOverview from "./MovieOverview";
 import MovieTrailer from "./MovieTrailer";
 import Rating from "./Rating";
 import ReleaseDate from "./ReleaseDate";
-import InfoButton from "./InfoButton";
 import MovieWatchButton from "./WatchButton";
-import useMovieLists from "@/hooks/useMovieLists";
-import { GoUnmute } from "react-icons/go";
-import { GoMute } from "react-icons/go";
-import useCustomizationStore from "@/store/customizationStore";
-import Container from "@/components/Container";
 
 const Hero = () => {
-  const { data: movies } = useMovieLists("popular");
+  const { data: movies, isLoading } = useMovieLists("popular");
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isMuted, setIsMuted] = useState<boolean>(true);
   const disableHomepageVideo = useCustomizationStore((s) => s.disableHomepageVideo);
 
-  if (!movies) return null;
+  if (isLoading) {
+    return (
+      <AspectRatioContainer>
+        <Skeleton height="100%" width="100%" borderRadius="md" />
+      </AspectRatioContainer>
+    );
+  }
+
   return (
     <Box>
       <Swiper
@@ -37,7 +43,7 @@ const Hero = () => {
         modules={[Autoplay]}
         grabCursor
       >
-        {movies.pages[0].results.map((movie, index) => {
+        {movies?.pages[0].results.map((movie, index) => {
           return (
             <SwiperSlide key={movie.id} className="transition-all">
               <AspectRatioContainer>
@@ -99,6 +105,7 @@ const Hero = () => {
                 </Flex>
               </Container>
 
+              {/* Bottom overlay that blends with the hero */}
               <div className="absolute bottom-0 z-[1] w-full h-72 bg-gradient-to-t from-[var(--background)] to-transparent" />
             </SwiperSlide>
           );
@@ -111,4 +118,4 @@ const Hero = () => {
 const DropShadowWrapper = ({ children }: PropsWithChildren) => {
   return <div className="drop-shadow-2xl/35">{children}</div>;
 };
-export default memo(Hero);
+export default Hero;

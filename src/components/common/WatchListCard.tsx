@@ -26,12 +26,11 @@ const WatchListCard = ({ watchListItem }: Props) => {
       className="cursor-pointer relative overflow-hidden"
       borderRadius="md"
       transition="all 0.3s ease-in-out"
-      _hover={{ transform: "translateY(-8px)" }}
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
       onClick={() => navigate(path)}
     >
-      {/* Image of movie card */}
+      {/* Image of WatchList card */}
       <Skeleton loading={imgLoading} position="relative" maxW="240px" maxH="360px">
         <Image
           borderRadius="md"
@@ -52,7 +51,7 @@ const WatchListCard = ({ watchListItem }: Props) => {
         </Box>
       </Skeleton>
 
-      {/* Movie card rating and release date*/}
+      {/* Rating and release date*/}
       <HStack
         opacity={show ? 1 : 0}
         transition="opacity 0.3s ease-in-out"
@@ -67,10 +66,10 @@ const WatchListCard = ({ watchListItem }: Props) => {
       </HStack>
       <Stack
         opacity={show ? 1 : 0}
-        transition="opacity 0.3s ease-in-out"
+        transition="all 0.3s ease-in-out"
         position="absolute"
-        bottom={6}
-        zIndex={20}
+        bottom={4}
+        transform={show ? "translateY(-10px)" : "translateY(20px)"}
         px={2}
         w="full"
       >

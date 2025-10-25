@@ -11,11 +11,11 @@ interface Props {
 }
 const MediaGrid = ({ media }: Props) => {
   return (
-    <SimpleGrid className="grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+    <SimpleGrid className="grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 overflow-hidden">
       {media.pages.map((page, index) => (
         <Fragment key={index}>
           {page.results.map((movie) => (
-            <Card width="260px" height="390px" key={movie.id} media={movie} />
+            <Card key={movie.id} media={movie} />
           ))}
         </Fragment>
       ))}

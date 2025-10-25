@@ -4,7 +4,7 @@ const MovieOverview = ({ overview }: { overview: string }) => {
   return (
     <Text
       filter={"contrast(2)"}
-      textAlign={{ base: "center", md: "left" }}
+      textAlign="left"
       width={{ sm: 500, lg: 850 }}
       fontSize="lg"
       lineHeight="initial"

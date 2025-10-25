@@ -1,7 +1,7 @@
 import TmdbClient from "./tmdb-client";
 import BackendClient from "./backend-client";
 
-export const isActiveTmdbClient = true;
+export const isActiveTmdbClient = false;
 const createClient = <T>(endpoint: string) => {
   return isActiveTmdbClient
     ? new TmdbClient<T>(endpoint)

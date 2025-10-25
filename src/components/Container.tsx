@@ -6,7 +6,20 @@ interface Props extends ContainerProps {
 }
 
 const Container = ({ children, ...rest }: Props) => {
-  return <ChakraContainer {...rest}>{children}</ChakraContainer>;
+  return (
+    <ChakraContainer
+      maxW={{
+        base: "sm", 
+        sm: "md",
+        md: "3xl",
+        lg: "5xl",
+        xl: "7xl",
+      }}
+      {...rest}
+    >
+      {children}
+    </ChakraContainer>
+  );
 };
 
 export default Container;
