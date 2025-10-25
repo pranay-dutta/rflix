@@ -20,7 +20,7 @@ const WatchProvider = () => {
         setSelectedTab={setSelectedTab}
       />
       <Box my={3}>
-        <MediaScroll loading={isLoading} media={watchProviderData?.results} />
+        <MediaScroll loading={isLoading} media={watchProviderData} />
       </Box>
     </>
   );
