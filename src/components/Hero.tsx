@@ -19,7 +19,7 @@ import ReleaseDate from "./ReleaseDate";
 import MovieWatchButton from "./WatchButton";
 
 const Hero = () => {
-  const { data: movies, isLoading } = useMovieLists("popular");
+  const { data, isLoading } = useMovieLists("popular");
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isMuted, setIsMuted] = useState<boolean>(true);
   const disableHomepageVideo = useCustomizationStore((s) => s.disableHomepageVideo);
@@ -32,6 +32,9 @@ const Hero = () => {
     );
   }
 
+  // Filter out movies without poster or backdrop images
+  const movies = data?.pages[0].results.filter((movie) => movie.poster_path && movie.backdrop_path);
+
   return (
     <Box>
       <Swiper
@@ -43,7 +46,7 @@ const Hero = () => {
         modules={[Autoplay]}
         grabCursor
       >
-        {movies?.pages[0].results.map((movie, index) => {
+        {movies?.map((movie, index) => {
           return (
             <SwiperSlide key={movie.id} className="transition-all">
               <AspectRatioContainer>
