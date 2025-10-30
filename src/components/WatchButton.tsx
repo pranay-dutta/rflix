@@ -1,15 +1,15 @@
-import { Button as ChakraButton } from "@chakra-ui/react";
+import { Button as ChakraButton, ButtonProps } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import { IconType } from "react-icons";
 import { useNavigate } from "react-router-dom";
 
-interface Props {
+interface WatchButtonProps extends ButtonProps {
   children: ReactNode;
   icon: IconType;
-  id: number;
+  movieId: number;
 }
 
-const MovieWatchButton = ({ children, icon, id }: Props) => {
+const MovieWatchButton = ({ children, icon, movieId, ...props }: WatchButtonProps) => {
   const Icon = icon;
   const navigate = useNavigate();
 
@@ -23,10 +23,10 @@ const MovieWatchButton = ({ children, icon, id }: Props) => {
       borderRadius="md"
       fontWeight={500}
       _focus={{ outline: "none", boxShadow: "outline" }}
-      rounded="md"
-      _hover={{ scale: 1.1, opacity: 0.9 }}
+      _hover={{ transform: "scale(1.1)", opacity: 0.9 }}
       width="fit-content"
-      onClick={() => navigate("/watch/movie/" + id)}
+      onClick={() => navigate("/watch/movie/" + movieId)}
+      {...props}
     >
       <Icon />
       {children}

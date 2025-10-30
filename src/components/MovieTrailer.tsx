@@ -10,7 +10,7 @@ interface Props {
   isMuted?: boolean;
 }
 
-const MovieTrailer = ({ movieId, isActive = false, isMuted }: Props) => {
+const MovieTrailer = ({ movieId, isActive, isMuted }: Props) => {
   const { trailers, isLoading } = useMovieTrailer(movieId);
   const disableHomepageVideo = useCustomizationStore((s) => s.disableHomepageVideo);
   const iframeRef = useRef<HTMLIFrameElement>(null);
