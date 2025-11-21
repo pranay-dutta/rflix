@@ -92,7 +92,7 @@ export function getTMDBImage(
   placeholderDimension?: "vertical" | "horizontal",
 ) {
   const dimension = placeholderDimension === "horizontal" ? "1920x1080" : "500x750";
-  if (!url) return `https://fakeimg.ryd.tools/${dimension}/111?text=Media`;
+  if (!url) return `https://fakeimg.cnbattle.com/${dimension}/111?text=Media`;
   return `https://image.tmdb.org/t/p/${quality}` + url;
 }
 
