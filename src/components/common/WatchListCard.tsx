@@ -31,11 +31,20 @@ const WatchListCard = ({ watchListItem }: Props) => {
       onClick={() => navigate(path)}
     >
       {/* Image of WatchList card */}
-      <Skeleton loading={imgLoading} position="relative" maxW="240px" maxH="360px">
+      <Skeleton
+        loading={imgLoading}
+        position="relative"
+        maxW="240px"
+        maxH="360px"
+        overflow="hidden"
+        borderRadius="md"
+      >
         <Image
           borderRadius="md"
-          transition="filter 0.3s ease-in-out"
-          filter={show ? "brightness(0.8)" : "brightness(1)"}
+          transition="transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+          filter={show ? "brightness(0.7)" : "brightness(1)"}
+          transform={show ? "scale3d(1.08, 1.08, 1)" : "scale3d(1, 1, 1)"}
+          willChange="transform, filter"
           src={getTMDBImage(watchListItem.posterPath, "w342", "vertical")}
           alt={watchListItem.title}
           onLoad={() => setImgLoading(false)}
@@ -45,7 +54,10 @@ const WatchListCard = ({ watchListItem }: Props) => {
           w="100%"
           h="100%"
         />
-        <Box transition="opacity 0.3s ease-in-out" opacity={show ? 0.8 : 0}>
+        <Box
+          transition="opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+          opacity={show ? 0.7 : 0}
+        >
           <Gradient.Bottom />
           <Gradient.Top />
         </Box>
@@ -56,27 +68,33 @@ const WatchListCard = ({ watchListItem }: Props) => {
         opacity={show ? 1 : 0}
         transition="opacity 0.3s ease-in-out"
         position="absolute"
-        top={4}
+        top={2}
         px={2}
         w="full"
         justify="space-between"
       >
-        <Rating vote_average={watchListItem.rating} />
+        <Rating fontSize="sm" vote_average={watchListItem.rating} />
         <WatchListButton {...watchListItem} hideBg />
       </HStack>
       <Stack
         opacity={show ? 1 : 0}
         transition="all 0.3s ease-in-out"
         position="absolute"
-        bottom={4}
+        bottom={1}
         transform={show ? "translateY(-10px)" : "translateY(20px)"}
-        px={2}
         w="full"
+        px={2}
+        gap={1}
       >
-        <Text fontSize="md" fontWeight="medium" lineClamp="1">
+        <Text
+          fontSize="md"
+          fontWeight="semibold"
+          textWrap="balance"
+          letterSpacing="0.025em"
+        >
           {watchListItem.title}
         </Text>
-        <Text fontSize="lg" fontWeight="medium" color={`${activePalette}.400`}>
+        <Text fontSize="md" fontWeight="semibold" color={`${activePalette}.400`}>
           {watchListItem.type === "movie" ? "Movie" : "TV Series"}
         </Text>
       </Stack>

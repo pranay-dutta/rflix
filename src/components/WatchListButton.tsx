@@ -51,6 +51,7 @@ const WatchListButton = ({ type, id, posterPath, title, rating = 0, hideBg }: Pr
       borderRadius="md"
       fontWeight={500}
       _focus={{ outline: "none", boxShadow: "outline" }}
+      fontSize="sm"
       rounded="md"
       _hover={{ scale: 1.1, opacity: 0.9 }}
       onClick={handleClick}
