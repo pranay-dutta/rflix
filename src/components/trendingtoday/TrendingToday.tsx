@@ -4,7 +4,7 @@ import { Box } from "@chakra-ui/react";
 import { useState } from "react";
 import { MediaScroll } from "../common";
 import Tabs from "../Tabs";
-import RectMediaScroll from "../card/RectMediaScroll";
+import RectMediaScroll from "@/components/scroll/RectMediaScroll";
 import useCustomizationStore from "@/store/customizationStore";
 
 const TrendingToday = () => {

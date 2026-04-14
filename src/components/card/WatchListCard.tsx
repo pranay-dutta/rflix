@@ -29,13 +29,13 @@ const WatchListCard = ({ watchListItem }: Props) => {
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
       onClick={() => navigate(path)}
+      aspectRatio={2 / 3}
     >
       {/* Image of WatchList card */}
       <Skeleton
         loading={imgLoading}
         position="relative"
-        maxW="240px"
-        maxH="360px"
+        aspectRatio={2 / 3}
         overflow="hidden"
         borderRadius="md"
       >
@@ -51,8 +51,7 @@ const WatchListCard = ({ watchListItem }: Props) => {
           _placeholder={{ bg: "gray.200" }}
           objectFit="cover"
           loading="lazy"
-          w="100%"
-          h="100%"
+          aspectRatio={2 / 3}
         />
         <Box
           transition="opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
@@ -74,7 +73,7 @@ const WatchListCard = ({ watchListItem }: Props) => {
         justify="space-between"
       >
         <Rating fontSize="sm" vote_average={watchListItem.rating} />
-        <WatchListButton {...watchListItem} hideBg />
+        <WatchListButton {...watchListItem} iconOnly />
       </HStack>
       <Stack
         opacity={show ? 1 : 0}

@@ -1,22 +1,16 @@
-import { Movie } from "@/interfaces/Movie";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Card from "../card/Card";
-import TvSeries from "@/interfaces/TvSeries";
 import { WatchListItem } from "@/store/watchListStore";
 import { Box, Skeleton } from "@chakra-ui/react";
 import WatchListCard from "../card/WatchListCard";
 
 interface Props {
-  media?: Movie[] | TvSeries[];
   watchListItems?: WatchListItem[];
-  similarMedia?: boolean;
-  loop?: boolean;
   loading?: boolean;
 }
 
-const MediaScroll = ({ media, watchListItems, loop = true, loading }: Props) => {
+const WatchListScroll = ({ watchListItems, loading }: Props) => {
   const watchListItems10: WatchListItem[] = watchListItems?.slice(0, 10) || [];
-  const skeletons = Array.from({ length: 20 });
+  const skeletons = Array.from({ length: 10 });
 
   return (
     <Swiper
@@ -28,7 +22,7 @@ const MediaScroll = ({ media, watchListItems, loop = true, loading }: Props) => 
         1024: { slidesPerView: 5 },
         1440: { slidesPerView: 6 },
       }}
-      loop={loop}
+      loop={false}
       spaceBetween={15}
     >
       {loading &&
@@ -39,19 +33,13 @@ const MediaScroll = ({ media, watchListItems, loop = true, loading }: Props) => 
             </Skeleton>
           </SwiperSlide>
         ))}
+
       {watchListItems10.map((watchListItem) => (
         <SwiperSlide key={watchListItem.id}>
           <WatchListCard watchListItem={watchListItem} />
         </SwiperSlide>
       ))}
-
-      {media &&
-        media.map((media) => (
-          <SwiperSlide key={media.id}>
-            <Card media={media} />
-          </SwiperSlide>
-        ))}
     </Swiper>
   );
 };
-export default MediaScroll;
+export default WatchListScroll;

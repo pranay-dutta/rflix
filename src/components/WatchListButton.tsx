@@ -9,10 +9,17 @@ interface Props {
   title: string;
   rating?: number;
   posterPath: string;
-  hideBg?: boolean;
+  iconOnly?: boolean;
 }
 
-const WatchListButton = ({ type, id, posterPath, title, rating = 0, hideBg }: Props) => {
+const WatchListButton = ({
+  type,
+  id,
+  posterPath,
+  title,
+  rating = 0,
+  iconOnly,
+}: Props) => {
   const disableWatchList = useCustomizationStore((state) => state.disableWatchList);
   const inWishlist = useWatchListStore((state) => state.inWatchList(type, id));
   const activePalette = useCustomizationStore((s) => s.activePalette);
@@ -33,10 +40,10 @@ const WatchListButton = ({ type, id, posterPath, title, rating = 0, hideBg }: Pr
     }
   };
 
-  // If hideBg is true, render only the icon without background
-  if (hideBg)
+  // If iconOnly is true, render only the icon without background
+  if (iconOnly)
     return (
-      <Box _hover={{ scale: 1.2, color: "red.600" }} onClick={handleClick}>
+      <Box _hover={{ scale: 1, color: "red.600" }} onClick={handleClick}>
         {inWishlist ? <FaBookmark /> : <FaRegBookmark />}
       </Box>
     );

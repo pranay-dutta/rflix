@@ -3,7 +3,7 @@ import useGenre from "@/hooks/useGenre";
 import { useState } from "react";
 import Tabs from "../Tabs";
 import { Box } from "@chakra-ui/react";
-import RectMediaScroll from "../card/RectMediaScroll";
+import RectMediaScroll from "@/components/scroll/RectMediaScroll";
 import useCustomizationStore from "@/store/customizationStore";
 import { MediaScroll } from "../common";
 

@@ -5,7 +5,7 @@ import { Box } from "@chakra-ui/react";
 import { useState } from "react";
 import Tabs from "../Tabs";
 import { MediaScroll } from "../common";
-import RectMediaScroll from "../card/RectMediaScroll";
+import RectMediaScroll from "@/components/scroll/RectMediaScroll";
 import useCustomizationStore from "@/store/customizationStore";
 
 const TopRated = () => {

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { MediaScroll } from "../common";
 import Tabs from "../Tabs";
 import useCustomizationStore from "@/store/customizationStore";
-import RectMediaScroll from "../card/RectMediaScroll";
+import RectMediaScroll from "@/components/scroll/RectMediaScroll";
 
 const Popular = () => {
   const [selectedTab, setSelectedTab] = useState("movies");

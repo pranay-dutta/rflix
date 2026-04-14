@@ -1,8 +1,10 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { MediaScroll, MediaScrollHeading } from "./common";
+import { MediaScrollHeading } from "./common";
 import useWatchListStore from "@/store/watchListStore";
 import useCustomizationStore from "@/store/customizationStore";
 import { Link } from "react-router-dom";
+import WatchListScroll from "./scroll/WatchListScroll";
+import WatchListRectScroll from "./scroll/WatchListRectScroll";
 
 const WatchList = () => {
   const watchList = useWatchListStore((s) => s.watchList);
@@ -10,6 +12,8 @@ const WatchList = () => {
   const disableWatchListHomepage = useCustomizationStore(
     (s) => s.disableWatchListHomepage,
   );
+
+  const cardStyle = useCustomizationStore((s) => s.cardStyle);
 
   if (disableWatchListHomepage || !watchList.size) return null;
 
@@ -25,7 +29,13 @@ const WatchList = () => {
           <Text transform={"translateY(6px)"}>View all</Text>
         </Link>
       </Flex>
-      <MediaScroll loop={false} watchListItems={watchListItems} />
+      <Box my={3}>
+        {cardStyle === "vertical" ? (
+          <WatchListScroll watchListItems={watchListItems} loading={false} />
+        ) : (
+          <WatchListRectScroll watchListItems={watchListItems} loading={false} />
+        )}
+      </Box>
     </>
   );
 };

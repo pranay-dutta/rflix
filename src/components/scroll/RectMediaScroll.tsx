@@ -32,7 +32,9 @@ const RectMediaScroll = ({ media, loading }: Props) => {
               </Skeleton>
             </SwiperSlide>
           ))}
-        {!loading && media && media.map((m) => (
+        {!loading &&
+          media &&
+          media.map((m) => (
             <SwiperSlide key={m.id}>
               <RectCard media={m} />
             </SwiperSlide>
