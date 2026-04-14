@@ -1,4 +1,3 @@
-import useCustomizationStore from "@/store/customizationStore";
 import { WatchListItem } from "@/store/watchListStore";
 import { Box, HStack, Image, Skeleton, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
@@ -7,6 +6,7 @@ import { getTMDBImage } from "../constants";
 import Gradient from "../Gradient";
 import Rating from "../Rating";
 import WatchListButton from "../WatchListButton";
+import useCustomizationStore from "@/store/customizationStore";
 
 interface Props {
   watchListItem: WatchListItem;

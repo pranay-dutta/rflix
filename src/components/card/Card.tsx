@@ -1,12 +1,12 @@
 import { Movie } from "@/interfaces/Movie";
 import { Box, HStack, Image, Text, Stack, Skeleton } from "@chakra-ui/react";
 import { useState } from "react";
-import { getTMDBImage } from "./constants";
-import Rating from "./Rating";
-import ReleaseDate from "./ReleaseDate";
+import { getTMDBImage } from "../constants";
+import Rating from "../Rating";
+import ReleaseDate from "../ReleaseDate";
 import { useNavigate } from "react-router-dom";
 import TvSeries from "@/interfaces/TvSeries";
-import Gradient from "./Gradient";
+import Gradient from "../Gradient";
 import isMovie from "@/utils/isMovie";
 
 interface Props {
