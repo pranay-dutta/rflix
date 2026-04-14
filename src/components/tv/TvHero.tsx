@@ -23,6 +23,8 @@ import { MediaPoster, MediaScroll, MediaScrollHeading } from "../common";
 import { useParams } from "react-router-dom";
 import WatchListButton from "../WatchListButton";
 import Credits from "../common/Credits";
+import RectMediaScroll from "../scroll/RectMediaScroll";
+import useCustomizationStore from "@/store/customizationStore";
 
 const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
   if (!series) return null;
@@ -134,6 +136,7 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
       </Box>
 
       <Season series={series} />
+
       <SimilarSeries />
     </>
   );
@@ -143,6 +146,8 @@ const SimilarSeries = () => {
   const { id } = useParams();
   if (!id) throw Error("Failed to get series id");
 
+  const cardStyle = useCustomizationStore((s) => s.cardStyle);
+
   const { data: similarSeries } = useTvSeries(parseInt(id), "similar");
   if (!similarSeries || !similarSeries.results.length) return null;
 
@@ -151,7 +156,11 @@ const SimilarSeries = () => {
       <Box my={3}>
         <MediaScrollHeading highlight="Tv Shows">Similar Tv Shows</MediaScrollHeading>
       </Box>
-      <MediaScroll similarMedia media={similarSeries.results} />
+      {cardStyle === "vertical" ? (
+        <MediaScroll media={similarSeries.results} />
+      ) : (
+        <RectMediaScroll media={similarSeries.results} />
+      )}
     </Box>
   );
 };

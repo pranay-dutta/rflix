@@ -26,6 +26,8 @@ import { MovieDetails } from "@/interfaces/MovieDetails";
 import { useInView } from "react-intersection-observer";
 import WatchListButton from "@/components/WatchListButton";
 import Credits from "@/components/common/Credits";
+import useCustomizationStore from "@/store/customizationStore";
+import RectMediaScroll from "@/components/scroll/RectMediaScroll";
 
 const MovieInfoPage = () => {
   const { id } = useParams();
@@ -45,6 +47,7 @@ const MovieInfoPage = () => {
 
 const SimilarMovies = () => {
   const { id } = useParams();
+  const cardStyle = useCustomizationStore((s) => s.cardStyle);
   if (!id) throw new Error("Info page");
 
   const { similarMovies } = useSimilarMovies(1, parseInt(id));
@@ -55,7 +58,11 @@ const SimilarMovies = () => {
       <Box my={3}>
         <MediaScrollHeading highlight="Movies">Similar Movies</MediaScrollHeading>
       </Box>
-      <MediaScroll similarMedia media={similarMovies} />
+      {cardStyle === "vertical" ? (
+        <MediaScroll media={similarMovies} />
+      ) : (
+        <RectMediaScroll media={similarMovies} />
+      )}
     </Box>
   );
 };

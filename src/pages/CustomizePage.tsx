@@ -2,6 +2,7 @@ import PageHeading from "@/components/common/PageHeading";
 import useCustomizationStore from "@/store/customizationStore";
 import {
   Box,
+  Checkbox,
   createListCollection,
   Flex,
   Grid,
@@ -12,6 +13,7 @@ import {
   SelectValueChangeDetails,
   Stack,
 } from "@chakra-ui/react";
+import { ReactNode } from "react";
 
 const CustomizePage = () => {
   const activePalette = useCustomizationStore((s) => s.activePalette);
@@ -104,9 +106,6 @@ const CustomizationBox = ({ heading, children }: CustomizationBoxProps) => {
   );
 };
 
-import { Checkbox } from "@chakra-ui/react";
-import { ReactNode, useState } from "react";
-
 interface Props {
   label: string;
   disabled?: boolean;
@@ -126,22 +125,26 @@ const ChakraCheckBox = ({ label, disabled }: Props) => {
 
 const CardStyle = () => {
   const cardStyle = useCustomizationStore((s) => s.cardStyle);
-  const [value, setValue] = useState<string[]>(cardStyle ? [cardStyle] : []);
-
-  const handleValueChange = (e: SelectValueChangeDetails) => {
-    setValue(e.value);
-    setCardStyle(e.value[0] as "vertical" | "horizontal");
-  };
   const setCardStyle = useCustomizationStore((s) => s.setCardStyle);
 
+  const handleValueChange = (e: SelectValueChangeDetails) => {
+    setCardStyle(e.value[0] as "vertical" | "horizontal");
+  };
+
   return (
-    <Flex height="100%" width="100%" gap={2}>
-      {/* Card style selection */}
+    <Flex
+      height="100%"
+      width="100%"
+      gap={4}
+      direction={{ base: "column", md: "row" }}
+      align={{ base: "stretch", md: "center" }}
+    >
       <Select.Root
         collection={options}
         size="sm"
-        width="320px"
-        value={value}
+        width="full"
+        maxW="320px"
+        value={cardStyle ? [cardStyle] : []}
         onValueChange={(e) => handleValueChange(e)}
       >
         <Select.HiddenSelect />
@@ -167,18 +170,19 @@ const CardStyle = () => {
         </Portal>
       </Select.Root>
 
-      {/* Show style based on that */}
-      {cardStyle === "vertical" ? (
-        <Flex gap={2}>
-          <Box bg="gray.500" aspectRatio={2 / 3} borderRadius="sm" />
-          <Box bg="gray.500" aspectRatio={2 / 3} borderRadius="sm" />
-        </Flex>
-      ) : (
-        <Flex gap={2}>
-          <Box maxW="200px" bg="gray.500" aspectRatio={16 / 9} borderRadius="sm" />
-          <Box maxW="200px" bg="gray.500" aspectRatio={16 / 9} borderRadius="sm" />
-        </Flex>
-      )}
+      <Flex gap={2} wrap="wrap" align="center">
+        {cardStyle === "vertical" ? (
+          <>
+            <Box w="64px" bg="gray.500" aspectRatio={2 / 3} borderRadius="sm" />
+            <Box w="64px" bg="gray.500" aspectRatio={2 / 3} borderRadius="sm" />
+          </>
+        ) : (
+          <>
+            <Box w="112px" bg="gray.500" aspectRatio={16 / 9} borderRadius="sm" />
+            <Box w="112px" bg="gray.500" aspectRatio={16 / 9} borderRadius="sm" />
+          </>
+        )}
+      </Flex>
     </Flex>
   );
 };
