@@ -1,5 +1,5 @@
 import PageHeading from "@/components/common/PageHeading";
-import WatchListCard from "@/components/common/WatchListCard";
+import WatchListCard from "@/components/card/WatchListCard";
 import useCustomizationStore from "@/store/customizationStore";
 import useWatchListStore from "@/store/watchListStore";
 import { Box, Flex, Grid, Heading, Text } from "@chakra-ui/react";

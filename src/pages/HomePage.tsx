@@ -41,14 +41,6 @@ const HomePage = () => {
   );
 };
 
-const minHeight = {
-  base: "320px",
-  sm: "257px",
-  md: "320px",
-  lg: "290px",
-  xl: "351px",
-  "2xl": "315px",
-};
 const Wrapper = ({ children }: { children: ReactNode }) => {
   const { ref, inView } = useInView({
     threshold: 0,
@@ -58,7 +50,7 @@ const Wrapper = ({ children }: { children: ReactNode }) => {
 
   return (
     <Box ref={ref} my={"10"}>
-      {inView ? children : <Box minH={minHeight} />}
+      {inView ? children : <Box height="200px" />}
     </Box>
   );
 };

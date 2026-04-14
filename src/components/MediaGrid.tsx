@@ -1,6 +1,6 @@
 import { SimpleGrid } from "@chakra-ui/react";
 import { Fragment } from "react/jsx-runtime";
-import Card from "./Card";
+import Card from "./card/Card";
 import { FetchResponse } from "@/interfaces/FetchResponse";
 import { InfiniteData } from "@tanstack/react-query";
 import { Movie } from "@/interfaces/Movie";
