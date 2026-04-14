@@ -4,9 +4,13 @@ import { Box } from "@chakra-ui/react";
 import { useState } from "react";
 import { MediaScroll } from "../common";
 import Tabs from "../Tabs";
+import useCustomizationStore from "@/store/customizationStore";
+import RectMediaScroll from "../card/RectMediaScroll";
 
 const TrendingWeek = () => {
   const [selectedTab, setSelectedTab] = useState("movies");
+  const cardStyle = useCustomizationStore((s) => s.cardStyle);
+
   const { data: trendingMoviesWeek, isLoading: isMovieLoading } = useTrending(
     "movie",
     "week",
@@ -32,7 +36,11 @@ const TrendingWeek = () => {
         setSelectedTab={setSelectedTab}
       />
       <Box my={3}>
-        <MediaScroll loading={isLoading} media={media} />
+        {cardStyle === "vertical" ? (
+          <MediaScroll media={media} loading={isLoading} />
+        ) : (
+          <RectMediaScroll media={media} loading={isLoading} />
+        )}
       </Box>
     </>
   );

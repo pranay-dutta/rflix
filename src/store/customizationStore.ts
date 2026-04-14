@@ -6,11 +6,13 @@ export type CustomizationStore = {
   disableHomepageVideo: boolean;
   disableWatchList: boolean;
   disableWatchListHomepage: boolean;
+  cardStyle: "vertical" | "horizontal";
 
   setAccentColor: (color: string) => void;
   toggleDisableHomepageVideo: () => void;
   toggleDisableWatchList: () => void;
   toggleDisableWatchListHomepage: () => void;
+  setCardStyle: (style: "vertical" | "horizontal") => void;
 };
 
 const useCustomizationStore = create<CustomizationStore>()(
@@ -20,6 +22,7 @@ const useCustomizationStore = create<CustomizationStore>()(
       disableHomepageVideo: true,
       disableWatchList: false,
       disableWatchListHomepage: false,
+      cardStyle: "vertical",
 
       setAccentColor: (color) => set({ activePalette: color }),
       toggleDisableHomepageVideo: () =>
@@ -32,6 +35,7 @@ const useCustomizationStore = create<CustomizationStore>()(
         set((state) => ({
           disableWatchListHomepage: !state.disableWatchListHomepage,
         })),
+      setCardStyle: (style) => set({ cardStyle: style }),
     }),
     {
       name: "userCustomization", // localStorage key

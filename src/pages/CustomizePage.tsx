@@ -1,6 +1,17 @@
 import PageHeading from "@/components/common/PageHeading";
 import useCustomizationStore from "@/store/customizationStore";
-import { Box, Flex, Grid, Heading, HStack, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  createListCollection,
+  Flex,
+  Grid,
+  Heading,
+  HStack,
+  Portal,
+  Select,
+  SelectValueChangeDetails,
+  Stack,
+} from "@chakra-ui/react";
 
 const CustomizePage = () => {
   const activePalette = useCustomizationStore((s) => s.activePalette);
@@ -9,7 +20,6 @@ const CustomizePage = () => {
   const disableWatchListHomepage = useCustomizationStore(
     (s) => s.disableWatchListHomepage,
   );
-
   const toggleDisableHomepageVideo = useCustomizationStore(
     (s) => s.toggleDisableHomepageVideo,
   );
@@ -67,8 +77,10 @@ const CustomizePage = () => {
                     />
                   </Box>
                 </Flex>
-              ) : (
+              ) : index == 2 ? (
                 <ColorPalette />
+              ) : (
+                <CardStyle />
               )}
             </CustomizationBox>
           ))}
@@ -93,7 +105,7 @@ const CustomizationBox = ({ heading, children }: CustomizationBoxProps) => {
 };
 
 import { Checkbox } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 interface Props {
   label: string;
@@ -111,6 +123,72 @@ const ChakraCheckBox = ({ label, disabled }: Props) => {
     </Checkbox.Root>
   );
 };
+
+const CardStyle = () => {
+  const cardStyle = useCustomizationStore((s) => s.cardStyle);
+  const [value, setValue] = useState<string[]>(cardStyle ? [cardStyle] : []);
+
+  const handleValueChange = (e: SelectValueChangeDetails) => {
+    setValue(e.value);
+    setCardStyle(e.value[0] as "vertical" | "horizontal");
+  };
+  const setCardStyle = useCustomizationStore((s) => s.setCardStyle);
+
+  return (
+    <Flex height="100%" width="100%" gap={2}>
+      {/* Card style selection */}
+      <Select.Root
+        collection={options}
+        size="sm"
+        width="320px"
+        value={value}
+        onValueChange={(e) => handleValueChange(e)}
+      >
+        <Select.HiddenSelect />
+        <Select.Control>
+          <Select.Trigger>
+            <Select.ValueText placeholder="Select card style" />
+          </Select.Trigger>
+          <Select.IndicatorGroup>
+            <Select.Indicator />
+          </Select.IndicatorGroup>
+        </Select.Control>
+        <Portal>
+          <Select.Positioner>
+            <Select.Content>
+              {options.items.map((option) => (
+                <Select.Item item={option} key={option.value}>
+                  {option.label}
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Positioner>
+        </Portal>
+      </Select.Root>
+
+      {/* Show style based on that */}
+      {cardStyle === "vertical" ? (
+        <Flex gap={2}>
+          <Box bg="gray.500" aspectRatio={2 / 3} borderRadius="sm" />
+          <Box bg="gray.500" aspectRatio={2 / 3} borderRadius="sm" />
+        </Flex>
+      ) : (
+        <Flex gap={2}>
+          <Box maxW="200px" bg="gray.500" aspectRatio={16 / 9} borderRadius="sm" />
+          <Box maxW="200px" bg="gray.500" aspectRatio={16 / 9} borderRadius="sm" />
+        </Flex>
+      )}
+    </Flex>
+  );
+};
+
+const options = createListCollection({
+  items: [
+    { label: "Vertical", value: "vertical" },
+    { label: "Horizontal", value: "horizontal" },
+  ],
+});
 
 const colorPalettes = [
   "red",
@@ -152,6 +230,7 @@ const customizationBoxHeadings = [
   { heading: "Data saving mode" },
   { heading: "Watch List settings" },
   { heading: "Choose color scheme" },
+  { heading: "Choose card style" },
 ];
 
 export default CustomizePage;

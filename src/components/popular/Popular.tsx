@@ -5,9 +5,13 @@ import { Box } from "@chakra-ui/react";
 import { useState } from "react";
 import { MediaScroll } from "../common";
 import Tabs from "../Tabs";
+import useCustomizationStore from "@/store/customizationStore";
+import RectMediaScroll from "../card/RectMediaScroll";
 
 const Popular = () => {
   const [selectedTab, setSelectedTab] = useState("movies");
+  const cardStyle = useCustomizationStore((s) => s.cardStyle);
+
   const { data: popularMovies, isLoading: isMovieLoading } = useMovieLists(
     "popular",
     selectedTab === "movies",
@@ -29,7 +33,11 @@ const Popular = () => {
         setSelectedTab={setSelectedTab}
       />
       <Box my={3}>
-        <MediaScroll loading={isLoading} media={media?.pages[0].results} />
+        {cardStyle === "vertical" ? (
+          <MediaScroll media={media?.pages[0].results} loading={isLoading} />
+        ) : (
+          <RectMediaScroll media={media?.pages[0].results} loading={isLoading} />
+        )}
       </Box>
     </>
   );
