@@ -42,7 +42,7 @@ const RectCard = ({ media }: Props) => {
   );
 
   const navigate = useNavigate();
-  const hoverTimer = useRef<number | null>(null);
+  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handlePointerEnter = () => {
     //Don't keep delay if there is no URL
