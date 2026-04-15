@@ -49,7 +49,7 @@ const Wrapper = ({ children }: { children: ReactNode }) => {
   });
 
   return (
-    <Box ref={ref} my={"10"}>
+    <Box ref={ref} my="16">
       {inView ? children : <Box height="200px" />}
     </Box>
   );
