@@ -36,8 +36,8 @@ const useTrailer = (id: number, type: "movie" | "tv", isInView: boolean) => {
     queryFn: ({ signal }) => backendClient.get({ params: { type }, signal }),
     staleTime: ms("2h"),
     select: (data) => {
-      const stream = data.streams[0];
-      const _480pURL = stream.urls.find((url) => url.quality === "480p");
+      const stream = data.streams?.[0];
+      const _480pURL = stream?.urls?.find((url) => url.quality === "480p");
       return _480pURL?.url;
     },
     enabled: isInView,
