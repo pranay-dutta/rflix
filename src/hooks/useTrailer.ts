@@ -13,10 +13,10 @@ export interface Stream {
   type: string;
   runtime: number;
   thumbnail: string;
-  urls: URL[];
+  urls: TrailerUrl[];
 }
 
-export interface URL {
+export interface TrailerUrl {
   quality: string;
   url: string;
 }
