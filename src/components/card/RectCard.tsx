@@ -63,7 +63,7 @@ const RectCard = ({ media }: Props) => {
     }
     setIsPreviewActive(false);
   };
-  const show = !isPreviewActive || trailerFetching;
+  const show = !isPreviewActive || trailerFetching || !trailerURL;
 
   return (
     <Skeleton
