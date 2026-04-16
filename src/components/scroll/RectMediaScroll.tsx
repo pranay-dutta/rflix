@@ -2,7 +2,6 @@ import { Movie } from "@/interfaces/Movie";
 import TvSeries from "@/interfaces/TvSeries";
 import { Box, Skeleton } from "@chakra-ui/react";
 import { useRef } from "react";
-import {} from "react-icons";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
