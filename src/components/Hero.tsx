@@ -79,12 +79,12 @@ const MovieTrailerWrapper = ({ movie, isActive }: MovieTrailerWrapperProps) => {
       </AspectRatioContainer>
 
       <Container
-        fontSize="lg"
+        fontSize="xs"
         position="absolute"
         left="50%"
         zIndex={20}
         transform={"translateX(-50%)"}
-        className="flex gap-3 bottom-5 md:bottom-[15%]"
+        className="flex gap-3 bottom-5 md:bottom-[20%]"
       >
         <Flex direction="column" minW="full" gap={6}>
           {/* Movie title logo */}
