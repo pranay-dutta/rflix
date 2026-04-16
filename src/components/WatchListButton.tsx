@@ -10,12 +10,14 @@ interface Props {
   rating?: number;
   posterPath: string;
   iconOnly?: boolean;
+  rectPosterPath: string;
 }
 
 const WatchListButton = ({
   type,
   id,
   posterPath,
+  rectPosterPath,
   title,
   rating = 0,
   iconOnly,
@@ -36,7 +38,7 @@ const WatchListButton = ({
     if (inWishlist) {
       removeFromWishlist(type, id);
     } else {
-      addToWishlist({ id, type, title, posterPath, rating });
+      addToWishlist({ id, type, title, posterPath, rating, rectPosterPath });
     }
   };
 

@@ -95,17 +95,22 @@ const RectCard = ({ media }: Props) => {
 
         {/* Trailer while hovering */}
         {showVideo && (
-          <Box position="absolute" top={0} left={0} w="full" h="full">
             <video
               src={trailerURL}
               muted
               loop
               autoPlay
-              width="100%"
-              height="100%"
-              className="object-cover"
+              playsInline
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center center",
+                display: "block",
+              }}
             />
-          </Box>
         )}
 
         {isPreviewActive && trailerFetching && (

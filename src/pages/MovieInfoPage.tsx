@@ -28,6 +28,8 @@ import WatchListButton from "@/components/WatchListButton";
 import Credits from "@/components/common/Credits";
 import useCustomizationStore from "@/store/customizationStore";
 import RectMediaScroll from "@/components/scroll/RectMediaScroll";
+import useRectPoster from "@/hooks/useRectPoster";
+import getPosterURL from "@/utils/getPosterURL";
 
 const MovieInfoPage = () => {
   const { id } = useParams();
@@ -40,7 +42,7 @@ const MovieInfoPage = () => {
       <Box my={3}>
         <BackButton />
       </Box>
-      {isLoading ? <Skeleton w="full" h="80vh" /> : <MovieHero movie={movie} />}
+      {isLoading ? <Skeleton w="full" h="80vh" /> : movie && <MovieHero movie={movie} />}
     </>
   );
 };
@@ -69,11 +71,10 @@ const SimilarMovies = () => {
 
 export default MovieInfoPage;
 
-const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
-  const { inView, ref } = useInView({
-    triggerOnce: true,
-  });
-  if (!movie) return null;
+const MovieHero = ({ movie }: { movie: MovieDetails }) => {
+  const { inView, ref } = useInView({ triggerOnce: true });
+  const { data: rectPoster, isLoading } = useRectPoster(movie.id, "movie");
+  const posterPath = getPosterURL(isLoading, rectPoster);
 
   return (
     <>
@@ -124,13 +125,17 @@ const MovieHero = ({ movie }: { movie: MovieDetails | undefined }) => {
                 <MovieWatchButton id={movie.id} icon={FaPlay}>
                   Watch Trailer
                 </MovieWatchButton>
-                <WatchListButton
-                  id={movie.id}
-                  type="movie"
-                  posterPath={movie.poster_path}
-                  title={movie.title}
-                  rating={movie.vote_average}
-                />
+                
+                {!isLoading && posterPath && (
+                  <WatchListButton
+                    id={movie.id}
+                    type="movie"
+                    posterPath={movie.poster_path}
+                    rectPosterPath={posterPath}
+                    title={movie.title}
+                    rating={movie.vote_average}
+                  />
+                )}
               </HStack>
             </Box>
 

@@ -1,7 +1,6 @@
 import { Box, Text, Skeleton } from "@chakra-ui/react";
 import { useState } from "react";
 import { Image } from "@chakra-ui/react";
-import useRectPoster from "@/hooks/useRectPoster";
 import Rating from "../Rating";
 import { useNavigate } from "react-router-dom";
 import { WatchListItem } from "@/store/watchListStore";
@@ -26,12 +25,11 @@ const WatchListRectCard = ({ watchListItem }: Props) => {
   const mediaType = watchListItem.type;
 
   const [imgLoading, setImgLoading] = useState(true);
-  const { data: rectPosterPath, isLoading } = useRectPoster(watchListItem.id, mediaType);
   const navigate = useNavigate();
 
   return (
     <Skeleton
-      loading={imgLoading || isLoading}
+      loading={imgLoading}
       aspectRatio={16 / 9}
       overflow="hidden"
       borderRadius="sm"
@@ -39,7 +37,7 @@ const WatchListRectCard = ({ watchListItem }: Props) => {
       <Box position="relative">
         <Image
           onLoad={() => setImgLoading(false)}
-          src={rectPosterPath}
+          src={watchListItem.rectPosterPath}
           _hover={{ transform: "scale(1.07)" }}
           transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
           objectFit="cover"

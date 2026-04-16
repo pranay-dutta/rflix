@@ -6,6 +6,7 @@ export type WatchListItem = {
   type: "movie" | "tv";
   title: string;
   posterPath: string;
+  rectPosterPath: string;
   rating: number;
 };
 
@@ -57,7 +58,7 @@ const useWatchListStore = create<WishlistStore>((set, get) => ({
   },
 }));
 
-if (process.env.NODE_ENV === "development") {
+if (import.meta.env.DEV) {
   mountStoreDevtool("useWishlistStore", useWatchListStore);
 }
 

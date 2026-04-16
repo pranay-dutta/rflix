@@ -9,7 +9,6 @@ import {
   HStack,
   Badge,
 } from "@chakra-ui/react";
-import { getTMDBImage } from "../constants";
 import useTvSeries from "@/hooks/useTvSeries";
 import { TvSeriesDetails } from "@/interfaces/TvSeriesDetails";
 import TvSeriesWatchButton from "../TvSeriesWatchButton";
@@ -25,9 +24,13 @@ import WatchListButton from "../WatchListButton";
 import Credits from "../common/Credits";
 import RectMediaScroll from "../scroll/RectMediaScroll";
 import useCustomizationStore from "@/store/customizationStore";
+import useRectPoster from "@/hooks/useRectPoster";
+import { getTMDBImage } from "../constants";
+import getPosterURL from "@/utils/getPosterURL";
 
-const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
-  if (!series) return null;
+const TvHero = ({ series }: { series: TvSeriesDetails }) => {
+  const { data: rectPoster, isLoading } = useRectPoster(series.id, "tv");
+  const posterPath = getPosterURL(isLoading, rectPoster);
 
   return (
     <>
@@ -78,13 +81,16 @@ const TvHero = ({ series }: { series: TvSeriesDetails | undefined }) => {
                 <TvSeriesWatchButton id={series.id} season={1} episode={1} icon={BiPlay}>
                   Watch Trailer
                 </TvSeriesWatchButton>
-                <WatchListButton
-                  id={series.id}
-                  type="tv"
-                  posterPath={series.poster_path}
-                  title={series.name}
-                  rating={series.vote_average}
-                />
+                {!isLoading && posterPath && (
+                  <WatchListButton
+                    id={series.id}
+                    type="tv"
+                    posterPath={series.poster_path}
+                    rectPosterPath={posterPath}
+                    title={series.name}
+                    rating={series.vote_average}
+                  />
+                )}
               </HStack>
             </Box>
 
