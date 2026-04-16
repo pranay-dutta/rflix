@@ -3,12 +3,13 @@ import useTrailer from "@/hooks/useTrailer";
 import { Movie } from "@/interfaces/Movie";
 import TvSeries from "@/interfaces/TvSeries";
 import isMovie from "@/utils/isMovie";
-import { Box, HStack, Image, Skeleton, Text } from "@chakra-ui/react";
+import { Box, HStack, Image, Progress, Skeleton, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa6";
 import { useRef } from "react";
+import useCustomizationStore from "@/store/customizationStore";
 
 interface Props {
   media: Movie | TvSeries;
@@ -27,6 +28,7 @@ const badgeStyles = {
 
 const RectCard = ({ media }: Props) => {
   const mediaType = isMovie(media) ? "movie" : "tv";
+  const activePalette = useCustomizationStore((s) => s.activePalette);
 
   const [imgLoading, setImgLoading] = useState(true);
   const [isPreviewActive, setIsPreviewActive] = useState(false);
@@ -35,22 +37,16 @@ const RectCard = ({ media }: Props) => {
   const { data: rectPosterPath, isLoading } = useRectPoster(media.id, mediaType);
 
   //Video Trailer
-  const { data: trailerURL, isFetching: trailerFetching } = useTrailer(
-    media.id,
-    mediaType,
-    isPreviewActive,
-  );
+  const {
+    data: trailerURL,
+    isFetching: trailerFetching,
+    fetchStatus,
+  } = useTrailer(media.id, mediaType, isPreviewActive);
 
   const navigate = useNavigate();
   const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handlePointerEnter = () => {
-    //Don't keep delay if there is no URL
-    if (!trailerURL) {
-      setIsPreviewActive(true);
-      return;
-    }
-
     hoverTimer.current = setTimeout(() => {
       setIsPreviewActive(true);
     }, 1000);
@@ -63,7 +59,9 @@ const RectCard = ({ media }: Props) => {
     }
     setIsPreviewActive(false);
   };
-  const show = !isPreviewActive || trailerFetching || !trailerURL;
+  const showPoster = !isPreviewActive || trailerFetching || !trailerURL;
+  const showBadges = fetchStatus === "idle" && !isPreviewActive;
+  const showVideo = isPreviewActive && trailerURL;
 
   return (
     <Skeleton
@@ -80,7 +78,7 @@ const RectCard = ({ media }: Props) => {
         onPointerLeave={handlePointerLeave}
         onClick={() => navigate(`/info/${mediaType}/${media.id}`)}
       >
-        {show && (
+        {showPoster && (
           <Image
             onLoad={() => setImgLoading(false)}
             src={rectPosterPath}
@@ -95,22 +93,37 @@ const RectCard = ({ media }: Props) => {
         )}
 
         {/* Trailer while hovering */}
-        {isPreviewActive && trailerURL && (
+        {showVideo && (
           <Box position="relative" overflow="hidden" h="100%">
             {/* TODO: Might remove react player and use just iframe */}
             <ReactPlayer src={trailerURL} playing muted width="100%" height="100%" />
           </Box>
         )}
 
+        {isPreviewActive && trailerFetching && (
+          <Progress.Root
+            value={null}
+            position="absolute"
+            top={0}
+            left={0}
+            width="full"
+            colorPalette={activePalette}
+          >
+            <Progress.Track height="2px">
+              <Progress.Range />
+            </Progress.Track>
+          </Progress.Root>
+        )}
+
         {/* Media Type Badge */}
-        {show && (
+        {showBadges && (
           <Text {...badgeStyles} top={1} right={1}>
             {isMovie(media) ? "MOVIE" : "TV SHOW"}
           </Text>
         )}
 
         {/* Rating */}
-        {show && (
+        {showBadges && (
           <HStack {...badgeStyles} fontSize="x-small" gap={1} top={1} left={1}>
             <FaStar color="orange" />
             {media.vote_average.toFixed(1)}

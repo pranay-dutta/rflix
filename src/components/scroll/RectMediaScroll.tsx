@@ -56,9 +56,13 @@ const RectMediaScroll = ({ media, loading }: Props) => {
         spaceBetween={10}
         slidesPerGroup={2}
         modules={[Navigation]}
-        navigation={{
-          nextEl: nextRef.current,
-          prevEl: prevRef.current,
+        onBeforeInit={(swiper) => {
+          if (!swiper.params.navigation) return;
+
+          if (typeof swiper.params.navigation !== "boolean") {
+            swiper.params.navigation.prevEl = prevRef.current;
+            swiper.params.navigation.nextEl = nextRef.current;
+          }
         }}
       >
         {loading &&

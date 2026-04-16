@@ -6,8 +6,9 @@ const MovieOverview = ({ overview }: { overview: string }) => {
       filter={"contrast(2)"}
       textAlign="left"
       width={{ sm: 500, lg: 850 }}
-      fontSize="lg"
-      lineHeight="initial"
+      lineHeight="tall"
+      fontSize="medium"
+      color="gray.300"
       lineClamp={{ base: 2, md: 3 }}
     >
       {overview}

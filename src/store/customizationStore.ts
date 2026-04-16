@@ -18,11 +18,11 @@ export type CustomizationStore = {
 const useCustomizationStore = create<CustomizationStore>()(
   persist(
     (set) => ({
-      activePalette: "purple",
+      activePalette: "red",
       disableHomepageVideo: true,
       disableWatchList: false,
       disableWatchListHomepage: false,
-      cardStyle: "vertical",
+      cardStyle: "horizontal",
 
       setAccentColor: (color) => set({ activePalette: color }),
       toggleDisableHomepageVideo: () =>
