@@ -1,6 +1,5 @@
 import createClient from "@/services/client";
 import { useQuery } from "@tanstack/react-query";
-import { getPoster } from "@/components/constants";
 import ms from "ms";
 
 export interface Backdrop {
@@ -13,32 +12,21 @@ export interface Backdrop {
   vote_count: number;
   width: number;
 }
-interface Poster {
+export interface PosterAndExternalIds {
   images: {
     backdrops: Backdrop[];
+  };
+  external_ids: {
+    imdb_id: string;
   };
 }
 
 const useRectPoster = (id: number, type: "movie" | "tv") => {
-  const client = createClient<Poster>(`/poster/${type}/${id}`);
-
-  const handleData = (data: Poster) => {
-    const backdrops = data.images.backdrops;
-
-    const isWideBackdrop = (b: Backdrop) => b.aspect_ratio > 1.7 && b.aspect_ratio < 1.9;
-
-    const backdrop =
-      backdrops.find((b) => isWideBackdrop(b) && b.iso_3166_1 === "US") ??
-      backdrops.find(isWideBackdrop);
-
-    const path = backdrop?.file_path || "";
-    return getPoster(path, "w780");
-  };
+  const client = createClient<PosterAndExternalIds>(`/poster/${type}/${id}`);
 
   return useQuery({
     queryKey: ["rectPoster", id, type],
     queryFn: client.get,
-    select: handleData,
     staleTime: ms("2h"),
     refetchOnWindowFocus: false,
   });

@@ -96,12 +96,6 @@ export function getTMDBImage(
   return `https://image.tmdb.org/t/p/${quality}` + url;
 }
 
-export function getPoster(url: string, quality: "w780" | "w1280" | "original") {
-  if (!url || !url.length) return "";
-
-  return `https://image.tmdb.org/t/p/${quality}` + url;
-}
-
 export function getCreditImage(url: string) {
   if (!url) return "/person.png";
   return `https://image.tmdb.org/t/p/w154` + url;

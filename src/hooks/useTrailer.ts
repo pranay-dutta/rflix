@@ -21,26 +21,26 @@ export interface TrailerUrl {
   url: string;
 }
 
-const useTrailer = (id: number, type: "movie" | "tv", isInView: boolean) => {
-  const backendClient = createClient<TrailerResponse>("/trailer/" + id);
+const useTrailer = (type: "movie" | "tv", isInView: boolean, imdbId?: string) => {
+  const backendClient = createClient<TrailerResponse>("/trailer/" + imdbId);
   const queryClient = useQueryClient();
 
   //Cancel the query if the card is not in view to save bandwidth and resources
   useEffect(() => {
     if (!isInView)
-      queryClient.cancelQueries({ queryKey: ["trailer", id, type], exact: true });
-  }, [id, isInView, queryClient, type]);
+      queryClient.cancelQueries({ queryKey: ["trailer", type, imdbId], exact: true });
+  }, [imdbId, isInView, queryClient, type]);
 
   return useQuery({
-    queryKey: ["trailer", id, type],
-    queryFn: ({ signal }) => backendClient.get({ params: { type }, signal }),
-    staleTime: ms("2h"),
+    queryKey: ["trailer", type, imdbId],
+    queryFn: ({ signal }) => backendClient.get({ signal }),
     select: (data) => {
       const stream = data.streams?.[0];
       const _480pURL = stream?.urls?.find((url) => url.quality === "480p");
       return _480pURL?.url;
     },
-    enabled: isInView,
+    staleTime: ms("2h"),
+    enabled: isInView && !!imdbId,
   });
 };
 
