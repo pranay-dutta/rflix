@@ -15,15 +15,14 @@ const WatchListScroll = ({ watchListItems, loading }: Props) => {
   return (
     <Swiper
       breakpoints={{
-        200: { slidesPerView: 2 },
-        480: { slidesPerView: 3 },
-        640: { slidesPerView: 3 },
-        768: { slidesPerView: 4 },
-        1024: { slidesPerView: 5 },
-        1440: { slidesPerView: 6 },
+        200: { slidesPerView: 2.1 },
+        480: { slidesPerView: 3.1 },
+        768: { slidesPerView: 3.1 },
+        1024: { slidesPerView: 5.2 },
+        1440: { slidesPerView: 6.2 },
       }}
-      loop={false}
-      spaceBetween={15}
+      spaceBetween={10}
+      speed={500}
     >
       {loading &&
         skeletons.map((_, index) => (

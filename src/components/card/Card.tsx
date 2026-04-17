@@ -28,6 +28,7 @@ const Card = ({ media }: Props) => {
       onClick={() => navigate(`/info/${isMovie(media) ? "movie/" : "tv/"}` + media.id)}
       position="relative"
       overflow="hidden"
+      aspectRatio={2 / 3}
     >
       {/* Image of movie card */}
       <Image
