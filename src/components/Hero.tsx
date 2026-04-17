@@ -73,7 +73,6 @@ const MovieTrailerWrapper = ({ movie, isActive }: MovieTrailerWrapperProps) => {
 
   return (
     <Box key={movie.id} className="transition-all">
-      {/* <Heading>{"has trailer ?" + hasTrailer}</Heading> */}
       <AspectRatioContainer>
         <MovieTrailer movieId={movie.id} isMuted={isMuted} isActive={isActive} />
       </AspectRatioContainer>
