@@ -13,10 +13,9 @@ import {
   Skeleton,
   Text,
 } from "@chakra-ui/react";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa6";
-import { useRef } from "react";
 import useCustomizationStore from "@/store/customizationStore";
 import getPosterURL from "@/utils/getPosterURL";
 import { GoMute, GoUnmute } from "react-icons/go";
@@ -54,7 +53,6 @@ const RectCard = ({ media }: Props) => {
   } = useTrailer(mediaType, isPreviewActive, imdbId);
 
   const navigate = useNavigate();
-  const titleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [showTitle, setShowTitle] = useState(false);
@@ -70,12 +68,17 @@ const RectCard = ({ media }: Props) => {
     }, 1000);
   };
 
-  //title shown timer handler when hovering the card, it will show after 0.5s
-  if (showVideo) {
-    titleTimer.current = setTimeout(() => {
+  //title shown timer handler when hovering the card, it will show after 700ms
+  useEffect(() => {
+    if (!showVideo) {
+      setShowTitle(false);
+      return;
+    }
+    const id = setTimeout(() => {
       setShowTitle(true);
     }, 700);
-  }
+    return () => clearTimeout(id);
+  }, [showVideo]);
 
   // When the mouse leaves clear the timer and hide the preview of video
   const handlePointerLeave = () => {
@@ -84,16 +87,7 @@ const RectCard = ({ media }: Props) => {
       hoverTimer.current = null;
     }
 
-    //clear title timer and hide title when mouse leaves
-    if (titleTimer.current) {
-      clearTimeout(titleTimer.current);
-      titleTimer.current = null;
-    }
-
-    //hide title immediately when mouse leaves
-    setShowTitle(false);
-
-    //show video preview when mouse leaves
+    //hide video preview when mouse leaves
     setIsPreviewActive(false);
   };
 
@@ -164,6 +158,8 @@ const RectCard = ({ media }: Props) => {
             borderRadius="full"
             onClick={(e) => toggleMute(e)}
             size="xs"
+            aria-label={isMuted ? "Unmute trailer" : "Mute trailer"}
+            title={isMuted ? "Unmute trailer" : "Mute trailer"}
           >
             {isMuted ? <GoMute /> : <GoUnmute />}
           </Button>
