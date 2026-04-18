@@ -3,12 +3,12 @@ html {
   overflow-y: scroll;
   ::-webkit-scrollbar {
     width: 4px;
-    scrollbar-gutter: stable;
   }
   ::-webkit-scrollbar-thumb {
     background-color: color-mix(in srgb, var(--scrollbar-color) 60%, transparent);
     border-radius: 4px;
   }
+  scrollbar-gutter: stable;
 }
 :root {
   --background: rgb(9, 9, 11);
