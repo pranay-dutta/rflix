@@ -8,7 +8,6 @@ import isMovie from "@/utils/isMovie";
 import {
   Blockquote,
   Box,
-  HStack,
   IconButton,
   Image,
   Progress,
@@ -16,9 +15,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { MouseEvent, useEffect, useRef, useState } from "react";
-import { FaStar } from "react-icons/fa6";
 import { GoMute, GoUnmute } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
+import Rating from "../Rating";
 
 interface Props {
   media: Movie | TvSeries;
@@ -58,6 +57,7 @@ const RectCard = ({ media }: Props) => {
 
   const [showTitle, setShowTitle] = useState(false);
   const [showBox, setShowBox] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   const showPoster = !isPreviewActive || trailerFetching || !trailerURL;
   const showBadges = fetchStatus === "idle" && !isPreviewActive;
@@ -78,6 +78,7 @@ const RectCard = ({ media }: Props) => {
       setShowTitle(false);
       return;
     }
+    if (!videoLoaded) return;
 
     // Show overlay box immediately when video starts
     setShowBox(true);
@@ -85,13 +86,13 @@ const RectCard = ({ media }: Props) => {
     // Show title after 1000ms
     const showTimer = setTimeout(() => {
       setShowTitle(true);
-    }, 1000);
+    }, 1500);
 
-    //hide the overlay box and title after (4-1) = 3 seconds
+    //hide the overlay box and title after (7-3) = 4 seconds
     const hideTimer = setTimeout(() => {
       setShowBox(false);
       setShowTitle(false);
-    }, 4000);
+    }, 7000);
 
     return () => {
       clearTimeout(showTimer);
@@ -103,7 +104,7 @@ const RectCard = ({ media }: Props) => {
         titleTimer.current = null;
       }
     };
-  }, [showVideo]);
+  }, [showVideo, videoLoaded]);
 
   // When the mouse leaves clear the timer and hide the preview of video
   const handlePointerLeave = () => {
@@ -134,6 +135,9 @@ const RectCard = ({ media }: Props) => {
     e.stopPropagation(); // Prevent the click from propagating to the card
     setMuted((prev) => !prev);
   };
+
+  //show the title overlay when video has url and is loaded
+  const showOverlay = showBox && videoLoaded;
 
   return (
     <Skeleton
@@ -171,6 +175,7 @@ const RectCard = ({ media }: Props) => {
           <video
             src={trailerURL}
             muted={isMuted}
+            onLoadedData={() => setVideoLoaded(true)}
             loop
             autoPlay
             playsInline
@@ -202,15 +207,16 @@ const RectCard = ({ media }: Props) => {
           </IconButton>
         )}
 
-        {/* Overlay of title flowing from left bottom */}
+        {/*black overlay under title flowing from left bottom */}
         <Box
           position="absolute"
-          bottom={4}
-          left={showBox ? 0 : -20}
+          borderRadius="sm"
           px={2}
           py={1}
           bg="blackAlpha.600"
-          opacity={showBox ? 1 : 0}
+          bottom={4}
+          left={showOverlay ? 0 : -20}
+          opacity={showOverlay ? 1 : 0}
           transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
         >
           {/* The actual title content which appears after */}
@@ -258,7 +264,7 @@ const RectCard = ({ media }: Props) => {
         </Text>
 
         {/* Rating */}
-        <HStack
+        <Rating
           {...badgeStyles}
           gap={1}
           left={1}
@@ -268,10 +274,8 @@ const RectCard = ({ media }: Props) => {
           transition="all 0.3s fade-out"
           pointerEvents={showBadges ? "auto" : "none"}
           fontSize="x-small"
-        >
-          <FaStar color="orange" />
-          {media.vote_average.toFixed(1)}
-        </HStack>
+          vote_average={media.vote_average}
+        />
       </Box>
     </Skeleton>
   );
