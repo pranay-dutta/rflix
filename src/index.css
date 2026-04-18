@@ -19,6 +19,7 @@ html {
   src: url("/fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
   font-display: swap; /*swap the font as soon as it loads*/
   font-style: normal;
+  font-weight: 100 900; 
 }
 * {
   font-family: "Montserrat", sans-serif;

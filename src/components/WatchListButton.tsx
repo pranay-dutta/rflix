@@ -48,6 +48,7 @@ const WatchListButton = (props: WatchListButtonProps) => {
   };
 
   // If iconOnly is true, render only the icon without background
+  //TODO: fix the consistency of props
   if (iconOnly)
     return (
       <Box

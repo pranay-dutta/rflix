@@ -88,11 +88,11 @@ const RectCard = ({ media }: Props) => {
       setShowTitle(true);
     }, 1000);
 
-    //hide the overlay box and title after (7-3) = 4 seconds
+    //hide the overlay box and title after (5-1) = 4 seconds
     const hideTimer = setTimeout(() => {
       setShowBox(false);
       setShowTitle(false);
-    }, 7000);
+    }, 5000);
 
     return () => {
       clearTimeout(showTimer);

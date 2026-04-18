@@ -13,8 +13,8 @@ export type WatchListItem = {
 type WishlistStore = {
   watchList: Map<string, WatchListItem>;
   addToWatchList: (item: WatchListItem) => void;
-  inWatchList: (type: "movie" | "tv", id: string) => boolean;
-  removeFromWatchList: (type: "movie" | "tv", id: string) => void;
+  inWatchList: (mediaType: "movie" | "tv", id: string) => boolean;
+  removeFromWatchList: (mediaType: "movie" | "tv", id: string) => void;
   clearWatchList: () => void;
 };
 
