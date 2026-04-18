@@ -3,16 +3,23 @@ html {
   overflow-y: scroll;
   ::-webkit-scrollbar {
     width: 4px;
+    scrollbar-gutter: stable;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: gray;
+    background-color: color-mix(in srgb, var(--scrollbar-color) 60%, transparent);
     border-radius: 4px;
   }
 }
 :root {
   --background: rgb(9, 9, 11);
+  --scrollbar-color: red;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
+  font-display: swap; /*swap the font as soon as it loads*/
+  font-style: normal;
 }
 * {
-  font-style: normal;
   font-family: "Montserrat", sans-serif;
 }
