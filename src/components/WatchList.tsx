@@ -12,10 +12,10 @@ const WatchList = () => {
   const disableWatchListHomepage = useCustomizationStore(
     (s) => s.disableWatchListHomepage,
   );
-
+  const disableWatchList = useCustomizationStore((s) => s.disableWatchList);
   const cardStyle = useCustomizationStore((s) => s.cardStyle);
 
-  if (disableWatchListHomepage || !watchList.size) return null;
+  if (!watchListItems.length || disableWatchListHomepage || disableWatchList) return null;
 
   return (
     <>
@@ -31,9 +31,9 @@ const WatchList = () => {
       </Flex>
       <Box my={3}>
         {cardStyle === "vertical" ? (
-          <WatchListScroll watchListItems={watchListItems} loading={false} />
+          <WatchListScroll watchListItems={watchListItems} />
         ) : (
-          <WatchListRectScroll watchListItems={watchListItems} loading={false} />
+          <WatchListRectScroll watchListItems={watchListItems} />
         )}
       </Box>
     </>

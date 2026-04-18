@@ -22,8 +22,7 @@ const badgeStyles = {
 };
 
 const WatchListRectCard = ({ watchListItem }: Props) => {
-  const mediaType = watchListItem.type;
-
+  const mediaType = watchListItem.mediaType;
   const [imgLoading, setImgLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -53,14 +52,26 @@ const WatchListRectCard = ({ watchListItem }: Props) => {
         </Text>
 
         {/* Rating */}
-        <Text {...badgeStyles} top={1} left={1}>
-          <Rating vote_average={watchListItem.rating} fontSize="x-small" />
-        </Text>
+        <Rating
+          pos="absolute"
+          top={1}
+          left={1}
+          {...badgeStyles}
+          vote_average={watchListItem.rating}
+          fontSize="x-small"
+        />
 
-        {/* Watch List add, remove button */}
-        <Text {...badgeStyles} bottom={1} right={1} cursor="pointer">
-          <WatchListButton {...watchListItem} iconOnly />
-        </Text>
+        {/* Watch List add, remove button on the bottom right */}
+        <WatchListButton
+          bottom={1}
+          right={1}
+          position="absolute"
+          background="blackAlpha.600"
+          color="white"
+          size="xs"
+          {...watchListItem}
+          iconOnly
+        />
       </Box>
     </Skeleton>
   );
