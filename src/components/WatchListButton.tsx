@@ -17,7 +17,8 @@ interface Props {
 type WatchListButtonProps = Props & ButtonProps;
 
 const WatchListButton = (props: WatchListButtonProps) => {
-  const { id, mediaType, title, rating, posterPath, rectPosterPath, iconOnly } = props;
+  const { id, mediaType, title, rating, posterPath, rectPosterPath, iconOnly, ...rest } =
+    props;
 
   const disableWatchList = useCustomizationStore((state) => state.disableWatchList);
   const inWishlist = useWatchListStore((state) => state.inWatchList(mediaType, id));
@@ -66,7 +67,7 @@ const WatchListButton = (props: WatchListButtonProps) => {
 
   return (
     <Button
-      {...props} //spread reset other props
+      {...rest} //spread rest props after destructuring
       paddingX={5}
       paddingY={2}
       backgroundColor="whiteAlpha.200"

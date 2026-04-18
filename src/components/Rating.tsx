@@ -8,13 +8,14 @@ interface Props {
 }
 type RatingProps = Props & BoxProps;
 
-const Rating = (p: RatingProps) => {
+const Rating = (props: RatingProps) => {
   const activePalette = useCustomizationStore((s) => s.activePalette);
+  const { vote_average, ...rest } = props;
 
   return (
-    <Box display="flex" alignItems="center" gap={1} {...p}>
+    <Box display="flex" alignItems="center" gap={1} {...rest}>
       <FaStar color={activePalette} />
-      <Text color="white">{p.vote_average.toFixed(1)}</Text>
+      <Text color="white">{vote_average.toFixed(1)}</Text>
     </Box>
   );
 };
