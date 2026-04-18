@@ -73,7 +73,7 @@ const MediaScroll = ({ media, loading }: Props) => {
         >
           {showSkeletons &&
             skeletons.map((_, index) => (
-              <SwiperSlide key={index} style={{ display: loading ? "block" : "none" }}>
+              <SwiperSlide key={index}>
                 <Skeleton>
                   <Box aspectRatio={2 / 3} />
                 </Skeleton>

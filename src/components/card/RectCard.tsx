@@ -86,7 +86,7 @@ const RectCard = ({ media }: Props) => {
     // Show title after 1000ms
     const showTimer = setTimeout(() => {
       setShowTitle(true);
-    }, 1500);
+    }, 1000);
 
     //hide the overlay box and title after (7-3) = 4 seconds
     const hideTimer = setTimeout(() => {
@@ -126,6 +126,9 @@ const RectCard = ({ media }: Props) => {
 
     //hide video preview when mouse leaves
     setIsPreviewActive(false);
+
+    //reset video loaded state when mouse leaves
+    setVideoLoaded(false);
   };
 
   const [isMuted, setMuted] = useState(true);
