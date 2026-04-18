@@ -2,8 +2,8 @@ import { mountStoreDevtool } from "simple-zustand-devtools";
 import { create } from "zustand";
 
 export type WatchListItem = {
-  id: number;
-  type: "movie" | "tv";
+  id: string;
+  mediaType: "movie" | "tv";
   title: string;
   posterPath: string;
   rectPosterPath: string;
@@ -13,8 +13,8 @@ export type WatchListItem = {
 type WishlistStore = {
   watchList: Map<string, WatchListItem>;
   addToWatchList: (item: WatchListItem) => void;
-  inWatchList: (type: "movie" | "tv", id: number) => boolean;
-  removeFromWatchList: (type: "movie" | "tv", id: number) => void;
+  inWatchList: (mediaType: "movie" | "tv", id: string) => boolean;
+  removeFromWatchList: (mediaType: "movie" | "tv", id: string) => void;
   clearWatchList: () => void;
 };
 
@@ -29,7 +29,7 @@ const useWatchListStore = create<WishlistStore>((set, get) => ({
   addToWatchList: (item) => {
     set((state) => {
       const newWatchList = new Map(state.watchList);
-      const itemKey = `${item.type}-${item.id}`;
+      const itemKey = `${item.mediaType}-${item.id}`;
       newWatchList.set(itemKey, item);
       updateWatchList(newWatchList); // Update local storage
       return { watchList: newWatchList };

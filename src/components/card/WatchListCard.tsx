@@ -19,7 +19,7 @@ const WatchListCard = ({ watchListItem }: Props) => {
 
   const navigate = useNavigate();
   const path =
-    `/info/${watchListItem.type === "movie" ? "movie/" : "tv/"}` + watchListItem.id;
+    `/info/${watchListItem.mediaType === "movie" ? "movie/" : "tv/"}` + watchListItem.id;
 
   return (
     <Box
@@ -94,7 +94,7 @@ const WatchListCard = ({ watchListItem }: Props) => {
           {watchListItem.title}
         </Text>
         <Text fontSize="md" fontWeight="semibold" color={`${activePalette}.400`}>
-          {watchListItem.type === "movie" ? "Movie" : "TV Series"}
+          {watchListItem.mediaType === "movie" ? "Movie" : "TV Series"}
         </Text>
       </Stack>
     </Box>

@@ -83,8 +83,8 @@ const TvHero = ({ series }: { series: TvSeriesDetails }) => {
                 </TvSeriesWatchButton>
                 {!isLoading && posterPath && (
                   <WatchListButton
-                    id={series.id}
-                    type="tv"
+                    id={series.id.toString()}
+                    mediaType="tv"
                     posterPath={series.poster_path}
                     rectPosterPath={posterPath}
                     title={series.name}

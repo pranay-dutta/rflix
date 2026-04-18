@@ -1,14 +1,22 @@
-import { HStack } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { FaStar } from "react-icons/fa";
+import type { BoxProps } from "@chakra-ui/react";
+import useCustomizationStore from "@/store/customizationStore";
 
-const Rating = ({ vote_average, fontSize }: { vote_average: number, fontSize?: string }) => {
-  if (!vote_average) return null;
+interface Props {
+  vote_average: number;
+}
+type RatingProps = Props & BoxProps;
+
+const Rating = (props: RatingProps) => {
+  const activePalette = useCustomizationStore((s) => s.activePalette);
+  const { vote_average, ...rest } = props;
 
   return (
-    <HStack gap={1} fontSize={fontSize}>
-      <FaStar color="orange" />
-      {vote_average.toFixed(1)}
-    </HStack>
+    <Box display="flex" alignItems="center" gap={1} {...rest}>
+      <FaStar color={activePalette} />
+      <Text color="white">{vote_average.toFixed(1)}</Text>
+    </Box>
   );
 };
 

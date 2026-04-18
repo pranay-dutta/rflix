@@ -125,11 +125,11 @@ const MovieHero = ({ movie }: { movie: MovieDetails }) => {
                 <MovieWatchButton id={movie.id} icon={FaPlay}>
                   Watch Trailer
                 </MovieWatchButton>
-                
+
                 {!isLoading && posterPath && (
                   <WatchListButton
-                    id={movie.id}
-                    type="movie"
+                    id={movie.id.toString()}
+                    mediaType="movie"
                     posterPath={movie.poster_path}
                     rectPosterPath={posterPath}
                     title={movie.title}

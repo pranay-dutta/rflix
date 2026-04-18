@@ -2,7 +2,7 @@ import { Button, createListCollection, Flex, HStack, Select } from "@chakra-ui/r
 import Sidebar from "./Sidebar";
 import Title from "./Title";
 import { navItems, NavItem } from "./constants";
-import { useState, useEffect, Fragment } from "react";
+import { useState, Fragment, useLayoutEffect } from "react";
 import SearchInput from "./SearchInput";
 import { HoverCard } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,11 +13,11 @@ const Navbar = () => {
   const isLargerThan1024 = useMediaQuery("only screen and (min-width: 1024px)");
   const [show, setShow] = useState<boolean>(true);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShow(() => window.scrollY < 10);
-    };
+  //Use layout effect because it runs before initial paint
+  useLayoutEffect(() => {
+    const handleScroll = () => setShow(() => window.scrollY < 10);
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -30,7 +30,7 @@ const Navbar = () => {
       w={"full"}
       bg="gray.950"
       transform={show ? "translateY(0)" : "translateY(-100%)"}
-      transition="transform 0.3s ease-in-out"
+      transition="transform 0.1s ease-in-out"
       position="fixed"
       top={0}
       zIndex="100"
@@ -44,7 +44,12 @@ const Navbar = () => {
             ))}
           </Flex>
 
-          <Flex w={{ lg: "300px", xl: "440px" }} gap={4} justifyContent="space-between" alignItems="center">
+          <Flex
+            w={{ lg: "300px", xl: "440px" }}
+            gap={4}
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <SearchInput />
             <LoginButton />
           </Flex>

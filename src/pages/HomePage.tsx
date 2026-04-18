@@ -9,11 +9,17 @@ import TrendingToday from "@/components/trendingtoday/TrendingToday";
 import TrendingWeek from "@/components/trendingweek/TrendingWeek";
 import WatchList from "@/components/WatchList";
 import WatchProvider from "@/components/watchproviders/WatchProviders";
-import { Box } from "@chakra-ui/react";
-import { ReactNode } from "react";
-import { useInView } from "react-intersection-observer";
+import useCustomizationStore from "@/store/customizationStore";
+import { useEffect } from "react";
 
 const HomePage = () => {
+  const activePalette = useCustomizationStore((s) => s.activePalette);
+
+  //change scrollbar color to match active palette
+  useEffect(() => {
+    document.documentElement.style.setProperty("--scrollbar-color", activePalette);
+  }, [activePalette]);
+
   const SliderElements = [
     WatchList,
     WatchProvider,
@@ -29,29 +35,11 @@ const HomePage = () => {
       <Hero />
       <Container marginTop={{ base: "0px", md: "-90px" }} zIndex={10} position="relative">
         {SliderElements.map((Element, index) => (
-          <Wrapper key={index}>
-            <Element />
-          </Wrapper>
+          <Element key={index} />
         ))}
       </Container>
-      <Box my={10}>
-        <Footer />
-      </Box>
+      <Footer />
     </>
-  );
-};
-
-const Wrapper = ({ children }: { children: ReactNode }) => {
-  const { ref, inView } = useInView({
-    threshold: 0,
-    triggerOnce: true,
-    rootMargin: "-100px 0px -20px 0px",
-  });
-
-  return (
-    <Box ref={ref} my="16">
-      {inView ? children : <Box height="200px" />}
-    </Box>
   );
 };
 
