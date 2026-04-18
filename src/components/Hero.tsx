@@ -28,7 +28,11 @@ const Hero = () => {
   if (isLoading) {
     return (
       <AspectRatioContainer>
-        <Skeleton height="100%" width="100%" borderRadius="md" />
+        <>
+          <Skeleton height="100%" width="100%" borderRadius="md" />
+          {/* Bottom overlay that blends with the hero */}
+          <div className="absolute bottom-0 z-[1] w-full h-72 bg-gradient-to-t from-[var(--background)] to-transparent" />
+        </>
       </AspectRatioContainer>
     );
   }
