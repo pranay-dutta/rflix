@@ -1,29 +1,26 @@
 import useCustomizationStore from "@/store/customizationStore";
 import useWatchListStore from "@/store/watchListStore";
-import { Box, Button as ChakraButton } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+import type { ButtonProps } from "@chakra-ui/react";
 
 interface Props {
-  id: number;
-  type: "movie" | "tv";
+  id: string;
+  mediaType: "movie" | "tv";
   title: string;
-  rating?: number;
+  rating: number;
   posterPath: string;
   iconOnly?: boolean;
   rectPosterPath: string;
 }
 
-const WatchListButton = ({
-  type,
-  id,
-  posterPath,
-  rectPosterPath,
-  title,
-  rating = 0,
-  iconOnly,
-}: Props) => {
+type WatchListButtonProps = Props & ButtonProps;
+
+const WatchListButton = (props: WatchListButtonProps) => {
+  const { id, mediaType, title, rating, posterPath, rectPosterPath, iconOnly } = props;
+
   const disableWatchList = useCustomizationStore((state) => state.disableWatchList);
-  const inWishlist = useWatchListStore((state) => state.inWatchList(type, id));
+  const inWishlist = useWatchListStore((state) => state.inWatchList(mediaType, id));
   const activePalette = useCustomizationStore((s) => s.activePalette);
 
   const addToWishlist = useWatchListStore((state) => state.addToWatchList);
@@ -36,22 +33,40 @@ const WatchListButton = ({
     e.stopPropagation(); // Prevent the click from propagating to the parent element
 
     if (inWishlist) {
-      removeFromWishlist(type, id);
+      removeFromWishlist(mediaType, id);
     } else {
-      addToWishlist({ id, type, title, posterPath, rating, rectPosterPath });
+      addToWishlist({
+        id,
+        mediaType,
+        title,
+        posterPath,
+        rating,
+        rectPosterPath,
+      });
     }
   };
 
   // If iconOnly is true, render only the icon without background
   if (iconOnly)
     return (
-      <Box _hover={{ scale: 1, color: "red.600" }} onClick={handleClick}>
-        {inWishlist ? <FaBookmark /> : <FaRegBookmark />}
+      <Box
+        position="absolute"
+        right={1}
+        bottom={1}
+        px={1}
+        py={1}
+        borderRadius="sm"
+        _hover={{ color: "red.600" }}
+        backgroundColor="blackAlpha.600"
+        onClick={handleClick}
+      >
+        {inWishlist ? <FaBookmark size="12px" /> : <FaRegBookmark size="12px" />}
       </Box>
     );
 
   return (
-    <ChakraButton
+    <Button
+      {...props} //spread reset other props
       paddingX={5}
       paddingY={2}
       backgroundColor="whiteAlpha.200"
@@ -67,7 +82,7 @@ const WatchListButton = ({
     >
       {inWishlist ? <FaBookmark /> : <FaRegBookmark />}
       Watch List
-    </ChakraButton>
+    </Button>
   );
 };
 
