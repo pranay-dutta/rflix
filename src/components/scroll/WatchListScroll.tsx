@@ -42,7 +42,7 @@ const WatchListScroll = ({ watchListItems }: Props) => {
 
         {!showSkeletons &&
           watchListItems10.map((watchListItem) => (
-            <SwiperSlide key={watchListItem.id}>
+            <SwiperSlide key={`${watchListItem.id}-${watchListItem.mediaType}`}>
               <WatchListCard watchListItem={watchListItem} />
             </SwiperSlide>
           ))}
