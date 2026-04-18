@@ -22,7 +22,7 @@ const RectMediaScroll = ({ media, loading }: Props) => {
   const { ref, inView } = useInView({
     threshold: 0,
     triggerOnce: true,
-    rootMargin: "0px 0px -100px 0px",
+    rootMargin: "0px 0px -20px 0px",
   });
   const showSkeletons = loading || !inView;
 
