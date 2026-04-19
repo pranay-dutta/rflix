@@ -1,7 +1,10 @@
 import Container from "@/components/Container";
-import useMovieLists from "@/hooks/useMovieLists";
-import useCustomizationStore from "@/store/customizationStore";
-import { Box, Button, Flex, HStack, Skeleton } from "@chakra-ui/react";
+import useTrending from "@/hooks/useTrending";
+import { Movie } from "@/interfaces/Movie";
+import TvSeries from "@/interfaces/TvSeries";
+import isMovie from "@/utils/isMovie";
+import { Box, Flex, HStack, IconButton, Skeleton } from "@chakra-ui/react";
+import ms from "ms";
 import { PropsWithChildren, useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa6";
@@ -10,20 +13,24 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import AspectRatioContainer from "./AspectRatioContainer";
 import InfoButton from "./InfoButton";
+import MovieSummary from "./MediaSummary";
+import MovieTitle from "./MediaTitle";
+import MediaTrailer from "./MediaTrailer";
 import MovieLanguage from "./MovieLanguage";
-import MovieLogo from "./MovieLogo";
-import MovieOverview from "./MovieOverview";
-import MovieTrailer from "./MovieTrailer";
 import Rating from "./Rating";
 import ReleaseDate from "./ReleaseDate";
-import MovieWatchButton from "./WatchButton";
-import useMovieTrailer from "@/hooks/useMovieTrailer";
-import { Movie } from "@/interfaces/Movie";
-import ms from "ms";
+import WatchTrailerButton from "./WatchTrailerButton";
+import useCustomizationStore from "@/store/customizationStore";
+import withAlpha from "@/utils/withAlpha";
+
+const filterMedia = (item: Movie | TvSeries) => {
+  if (item.vote_count < 100) return false; // filter out media with low vote count to ensure quality
+  return item.media_type === "movie" || item.media_type === "tv";
+};
 
 const Hero = () => {
-  const { data, isLoading } = useMovieLists("popular");
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const { data, isLoading } = useTrending("all", "day", true);
+  const filteredData = data?.results.filter(filterMedia) || [];
 
   if (isLoading) {
     return (
@@ -37,24 +44,17 @@ const Hero = () => {
     );
   }
 
-  // Filter out movies without poster or backdrop images
-  const movies = data?.pages[0].results.filter(
-    (movie) => movie.poster_path && movie.backdrop_path,
-  );
-
   return (
     <>
       <Swiper
-        onSlideChange={(swiper) => {
-          setActiveIndex(swiper.activeIndex);
-        }}
         modules={[Autoplay]}
         autoplay={{ delay: ms("12s"), pauseOnMouseEnter: true }}
         grabCursor
+        watchSlidesProgress
       >
-        {movies?.map((movie, index) => (
-          <SwiperSlide key={movie.id}>
-            <MovieTrailerWrapper isActive={index == activeIndex} movie={movie} />
+        {filteredData.map((media) => (
+          <SwiperSlide key={media.id}>
+            {({ isActive }) => <HeroImage isActive={isActive} media={media} />}
           </SwiperSlide>
         ))}
       </Swiper>
@@ -63,22 +63,32 @@ const Hero = () => {
 };
 
 interface MovieTrailerWrapperProps {
-  movie: Movie;
+  media: Movie | TvSeries;
   isActive: boolean;
 }
 
-const MovieTrailerWrapper = ({ movie, isActive }: MovieTrailerWrapperProps) => {
+const HeroImage = ({ media, isActive }: MovieTrailerWrapperProps) => {
+  const activePalette = useCustomizationStore((s) => s.activePalette);
   const disableHomepageVideo = useCustomizationStore((s) => s.disableHomepageVideo);
-  const { trailers, isLoading } = useMovieTrailer(movie.id);
-  const [isMuted, setIsMuted] = useState<boolean>(true);
-  const hasTrailer =
-    !isLoading && !!trailers?.find((trailer) => trailer.type === "Trailer");
-  const show = hasTrailer && !disableHomepageVideo;
+
+  const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  // if homepage video is not disabled and trailer is playing show the mute/unmute button
+  const showMuteUnmuteButton = isPlaying && !disableHomepageVideo;
+
+  //callback function to show the mute/unmute button when the video starts playing
+  const handlePlaying = (playing: boolean) => setIsPlaying(playing);
 
   return (
-    <Box key={movie.id} className="transition-all">
+    <Box key={media.id} className="transition-all">
       <AspectRatioContainer>
-        <MovieTrailer movieId={movie.id} isMuted={isMuted} isActive={isActive} />
+        <MediaTrailer
+          handlePlaying={handlePlaying}
+          media={media}
+          isMuted={isMuted}
+          isActive={isActive}
+        />
       </AspectRatioContainer>
 
       <Container
@@ -92,58 +102,80 @@ const MovieTrailerWrapper = ({ movie, isActive }: MovieTrailerWrapperProps) => {
         <Flex direction="column" minW="full" gap={6}>
           {/* Movie title logo */}
           <DropShadowWrapper show={isMuted}>
-            <MovieLogo movieId={movie.id} />
+            <MovieTitle media={media} />
           </DropShadowWrapper>
 
           {/* Movie Information */}
           <DropShadowWrapper show={isMuted}>
             <HStack filter="contrast(2)" gap={4}>
-              <Rating vote_average={movie.vote_average} />
-              <ReleaseDate date={movie.release_date} />
-              <MovieLanguage language={movie.original_language} />
+              <Rating vote_average={media.vote_average} />
+              <ReleaseDate
+                date={isMovie(media) ? media.release_date : media.first_air_date}
+              />
+              <MovieLanguage language={media.original_language} />
             </HStack>
           </DropShadowWrapper>
 
           {/* Movie overview */}
           <DropShadowWrapper show={isMuted}>
-            <MovieOverview overview={movie.overview} />
+            <MovieSummary overview={media.overview} />
           </DropShadowWrapper>
 
-          {/* Play and Info button */}
+          {/* Info button */}
           <DropShadowWrapper show={true}>
             <HStack gap={5}>
               <InfoButton
                 opacity={isMuted ? 1 : 0.2}
                 icon={FaInfoCircle}
-                movieId={movie.id}
+                mediaId={media.id}
+                mediaType={isMovie(media) ? "movie" : "tv"}
               >
                 More info
               </InfoButton>
-              <MovieWatchButton
-                opacity={isMuted ? 1 : 0.2}
-                movieId={movie.id}
+
+              {/*  Watch trailer button*/}
+              <WatchTrailerButton
+                mediaId={media.id}
+                mediaType={isMovie(media) ? "movie" : "tv"}
                 icon={FaPlay}
+                opacity={isMuted ? 1 : 0.2}
               >
                 Play Trailer
-              </MovieWatchButton>
-              {show && (
-                <Button
-                  bgColor="whiteAlpha.200"
-                  color="white"
-                  opacity={isMuted ? 1 : 0.2}
-                  _hover={{ transform: "scale(1.1)", opacity: 0.9 }}
-                  onClick={() => setIsMuted((prev) => !prev)}
-                >
-                  {isMuted ? <GoMute /> : <GoUnmute />}
-                </Button>
-              )}
+              </WatchTrailerButton>
+
+              {/* Mute/Unmute button */}
+              <IconButton
+                color="white"
+                size="xl"
+                rounded="full"
+                backgroundColor="transparent"
+                transition="all 0.2s ease-in-out"
+                opacity={showMuteUnmuteButton ? (isMuted ? 1 : 0.5) : 0}
+                _hover={{
+                  borderColor: `${activePalette}.800`,
+                  boxShadow: `0px 0px 30px 1px ${withAlpha(activePalette, 0.3)}`,
+                }}
+                onClick={() => setIsMuted(!isMuted)}
+              >
+                {isMuted ? <GoMute /> : <GoUnmute />}
+              </IconButton>
             </HStack>
           </DropShadowWrapper>
         </Flex>
       </Container>
 
-      {/* Bottom overlay that blends with the hero */}
-      <div className="absolute bottom-0 z-[1] w-full h-72 bg-gradient-to-t from-[var(--background)] to-transparent" />
+      {/* bottom overlay that blends with the hero */}
+      <div className="absolute bottom-0 z-[1] w-full h-4/6 bg-gradient-to-t from-[var(--background)] to-transparent" />
+      <div className="absolute bottom-0 z-[1] w-full h-4/6 bg-gradient-to-t from-[var(--background)] to-transparent" />
+
+      {/* top overlay that blends with the hero */}
+      <div className="absolute top-0 z-[1] w-full h-96 bg-gradient-to-b from-[var(--background)] to-transparent" />
+
+      {/* left overlay that blends with the hero */}
+      <div className="absolute top-0 left-0 z-[1] h-full w-72 bg-gradient-to-r from-[var(--background)]/40 to-transparent" />
+
+      {/* right overlay that blends with the hero */}
+      <div className="absolute top-0 right-0 z-[1] h-full w-72 bg-gradient-to-l from-[var(--background)]/40 to-transparent" />
     </Box>
   );
 };
