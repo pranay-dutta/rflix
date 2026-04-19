@@ -10,11 +10,11 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 const TvSeriesWatchPage = () => {
-  const { id, season, episode } = useParams();
+  const { id } = useParams();
   const { trailers, isLoading } = useTvSeriesTrailer(parseInt(id || "0"));
   const [isVideoLoading, setIsVideoLoading] = useState(true);
 
-  if (!id || !season || !episode) throw new Error();
+  if (!id) throw new Error();
 
   const { data } = useTvSeries(parseInt(id), "details");
   if (!data) return null;
