@@ -1,36 +1,41 @@
-import { ButtonProps, Button as ChakraButton } from "@chakra-ui/react";
+import useCustomizationStore from "@/store/customizationStore";
+import withAlpha from "@/utils/withAlpha";
+import { ButtonProps, IconButton } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import { IconType } from "react-icons";
 import { useNavigate } from "react-router-dom";
 
 interface Props extends ButtonProps {
   children: ReactNode;
+  mediaId: number;
+  mediaType: "movie" | "tv";
   icon: IconType;
-  movieId: number;
 }
 
-const InfoButton = ({ children, icon, movieId, ...props }: Props) => {
-  const Icon = icon;
+const InfoButton = (props: Props) => {
+  const { children, mediaId, mediaType, icon: Icon } = props;
   const navigate = useNavigate();
+  const activePalette = useCustomizationStore((s) => s.activePalette);
 
   return (
-    <ChakraButton
-      fontSize="sm"
-      paddingX={5}
-      paddingY={2}
-      backgroundColor="whiteAlpha.200"
-      color="whiteAlpha.900"
-      borderRadius="md"
-      fontWeight={500}
-      _focus={{ outline: "none", boxShadow: "outline" }}
-      _hover={{ transform: "scale(1.1)", opacity: 0.9 }}
-      width="fit-content"
-      onClick={() => navigate("/info/movie/" + movieId)}
+    <IconButton
+      color="white"
+      backgroundColor="blackAlpha.600"
+      border="1px solid"
+      borderRadius="lg"
+      borderColor="gray.700"
+      rounded="full"
+      padding={6}
+      _hover={{
+        borderColor: `${activePalette}.800`,
+        boxShadow: `0px 0px 30px 1px ${withAlpha(activePalette, 0.3)}`,
+      }}
+      onClick={() => navigate(`/info/${mediaType}/${mediaId}`)}
       {...props}
     >
       <Icon />
       {children}
-    </ChakraButton>
+    </IconButton>
   );
 };
 
