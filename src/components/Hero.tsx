@@ -97,7 +97,7 @@ const HeroImage = ({ media, isActive }: MovieTrailerWrapperProps) => {
         left="50%"
         zIndex={20}
         transform={"translateX(-50%)"}
-        className="flex gap-3 bottom-5 md:bottom-[20%]"
+        className="flex gap-3 bottom-5 md:bottom-[25%]"
       >
         <Flex direction="column" minW="full" gap={6}>
           {/* Movie title logo */}

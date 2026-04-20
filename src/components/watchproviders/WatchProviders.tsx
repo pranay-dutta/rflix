@@ -10,7 +10,7 @@ import { MediaScroll } from "../common";
 const WatchProvider = () => {
   const [selectedTab, setSelectedTab] = useState<string>("213");
   const { data: watchProviderData, isLoading } = useWatchProvider(selectedTab);
-  const currentTab = watchProviderTabs.find((tab) => tab.value === selectedTab);
+  const currentTab = watchProviderTabs.find((tab) => tab.id === selectedTab);
   const cardStyle = useCustomizationStore((s) => s.cardStyle);
 
   return (
@@ -18,8 +18,8 @@ const WatchProvider = () => {
       <Tabs
         tabItems={watchProviderTabs}
         selectedTab={selectedTab}
-        heading={"Series on " + currentTab?.label}
-        highlight={currentTab?.label}
+        heading={"Series on " + currentTab?.name}
+        highlight={currentTab?.name}
         setSelectedTab={setSelectedTab}
       />
       <Box my={3}>
