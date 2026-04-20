@@ -10,16 +10,27 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 const TvSeriesWatchPage = () => {
+  // currently not using season and episode params, but they are included
   const { id } = useParams();
   const { trailers, isLoading } = useTvSeriesTrailer(parseInt(id || "0"));
   const [isVideoLoading, setIsVideoLoading] = useState(true);
 
   if (!id) throw new Error();
 
-  const { data } = useTvSeries(parseInt(id), "details");
-  if (!data) return null;
-
+  const { data, isLoading: tvSeriesLoading } = useTvSeries(parseInt(id), "details");
   const youtubeId = trailers?.find((trailer) => trailer.type === "Trailer")?.key;
+
+  const loading = isLoading || tvSeriesLoading;
+  if (loading)
+    return (
+      <Box>
+        <Box my={3}>
+          <BackButton />
+        </Box>
+        <Skeleton className="w-full aspect-square md:aspect-video" />
+      </Box>
+    );
+  if (!data) return <Text>Failed to load TV series details.</Text>;
 
   return (
     <Box>
@@ -49,7 +60,7 @@ const TvSeriesWatchPage = () => {
         <Quote tagline={data.tagline} />
         <Text>{data.overview}</Text>
         <HStack>
-          <ReleaseDate date={data?.first_air_date} />
+          <ReleaseDate date={data.first_air_date} />
           <Rating vote_average={data.vote_average} />
           <Runtime runtime={data.episode_run_time[0]} />
         </HStack>

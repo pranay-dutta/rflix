@@ -17,6 +17,8 @@ const WatchTrailerButton = (props: WatchButtonProps) => {
   const activePalette = useCustomizationStore((s) => s.activePalette);
   const navigate = useNavigate();
 
+  const path = mediaType == 'tv' ? `watch/tv/${mediaId}/1/1` : `watch/movie/${mediaId}`;
+
   return (
     <IconButton
       color="black"
@@ -26,7 +28,7 @@ const WatchTrailerButton = (props: WatchButtonProps) => {
       rounded="full"
       padding={6}
       _hover={{ boxShadow: `0px 0px 30px 1px ${withAlpha(activePalette, 0.3)}` }}
-      onClick={() => navigate(`/watch/${mediaType}/${mediaId}`)}
+      onClick={() => navigate(path)}
       {...props}
     >
       <Icon />
