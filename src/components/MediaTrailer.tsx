@@ -33,15 +33,19 @@ const MediaTrailer = ({ media, isActive, isMuted, handlePlaying }: Props) => {
   );
 
   useEffect(() => {
-    //if video ref is null do nothing
-    if (!videoRef.current) return;
+    const handlePlay = async () => {
+      //if video ref is null do nothing
+      const video = videoRef.current;
+      if (!video) return;
 
-    //play the video if the slide is active and pause it if it's not
-    if (isActive && videoRef.current.paused) {
-      videoRef.current.play();
-    } else {
-      videoRef.current.pause();
-    }
+      //play the video if the slide is active and pause it if it's not
+      if (isActive && video.paused) {
+        await video.play();
+      } else {
+        video.pause();
+      }
+    };
+    handlePlay();
   }, [isActive]);
 
   // if trailer is loading show skeleton
@@ -67,6 +71,7 @@ const MediaTrailer = ({ media, isActive, isMuted, handlePlaying }: Props) => {
         muted={isMuted}
         autoPlay={isActive}
         onLoadedData={() => handlePlaying(true)}
+        onPause={() => handlePlaying(false)}
       />
     </Box>
   );

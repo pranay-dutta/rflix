@@ -144,27 +144,31 @@ const HeroImage = ({ media, isActive }: MovieTrailerWrapperProps) => {
               </WatchTrailerButton>
 
               {/* Mute/Unmute button */}
-              <IconButton
-                color="white"
-                size="xl"
-                rounded="full"
-                backgroundColor="transparent"
-                transition="all 0.2s ease-in-out"
-                opacity={showMuteUnmuteButton ? (isMuted ? 1 : 0.5) : 0}
-                _hover={{
-                  borderColor: `${activePalette}.800`,
-                  boxShadow: `0px 0px 30px 1px ${withAlpha(activePalette, 0.3)}`,
-                }}
-                onClick={() => setIsMuted(!isMuted)}
-              >
-                {isMuted ? <GoMute /> : <GoUnmute />}
-              </IconButton>
+              {isActive && (
+                <IconButton
+                  color="white"
+                  size="xl"
+                  rounded="full"
+                  backgroundColor="transparent"
+                  transition="all 0.2s ease-in-out"
+                  opacity={showMuteUnmuteButton ? (isMuted ? 1 : 0.5) : 0}
+                  aria-label={isMuted ? "Unmute" : "Mute"}
+                  _hover={{
+                    borderColor: `${activePalette}.800`,
+                    boxShadow: `0px 0px 30px 1px ${withAlpha(activePalette, 0.3)}`,
+                  }}
+                  onClick={() => setIsMuted(!isMuted)}
+                >
+                  {isMuted ? <GoMute /> : <GoUnmute />}
+                </IconButton>
+              )}
             </HStack>
           </DropShadowWrapper>
         </Flex>
       </Container>
 
       {/* bottom overlay that blends with the hero */}
+      {/* use two overlay to increase intensity */}
       <div className="absolute bottom-0 z-[1] w-full h-4/6 bg-gradient-to-t from-[var(--background)] to-transparent" />
       <div className="absolute bottom-0 z-[1] w-full h-4/6 bg-gradient-to-t from-[var(--background)] to-transparent" />
 

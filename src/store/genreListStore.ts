@@ -88,5 +88,5 @@ export const useTvGenresStore = create<TvGenreStore>()((set) => ({
 
 if (import.meta.env.DEV) {
   mountStoreDevtool("useMovieGenresStore", useMovieGenresStore);
-  mountStoreDevtool("useMovieGenresStore", useTvGenresStore);
+  mountStoreDevtool("useTvGenresStore", useTvGenresStore);
 }

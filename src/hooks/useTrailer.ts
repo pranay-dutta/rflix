@@ -43,8 +43,8 @@ const useTrailer = (
       const stream = data.streams?.[0];
 
       const trailer =
-        stream?.urls?.find((url) => url.quality == quality) ??
-        stream?.urls?.find((url) => url.quality == "720p"); //fallback to 720p if the desired quality is not available
+        stream?.urls?.find((url) => url.quality === quality) ??
+        stream?.urls?.find((url) => url.quality === "720p"); //fallback to 720p if the desired quality is not available
 
       return trailer?.url;
     },
