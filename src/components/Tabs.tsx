@@ -5,10 +5,9 @@ import { IconType } from "react-icons";
 import { MediaScrollHeading } from "./common";
 
 export interface TabItem {
-  value: string;
-  label: string;
+  id: string;
+  name: string;
   icon?: IconType;
-  color: string;
 }
 
 interface Props {
@@ -22,7 +21,7 @@ interface Props {
 const Tabs = ({ tabItems, selectedTab, heading, highlight, setSelectedTab }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
-  const tabIndex = tabItems.findIndex((t) => t.value === selectedTab);
+  const tabIndex = tabItems.findIndex((t) => t.id === selectedTab);
   const activePalette = useCustomizationStore((s) => s.activePalette);
 
   useLayoutEffect(() => {
@@ -62,12 +61,12 @@ const Tabs = ({ tabItems, selectedTab, heading, highlight, setSelectedTab }: Pro
           >
             {tabItems.map((item) => (
               <ChakraTabs.Trigger
-                key={item.value}
-                value={item.value}
+                key={item.id}
+                value={item.id}
                 _before={{ display: "none" }}
                 flexShrink={0}
               >
-                <Text>{item.label}</Text>
+                <Text>{item.name}</Text>
               </ChakraTabs.Trigger>
             ))}
 

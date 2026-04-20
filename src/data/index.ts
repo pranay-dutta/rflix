@@ -1,25 +1,25 @@
 import { TabItem } from "@/components/Tabs";
 
 export const genreTabs: TabItem[] = [
-  { value: "28", label: "Action", color: "red.500" },
-  { value: "16", label: "Animation", color: "orange.500" },
-  { value: "35", label: "Comedy", color: "yellow.500" },
-  { value: "80", label: "Crime", color: "blue.500" },
-  { value: "14", label: "Fantasy", color: "cyan.500" },
-  { value: "27", label: "Horror", color: "red.500" },
-  { value: "878", label: "Science Fiction", color: "blue.500" },
+  { id: "28", name: "Action" },
+  { id: "16", name: "Animation" },
+  { id: "35", name: "Comedy" },
+  { id: "80", name: "Crime" },
+  { id: "14", name: "Fantasy" },
+  { id: "27", name: "Horror" },
+  { id: "878", name: "Science Fiction" },
 ];
 
 export const watchProviderTabs: TabItem[] = [
-  { value: "213", label: "Netflix", color: "red.500" },
-  { value: "2739", label: "Disney+", color: "blue.500" },
-  { value: "3186", label: "HBO", color: "purple.500" },
-  { value: "350", label: "Apple TV", color: "gray.300" },
-  { value: "1024", label: "Prime", color: "blue.600" },
-  { value: "4330", label: "Paramount+", color: "blue.400" },
+  { id: "213", name: "Netflix" },
+  { id: "2739", name: "Disney+" },
+  { id: "3186", name: "HBO" },
+  { id: "2552", name: "Apple TV" },
+  { id: "1024", name: "Prime" },
+  { id: "4330", name: "Paramount+" },
 ];
 
 export const movieAndTvTab: TabItem[] = [
-  { value: "movies", label: "Movies", color: "red.500" },
-  { value: "series", label: "Series", color: "blue.500" },
+  { id: "movies", name: "Movies" },
+  { id: "series", name: "Series" },
 ];

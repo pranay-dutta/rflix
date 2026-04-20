@@ -28,7 +28,7 @@ const Navbar = () => {
       py={2}
       justifyContent="space-between"
       w={"full"}
-      bg="gray.950"
+      bgColor="transparent"
       transform={show ? "translateY(0)" : "translateY(-100%)"}
       transition="transform 0.1s ease-in-out"
       position="fixed"

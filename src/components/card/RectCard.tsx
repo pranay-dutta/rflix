@@ -49,7 +49,7 @@ const RectCard = ({ media }: Props) => {
     data: trailerURL,
     isFetching: trailerFetching,
     fetchStatus,
-  } = useTrailer(mediaType, isPreviewActive, imdbId);
+  } = useTrailer(mediaType, isPreviewActive, imdbId, "480p");
 
   const navigate = useNavigate();
   const titleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);

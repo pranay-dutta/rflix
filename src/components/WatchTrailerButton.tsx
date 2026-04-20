@@ -5,32 +5,30 @@ import { ReactNode } from "react";
 import { IconType } from "react-icons";
 import { useNavigate } from "react-router-dom";
 
-interface Props extends ButtonProps {
+interface WatchButtonProps extends ButtonProps {
   children: ReactNode;
   mediaId: number;
   mediaType: "movie" | "tv";
   icon: IconType;
 }
 
-const InfoButton = (props: Props) => {
+const WatchTrailerButton = (props: WatchButtonProps) => {
   const { children, mediaId, mediaType, icon: Icon } = props;
-  const navigate = useNavigate();
   const activePalette = useCustomizationStore((s) => s.activePalette);
+  const navigate = useNavigate();
+
+  const path = mediaType == 'tv' ? `watch/tv/${mediaId}/1/1` : `watch/movie/${mediaId}`;
 
   return (
     <IconButton
-      color="white"
-      backgroundColor="blackAlpha.600"
+      color="black"
+      backgroundColor="white"
       border="1px solid"
       borderRadius="lg"
-      borderColor="gray.700"
       rounded="full"
       padding={6}
-      _hover={{
-        borderColor: `${activePalette}.800`,
-        boxShadow: `0px 0px 30px 1px ${withAlpha(activePalette, 0.3)}`,
-      }}
-      onClick={() => navigate(`/info/${mediaType}/${mediaId}`)}
+      _hover={{ boxShadow: `0px 0px 30px 1px ${withAlpha(activePalette, 0.3)}` }}
+      onClick={() => navigate(path)}
       {...props}
     >
       <Icon />
@@ -39,4 +37,4 @@ const InfoButton = (props: Props) => {
   );
 };
 
-export default InfoButton;
+export default WatchTrailerButton;

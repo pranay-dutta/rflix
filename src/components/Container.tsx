@@ -9,9 +9,6 @@ const Container = ({ children, ...rest }: Props) => {
   return (
     <ChakraContainer
       maxW={{
-        base: "sm",
-        sm: "md",
-        md: "3xl",
         lg: "5xl",
         xl: "8xl",
       }}

@@ -8,6 +8,7 @@ import createClient from "@/services/client";
 type ResponseType = {
   movie: FetchResponse<Movie>;
   tv: FetchResponse<TvSeries>;
+  all: FetchResponse<Movie | TvSeries>;
 };
 
 const useTrending = <T extends keyof ResponseType>(

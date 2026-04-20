@@ -21,7 +21,12 @@ export interface TrailerUrl {
   url: string;
 }
 
-const useTrailer = (type: "movie" | "tv", isInView: boolean, imdbId?: string) => {
+const useTrailer = (
+  type: "movie" | "tv",
+  isInView: boolean,
+  imdbId?: string,
+  quality?: "1080p" | "480p",
+) => {
   const backendClient = createClient<TrailerResponse>("/trailer/" + imdbId);
   const queryClient = useQueryClient();
 
@@ -36,8 +41,12 @@ const useTrailer = (type: "movie" | "tv", isInView: boolean, imdbId?: string) =>
     queryFn: ({ signal }) => backendClient.get({ signal }),
     select: (data) => {
       const stream = data.streams?.[0];
-      const _480pURL = stream?.urls?.find((url) => url.quality === "480p");
-      return _480pURL?.url;
+
+      const trailer =
+        stream?.urls?.find((url) => url.quality === quality) ??
+        stream?.urls?.find((url) => url.quality === "720p"); //fallback to 720p if the desired quality is not available
+
+      return trailer?.url;
     },
     staleTime: ms("2h"),
     enabled: isInView && !!imdbId,

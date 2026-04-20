@@ -3,14 +3,14 @@ import { MovieDetails } from "../interfaces/MovieDetails";
 import ms from "ms";
 import createClient from "@/services/client";
 
-const useMovie = (movieId: number) => {
+const useMovie = (movieId?: number) => {
   const client = createClient<MovieDetails>("/movie/" + movieId);
 
   const { data, error, isLoading } = useQuery<MovieDetails, Error>({
     queryKey: ["movie", movieId],
     queryFn: client.get,
     staleTime: ms("2h"),
-    enabled: movieId !== 0,
+    enabled: !!movieId && movieId !== 0,
   });
 
   return { movie: data, error, isLoading };

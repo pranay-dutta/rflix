@@ -14,12 +14,22 @@ const MovieWatchPage = () => {
   const { trailers, isLoading } = useMovieTrailer(parseInt(id || "0"));
   const [isVideoLoading, setIsVideoLoading] = useState(true);
 
-  if (!id) throw new Error();
-
-  const { movie } = useMovie(parseInt(id));
-  if (!movie) return null;
+  const { movie, isLoading: isMovieLoading } = useMovie(parseInt(id || "0"));
 
   const youtubeId = trailers?.find((trailer) => trailer.type === "Trailer")?.key;
+  const loading = isLoading || isMovieLoading;
+
+  if (loading)
+    return (
+      <Box>
+        <Box my={3}>
+          <BackButton />
+        </Box>
+        <Skeleton className="w-full aspect-square md:aspect-video" />
+      </Box>
+    );
+
+  if (!movie) return <Text>Failed to load movie details.</Text>;
 
   return (
     <Box>
