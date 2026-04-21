@@ -12,9 +12,10 @@ interface Props {
   isActive: boolean;
   media: Movie | TvSeries;
   isMuted?: boolean;
+  handleShowButton: (show: boolean) => void;
 }
 
-const MediaTrailer = ({ media, isActive, isMuted }: Props) => {
+const MediaTrailer = ({ media, isActive, isMuted, handleShowButton }: Props) => {
   const mediaType = isMovie(media) ? "movie" : "tv";
   const { data: posterAndExternalIds, isLoading } = useRectPoster(media.id, mediaType);
 
@@ -30,6 +31,11 @@ const MediaTrailer = ({ media, isActive, isMuted }: Props) => {
     imdbId,
     "1080p",
   );
+
+  useEffect(() => {
+    //If trailerURL is available show the mute/unmute button
+    handleShowButton(!!trailerURL);
+  }, [handleShowButton, trailerURL]);
 
   useEffect(() => {
     const handlePlay = async () => {
@@ -56,7 +62,7 @@ const MediaTrailer = ({ media, isActive, isMuted }: Props) => {
     return <MediaBackdropImage path={media.backdrop_path} />;
 
   return (
-    <Box position="relative">
+    <Box scale={1.3} position="relative">
       <video
         ref={videoRef}
         className="absolute inset-0"

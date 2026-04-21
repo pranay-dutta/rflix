@@ -72,14 +72,24 @@ const HeroImage = ({ media, isActive }: MovieTrailerWrapperProps) => {
   const disableHomepageVideo = useCustomizationStore((s) => s.disableHomepageVideo);
 
   const [isMuted, setIsMuted] = useState(true);
+  const [showButton, setShowButton] = useState(false);
 
+  const showMuteUnmuteButton = showButton && !disableHomepageVideo && isActive;
+
+  const handleShowButton = (show: boolean) => {
+    setShowButton(show);
+  };
   // if homepage video is not disabled and slide is active
-  const showMuteUnmuteButton = !disableHomepageVideo && isActive;
 
   return (
     <Box key={media.id} className="transition-all">
       <AspectRatioContainer>
-        <MediaTrailer media={media} isMuted={isMuted} isActive={isActive} />
+        <MediaTrailer
+          media={media}
+          isMuted={isMuted}
+          handleShowButton={handleShowButton}
+          isActive={isActive}
+        />
       </AspectRatioContainer>
 
       <Container
