@@ -12,10 +12,9 @@ interface Props {
   isActive: boolean;
   media: Movie | TvSeries;
   isMuted?: boolean;
-  handlePlaying: (isPlaying: boolean) => void;
 }
 
-const MediaTrailer = ({ media, isActive, isMuted, handlePlaying }: Props) => {
+const MediaTrailer = ({ media, isActive, isMuted }: Props) => {
   const mediaType = isMovie(media) ? "movie" : "tv";
   const { data: posterAndExternalIds, isLoading } = useRectPoster(media.id, mediaType);
 
@@ -70,8 +69,6 @@ const MediaTrailer = ({ media, isActive, isMuted, handlePlaying }: Props) => {
         src={trailerURL}
         muted={isMuted}
         autoPlay={isActive}
-        onLoadedData={() => handlePlaying(true)}
-        onPause={() => handlePlaying(false)}
       />
     </Box>
   );
