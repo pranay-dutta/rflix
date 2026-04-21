@@ -2,7 +2,9 @@ import Container from "@/components/Container";
 import useTrending from "@/hooks/useTrending";
 import { Movie } from "@/interfaces/Movie";
 import TvSeries from "@/interfaces/TvSeries";
+import useCustomizationStore from "@/store/customizationStore";
 import isMovie from "@/utils/isMovie";
+import withAlpha from "@/utils/withAlpha";
 import { Box, Flex, HStack, IconButton, Skeleton } from "@chakra-ui/react";
 import ms from "ms";
 import { PropsWithChildren, useState } from "react";
@@ -20,8 +22,6 @@ import MovieLanguage from "./MovieLanguage";
 import Rating from "./Rating";
 import ReleaseDate from "./ReleaseDate";
 import WatchTrailerButton from "./WatchTrailerButton";
-import useCustomizationStore from "@/store/customizationStore";
-import withAlpha from "@/utils/withAlpha";
 
 const filterMedia = (item: Movie | TvSeries) => {
   if (item.vote_count < 100) return false; // filter out media with low vote count to ensure quality
@@ -72,23 +72,14 @@ const HeroImage = ({ media, isActive }: MovieTrailerWrapperProps) => {
   const disableHomepageVideo = useCustomizationStore((s) => s.disableHomepageVideo);
 
   const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
 
-  // if homepage video is not disabled and trailer is playing show the mute/unmute button
-  const showMuteUnmuteButton = isPlaying && !disableHomepageVideo;
-
-  //callback function to show the mute/unmute button when the video starts playing
-  const handlePlaying = (playing: boolean) => setIsPlaying(playing);
+  // if homepage video is not disabled and slide is active
+  const showMuteUnmuteButton = !disableHomepageVideo && isActive;
 
   return (
     <Box key={media.id} className="transition-all">
       <AspectRatioContainer>
-        <MediaTrailer
-          handlePlaying={handlePlaying}
-          media={media}
-          isMuted={isMuted}
-          isActive={isActive}
-        />
+        <MediaTrailer media={media} isMuted={isMuted} isActive={isActive} />
       </AspectRatioContainer>
 
       <Container
@@ -144,14 +135,14 @@ const HeroImage = ({ media, isActive }: MovieTrailerWrapperProps) => {
               </WatchTrailerButton>
 
               {/* Mute/Unmute button */}
-              {isActive && (
+              {showMuteUnmuteButton && (
                 <IconButton
                   color="white"
                   size="xl"
                   rounded="full"
                   backgroundColor="transparent"
                   transition="all 0.2s ease-in-out"
-                  opacity={showMuteUnmuteButton ? (isMuted ? 1 : 0.5) : 0}
+                  opacity={isMuted ? 1 : 0.5}
                   aria-label={isMuted ? "Unmute" : "Mute"}
                   _hover={{
                     borderColor: `${activePalette}.800`,
