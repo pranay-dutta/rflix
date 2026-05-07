@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import ScrollToTopOnLoad from "@/utils/ScrollToTopOnLoad";
-import { Container } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
 import { useSession } from "@clerk/clerk-react";
 import { Outlet } from "react-router-dom";
 import SignUp from "./SignUp";
@@ -11,14 +11,16 @@ const Layout = () => {
   if (!isSignedIn) return <SignUp />;
 
   return (
-    <div>
+    <Flex direction="column" minH="100vh">
       <ScrollToTopOnLoad />
       <Navbar />
-      <Container py={5} mt={12}>
+      <Container py={5} mt={12} flex="1">
         <Outlet />
       </Container>
-      <Footer />
-    </div>
+      <Box mt="auto" mb={3}>
+        <Footer />
+      </Box>
+    </Flex>
   );
 };
 
