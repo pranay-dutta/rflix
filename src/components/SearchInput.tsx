@@ -1,10 +1,9 @@
-import { Box, Button, Group, Input } from "@chakra-ui/react";
+import { Box, Input } from "@chakra-ui/react";
 import { KeyboardEvent, MouseEvent, useState } from "react";
-import { LuSearch } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import SearchSuggestionContainer from "./searchsuggestion/container/SearchSuggestionContainer";
 
-const SearchInput = () => {
+const SearchInput = ({ ref }: { ref: React.RefObject<HTMLInputElement> }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -26,31 +25,30 @@ const SearchInput = () => {
   };
 
   return (
-    <>
-      <Group attached w="full" maxW="sm">
-        <Box position="relative" flex="1">
-          <Input
-            value={searchTerm}
-            onKeyDown={onKeyDown}
-            onChange={handleInputChange}
-            onFocus={() => searchTerm.length > 2 && setShowSuggestions(true)}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 300)}
-            placeholder="Search..."
-          />
-          {/* Suggestion Box */}
-          {showSuggestions && (
-            <SearchSuggestionContainer
-              searchTerm={searchTerm}
-              setShowSuggestions={setShowSuggestions}
-            />
-          )}
-        </Box>
-
-        <Button variant="outline" onClick={onKeyDown}>
-          <LuSearch />
-        </Button>
-      </Group>
-    </>
+    <Box>
+      <Box border="1px solid #333" borderRadius="lg">
+        <Input
+          ref={ref}
+          borderRadius="lg"
+          value={searchTerm}
+          onKeyDown={onKeyDown}
+          onChange={handleInputChange}
+          onFocus={() => searchTerm.length > 2 && setShowSuggestions(true)}
+          onBlur={() => setTimeout(() => setShowSuggestions(false), 300)}
+          placeholder="Search..."
+          outline="none"
+          border="none"
+          backgroundColor="blackAlpha.800"
+        />
+      </Box>
+      {/* Suggestion Box */}
+      {showSuggestions && (
+        <SearchSuggestionContainer
+          searchTerm={searchTerm}
+          setShowSuggestions={setShowSuggestions}
+        />
+      )}
+    </Box>
   );
 };
 
