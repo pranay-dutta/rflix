@@ -1,10 +1,11 @@
-import { Box } from "@chakra-ui/react";
+import { Box, SkeletonCircle } from "@chakra-ui/react";
 import { SignInButton, UserButton, useSession } from "@clerk/clerk-react";
 import { LuUser } from "react-icons/lu";
 
 const LoginButton = () => {
   const { isSignedIn } = useSession();
-  if (isSignedIn) return <UserButton />;
+
+  if (isSignedIn) return <UserButton fallback={<SkeletonCircle size={7} />} />;
 
   return (
     <Box cursor="pointer">
