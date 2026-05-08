@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar/Navbar";
 import { Box, Container, Flex } from "@chakra-ui/react";
 import { SignUp as ClerkSignUp } from "@clerk/clerk-react";
 import { useEffect } from "react";
