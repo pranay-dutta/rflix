@@ -12,9 +12,7 @@ const WatchListPage = () => {
   const wishListItems = useWatchListStore((state) => state.watchList);
   const clearWatchList = useWatchListStore((state) => state.clearWatchList);
 
-  const disableWatchList = useCustomizationStore(
-    (state) => state.disableWatchList,
-  );
+  const disableWatchList = useCustomizationStore((state) => state.disableWatchList);
   const activePalette = useCustomizationStore((s) => s.activePalette);
 
   const isBelow480 = useMediaQuery("only screen and (max-width: 480px)");
@@ -27,9 +25,7 @@ const WatchListPage = () => {
           Please enable the watch list feature in the customization settings.
           <br />
           <Link to="/customize">
-            <Text color={`${activePalette}.300`}>
-              Enable watch list from here
-            </Text>
+            <Text color={`${activePalette}.300`}>Enable watch list from here</Text>
           </Link>
           <Flex
             justifyContent="center"
@@ -49,15 +45,8 @@ const WatchListPage = () => {
     return (
       <Box mt={3} minH={"80vh"}>
         <PageHeading query="Watch List">Your Watch List</PageHeading>
-        <Heading
-          size="md"
-          mt={3}
-          fontWeight="normal"
-          textAlign="center"
-          color="gray.600"
-        >
-          Your List is empty. Add movies or TV shows to your watch list to see
-          them here.
+        <Heading size="md" mt={3} fontWeight="normal" textAlign="center" color="gray.600">
+          Your List is empty. Add movies or TV shows to your watch list to see them here.
         </Heading>
         <Flex
           justifyContent="center"

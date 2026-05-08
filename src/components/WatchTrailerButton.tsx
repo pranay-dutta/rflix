@@ -17,7 +17,7 @@ const WatchTrailerButton = (props: WatchButtonProps) => {
   const activePalette = useCustomizationStore((s) => s.activePalette);
   const navigate = useNavigate();
 
-  const path = mediaType == 'tv' ? `watch/tv/${mediaId}/1/1` : `watch/movie/${mediaId}`;
+  const path = mediaType == "tv" ? `watch/tv/${mediaId}/1/1` : `watch/movie/${mediaId}`;
 
   return (
     <IconButton

@@ -5,8 +5,12 @@ import ms from "ms";
 
 const useCredits = (mediaId: string, isTvShow: boolean) => {
   const computedEndpoint = isActiveTmdbClient
-    ? (isTvShow ? `/tv/${mediaId}/credits` : `/movie/${mediaId}/credits`)
-    : (isTvShow ? `tv/credits/${mediaId}` : `/movie/credits/${mediaId}`);
+    ? isTvShow
+      ? `/tv/${mediaId}/credits`
+      : `/movie/${mediaId}/credits`
+    : isTvShow
+      ? `tv/credits/${mediaId}`
+      : `/movie/credits/${mediaId}`;
 
   const client = createClient<Credit>(computedEndpoint);
 

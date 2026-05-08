@@ -25,9 +25,7 @@ interface MovieTrailerWrapperProps {
 
 const HeroImage = ({ media, isActive }: MovieTrailerWrapperProps) => {
   const activePalette = useCustomizationStore((s) => s.activePalette);
-  const disableHomepageVideo = useCustomizationStore(
-    (s) => s.disableHomepageVideo,
-  );
+  const disableHomepageVideo = useCustomizationStore((s) => s.disableHomepageVideo);
 
   const [isMuted, setIsMuted] = useState(true);
   const [showButton, setShowButton] = useState(false);
@@ -69,9 +67,7 @@ const HeroImage = ({ media, isActive }: MovieTrailerWrapperProps) => {
             <HStack filter="contrast(2)" gap={4}>
               <Rating vote_average={media.vote_average} />
               <ReleaseDate
-                date={
-                  isMovie(media) ? media.release_date : media.first_air_date
-                }
+                date={isMovie(media) ? media.release_date : media.first_air_date}
               />
               <MovieLanguage language={media.original_language} />
             </HStack>

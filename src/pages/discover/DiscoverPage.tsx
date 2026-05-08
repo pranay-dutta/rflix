@@ -6,14 +6,7 @@ import SortDropDown from "@/components/common/SortDropDown";
 import MovieGenrePills from "@/components/movie/MovieGenrePills";
 import TvGenrePills from "@/components/tv/TvGenrePills";
 import useDiscover from "@/hooks/useDiscover";
-import {
-  Box,
-  Text,
-  createListCollection,
-  Flex,
-  Select,
-  Spinner,
-} from "@chakra-ui/react";
+import { Box, Text, createListCollection, Flex, Select, Spinner } from "@chakra-ui/react";
 import { Fragment, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Center } from "@chakra-ui/react";
@@ -40,15 +33,9 @@ const Wrapper = () => {
     <Box position="relative" aria-busy="true" userSelect="none">
       <Box mb={5} mt={3}>
         <Box mb={8}>
-          <PageHeading query="Movie & TV Shows">
-            Discover Movie & TV Shows
-          </PageHeading>
+          <PageHeading query="Movie & TV Shows">Discover Movie & TV Shows</PageHeading>
         </Box>
-        <Flex
-          my={3}
-          gap={{ base: 1, md: 5 }}
-          maxW={{ mdDown: "100%", md: "2/3" }}
-        >
+        <Flex my={3} gap={{ base: 1, md: 5 }} maxW={{ mdDown: "100%", md: "2/3" }}>
           <CollapsibleToggleButton open={open} onClick={() => setOpen(!open)} />
           <SortDropDown mediaType={mediaType} />
           <MediaTypeDropdown
@@ -100,10 +87,7 @@ interface MediaTypeDropdownProps {
   onMediaTypeChange: (value: "movie" | "tv") => void;
 }
 
-const MediaTypeDropdown = ({
-  selected,
-  onMediaTypeChange,
-}: MediaTypeDropdownProps) => {
+const MediaTypeDropdown = ({ selected, onMediaTypeChange }: MediaTypeDropdownProps) => {
   return (
     <Select.Root
       hideBelow="md"

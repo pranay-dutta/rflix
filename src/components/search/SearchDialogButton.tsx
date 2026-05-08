@@ -20,14 +20,7 @@ const SearchDialogButton = () => {
           <Dialog.Content border="none" boxShadow="none" bg="transparent">
             <Dialog.Header alignItems="center">
               <Dialog.Title>Search</Dialog.Title>
-              <Flex
-                position="absolute"
-                zIndex="max"
-                top={0}
-                right={0}
-                p={2}
-                gap={2}
-              >
+              <Flex position="absolute" zIndex="max" top={0} right={0} p={2} gap={2}>
                 {/* Search Dropdown */}
                 <SearchDropdownMenu />
 

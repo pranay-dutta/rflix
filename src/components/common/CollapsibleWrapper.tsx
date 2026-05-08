@@ -1,7 +1,13 @@
 import { Box } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
-export const CollapsibleWrapper = ({ children, open }: { open: boolean; children: ReactNode; }) => {
+export const CollapsibleWrapper = ({
+  children,
+  open,
+}: {
+  open: boolean;
+  children: ReactNode;
+}) => {
   return (
     <Box
       overflow="hidden"

@@ -24,11 +24,7 @@ const HomePage = () => {
   return (
     <>
       <Hero />
-      <Container
-        marginTop={{ base: "0px", md: "-90px" }}
-        zIndex={10}
-        position="relative"
-      >
+      <Container marginTop={{ base: "0px", md: "-90px" }} zIndex={10} position="relative">
         {SliderElements.map((Element, index) => (
           <Element key={index} />
         ))}

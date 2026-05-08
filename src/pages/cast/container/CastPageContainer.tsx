@@ -51,14 +51,17 @@ const CastPageContainer = () => {
 
   const { cast, crew } = credits;
 
-  const crewByDepartment = crew.reduce((acc, person) => {
-    const department = person.department;
-    if (!acc[department]) {
-      acc[department] = [];
-    }
-    acc[department].push(person);
-    return acc;
-  }, {} as Record<string, typeof crew>);
+  const crewByDepartment = crew.reduce(
+    (acc, person) => {
+      const department = person.department;
+      if (!acc[department]) {
+        acc[department] = [];
+      }
+      acc[department].push(person);
+      return acc;
+    },
+    {} as Record<string, typeof crew>,
+  );
 
   const sortedDepartments = Object.keys(crewByDepartment).sort();
   const { poster_path, tagline, overview, genres } = media;

@@ -29,11 +29,7 @@ const TVPage = () => {
     <Box>
       <Box mb={5} mt={3}>
         <PageHeading query={headerTitle}>{headerTitle}</PageHeading>
-        <RadioSelector
-          value={currentTag}
-          mediaType="tv"
-          setValue={handleSetTags}
-        />
+        <RadioSelector value={currentTag} mediaType="tv" setValue={handleSetTags} />
       </Box>
 
       {/* Loading and Error States */}

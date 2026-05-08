@@ -6,10 +6,7 @@ const useChangeScrollbarColor = () => {
 
   //change scrollbar color to match active palette
   useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--scrollbar-color",
-      activePalette,
-    );
+    document.documentElement.style.setProperty("--scrollbar-color", activePalette);
   }, [activePalette]);
 };
 

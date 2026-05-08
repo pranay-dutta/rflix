@@ -4,8 +4,7 @@ import { Fragment } from "react/jsx-runtime";
 
 const SortDropDown = ({ mediaType }: { mediaType: "movie" | "tv" }) => {
   const [, setSearchParams] = useSearchParams();
-  const collections =
-    mediaType === "movie" ? movieSortCollections : tvSortCollections;
+  const collections = mediaType === "movie" ? movieSortCollections : tvSortCollections;
 
   return (
     <Select.Root collection={collections}>

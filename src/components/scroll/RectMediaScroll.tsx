@@ -27,7 +27,7 @@ const RectMediaScroll = ({ media, loading }: Props) => {
   const showSkeletons = loading || !inView;
 
   //TODO: extract arrows and don't use tailwind classes here
-  
+
   return (
     <Box ref={ref} mb={20}>
       <div className="group relative overflow-hidden">
