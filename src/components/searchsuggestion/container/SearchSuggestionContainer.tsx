@@ -49,11 +49,6 @@ const SearchSuggestionContainer = ({ searchTerm, setShowSuggestions }: Props) =>
 
   return (
     <Box
-      position="absolute"
-      top="100%"
-      left={0}
-      right={{ lg: 0, base: "-35%" }}
-      bg="gray.950"
       mt={2}
       p={2}
       rounded="lg"
@@ -61,8 +56,9 @@ const SearchSuggestionContainer = ({ searchTerm, setShowSuggestions }: Props) =>
       boxShadow="2xl"
       border="1px solid"
       borderColor="gray.800"
-      maxH="400px"
+      maxH="300px"
       overflowY="auto"
+      bg="blackAlpha.800"
     >
       {mediaSuggestion.map((suggestion) => {
         return (
