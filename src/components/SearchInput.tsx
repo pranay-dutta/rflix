@@ -3,7 +3,7 @@ import { KeyboardEvent, MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchSuggestionContainer from "./searchsuggestion/container/SearchSuggestionContainer";
 
-const SearchInput = ({ ref }: { ref: React.RefObject<HTMLInputElement | null> }) => {
+const SearchInput = ({ ref }: { ref?: React.RefObject<HTMLInputElement | null> }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
 
