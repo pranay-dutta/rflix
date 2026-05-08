@@ -1,14 +1,14 @@
 import InfiniteScrollEndMessage from "@/components/common/InfiniteScrollEndMessage";
 import PageHeading from "@/components/common/PageHeading";
 import MediaGrid from "@/components/MediaGrid";
+import RadioSelector from "@/components/radioselector/RadioSelector";
 import useTvSeriesLists, { TvSeriesTags } from "@/hooks/useTvSeriesLists";
 import { Box, Spinner, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import TVRadioSelector from "./TVRadioSelector";
 
 const TVPage = () => {
-  const [tag, setTag] = useState<TvSeriesTags>("popular");
+  const [currentTag, setTag] = useState<TvSeriesTags>("popular");
   const {
     data,
     isFetchingNextPage,
@@ -17,19 +17,23 @@ const TVPage = () => {
     isLoading,
     error,
     resCount,
-  } = useTvSeriesLists(tag);
+  } = useTvSeriesLists(currentTag);
 
   const handleSetTags = (newTag: string | null) => {
     if (!newTag) return;
     setTag(newTag as TvSeriesTags);
   };
-  const headerTitle = `${tag.charAt(0).toUpperCase() + tag.slice(1).replace(/_/g, " ")} shows`;
+  const headerTitle = `${currentTag.charAt(0).toUpperCase() + currentTag.slice(1).replace(/_/g, " ")} shows`;
 
   return (
     <Box>
       <Box mb={5} mt={3}>
         <PageHeading query={headerTitle}>{headerTitle}</PageHeading>
-        <TVRadioSelector value={tag} setValue={handleSetTags} />
+        <RadioSelector
+          value={currentTag}
+          mediaType="tv"
+          setValue={handleSetTags}
+        />
       </Box>
 
       {/* Loading and Error States */}

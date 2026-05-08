@@ -5,10 +5,10 @@ import useMovieLists, { MovieTags } from "@/hooks/useMovieLists";
 import { Box, Spinner, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import MovieRadioSelector from "./MovieRadioSelector";
+import RadioSelector from "@/components/radioselector/RadioSelector";
 
 const MoviePage = () => {
-  const [tag, setTag] = useState<MovieTags>("popular");
+  const [currentTag, setTag] = useState<MovieTags>("popular");
   const {
     data,
     isFetchingNextPage,
@@ -17,19 +17,23 @@ const MoviePage = () => {
     isLoading,
     error,
     resCount,
-  } = useMovieLists(tag);
+  } = useMovieLists(currentTag);
 
   const handleSetTags = (newTag: string | null) => {
     if (!newTag) return;
     setTag(newTag as MovieTags);
   };
-  const headerTitle = `${tag.charAt(0).toUpperCase() + tag.slice(1).replace("_", " ")} movies`;
+  const headerTitle = `${currentTag.charAt(0).toUpperCase() + currentTag.slice(1).replace("_", " ")} movies`;
 
   return (
     <Box>
       <Box mb={5} mt={3}>
         <PageHeading query={headerTitle}>{headerTitle}</PageHeading>
-        <MovieRadioSelector value={tag} setValue={handleSetTags} />
+        <RadioSelector
+          value={currentTag}
+          mediaType="movie"
+          setValue={handleSetTags}
+        />
       </Box>
 
       {/* Loading and Error States */}
