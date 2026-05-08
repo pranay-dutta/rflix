@@ -9,7 +9,7 @@ interface Props {
 const PageHeading = ({ query, children }: Props) => {
   const activePalette = useCustomizationStore((s) => s.activePalette);
   return (
-    <Heading size="3xl" as={"h1"}>
+    <Heading textAlign="center" letterSpacing="wider" size="2xl">
       <Highlight query={query} styles={{ color: `${activePalette}.400` }}>
         {children}
       </Highlight>

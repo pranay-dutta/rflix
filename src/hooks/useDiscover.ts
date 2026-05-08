@@ -31,12 +31,12 @@ const useDiscover = <T extends keyof DiscoverType>(endpoint: T) => {
       client.getAll({ params: { page: pageParam, with_genres: genres, sort_by } }),
 
     getNextPageParam: (lastPage, allPages) => {
-      return lastPage.results.length ? allPages.length + 1 : undefined;
+      return lastPage?.results?.length ? allPages.length + 1 : undefined;
     },
   });
 
   const resCount =
-    res.data?.pages.reduce((acc, page) => acc + page.results.length, 0) || 0;
+    res.data?.pages.reduce((acc, page) => acc + page.results?.length, 0) || 0;
   return { ...res, resCount };
 };
 

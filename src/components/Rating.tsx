@@ -15,7 +15,7 @@ const Rating = (props: RatingProps) => {
   return (
     <Box display="flex" alignItems="center" gap={1} {...rest}>
       <FaStar color={activePalette} />
-      <Text color="white">{vote_average.toFixed(1)}</Text>
+      <Text color="white">{vote_average ? vote_average.toFixed(1) : "N/A"}</Text>
     </Box>
   );
 };

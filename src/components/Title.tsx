@@ -1,5 +1,5 @@
 import useCustomizationStore from "@/store/customizationStore";
-import { Box, Heading, Highlight, Image } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 const Title = () => {
@@ -15,13 +15,12 @@ const Title = () => {
       cursor="pointer"
       userSelect="none"
     >
-      <Image src={`/${activePalette}.ico`} w={5} h={5} />
-
-      <Heading fontSize="xl" fontWeight="bold">
-        <Highlight styles={{ color: `${activePalette}.400` }} query="lix">
+      <Flex align="center" gap={2}>
+        <Image src={`/${activePalette}.ico`} w={6} h={6} borderRadius="sm" />
+        <Heading fontSize="2xl" fontWeight="bold">
           Rflix
-        </Highlight>
-      </Heading>
+        </Heading>
+      </Flex>
     </Box>
   );
 };
