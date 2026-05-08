@@ -8,11 +8,13 @@ import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { GiEmptyWoodBucket, GiSightDisabled } from "react-icons/gi";
 
-const WatchList = () => {
+const WatchListPage = () => {
   const wishListItems = useWatchListStore((state) => state.watchList);
   const clearWatchList = useWatchListStore((state) => state.clearWatchList);
 
-  const disableWatchList = useCustomizationStore((state) => state.disableWatchList);
+  const disableWatchList = useCustomizationStore(
+    (state) => state.disableWatchList,
+  );
   const activePalette = useCustomizationStore((s) => s.activePalette);
 
   const isBelow480 = useMediaQuery("only screen and (max-width: 480px)");
@@ -25,7 +27,9 @@ const WatchList = () => {
           Please enable the watch list feature in the customization settings.
           <br />
           <Link to="/customize">
-            <Text color={`${activePalette}.300`}>Enable watch list from here</Text>
+            <Text color={`${activePalette}.300`}>
+              Enable watch list from here
+            </Text>
           </Link>
           <Flex
             justifyContent="center"
@@ -45,8 +49,15 @@ const WatchList = () => {
     return (
       <Box mt={3} minH={"80vh"}>
         <PageHeading query="Watch List">Your Watch List</PageHeading>
-        <Heading size="md" mt={3} fontWeight="normal">
-          Your List is empty. Add movies or TV shows to your watch list to see them here.
+        <Heading
+          size="md"
+          mt={3}
+          fontWeight="normal"
+          textAlign="center"
+          color="gray.600"
+        >
+          Your List is empty. Add movies or TV shows to your watch list to see
+          them here.
         </Heading>
         <Flex
           justifyContent="center"
@@ -63,19 +74,18 @@ const WatchList = () => {
 
   return (
     <Box>
-      <Flex mb={5} mt={3} justify="space-between" alignItems="flex-end">
-        <PageHeading query="Watch List">Your Watch List</PageHeading>
-        <Flex
-          alignItems="center"
-          gap={2}
-          _hover={{ color: "red.600", cursor: "pointer" }}
-          onClick={clearWatchList}
-        >
-          <Heading size="md" fontWeight="normal">
-            {isBelow480 ? "Clear list" : "Clear your watch list"}
-          </Heading>
-          <MdDeleteForever />
-        </Flex>
+      <PageHeading query="Watch List">Your Watch List</PageHeading>
+      <Flex
+        my={4}
+        _hover={{ color: "red.600", cursor: "pointer" }}
+        onClick={clearWatchList}
+        alignItems="center"
+        justifyContent="flex-end"
+      >
+        <Heading size="md" fontWeight="normal">
+          {isBelow480 ? "Clear list" : "Clear your watch list"}
+        </Heading>
+        <MdDeleteForever />
       </Flex>
       <Grid
         templateColumns={{
@@ -91,4 +101,4 @@ const WatchList = () => {
     </Box>
   );
 };
-export default WatchList;
+export default WatchListPage;

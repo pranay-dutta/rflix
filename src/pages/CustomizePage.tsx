@@ -1,4 +1,5 @@
 import PageHeading from "@/components/common/PageHeading";
+import useChangeScrollbarColor from "@/hooks/useChangeScrollbarColor";
 import useCustomizationStore from "@/store/customizationStore";
 import {
   Box,
@@ -16,6 +17,8 @@ import {
 import { ReactNode } from "react";
 
 const CustomizePage = () => {
+  useChangeScrollbarColor(); //runs useEffect when scrollbar color changes in the store
+
   const activePalette = useCustomizationStore((s) => s.activePalette);
   const disableHomeScreenVideo = useCustomizationStore((s) => s.disableHomepageVideo);
   const disableWatchList = useCustomizationStore((s) => s.disableWatchList);
