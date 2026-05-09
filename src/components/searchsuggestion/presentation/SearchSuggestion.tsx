@@ -2,6 +2,7 @@ import { getTMDBImage } from "@/components/constants";
 import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import { MdOutlineLiveTv, MdOutlineMovie } from "react-icons/md";
 import { SearchSuggestionProps } from "../container/SearchSuggestionContainer";
+import { useSearchDialogStore } from "@/store/serachDialogStore";
 
 const SearchSuggestion = ({
   is_movie,
@@ -11,8 +12,9 @@ const SearchSuggestion = ({
   releaseDate,
   posterPath,
 }: SearchSuggestionProps) => {
+  const setOpen = useSearchDialogStore((s) => s.setOpen);
   return (
-    <Box>
+    <Box onClick={() => setOpen(false)}>
       <HStack
         py={1.5}
         px={3}
