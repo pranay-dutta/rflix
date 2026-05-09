@@ -1,16 +1,19 @@
+import type { SearchMenuValue } from "@/store/searchTypeStore";
+import { searchMenuItems, useSearchType } from "@/store/searchTypeStore";
 import { Button, Menu, Portal } from "@chakra-ui/react";
 import { useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const SearchDropdownMenu = () => {
-  const [selectedValue, setSelectedValue] = useState(items[0].value);
   const [open, setOpen] = useState(false);
+  const searchType = useSearchType((s) => s.searchType);
+  const setMediaType = useSearchType((s) => s.setSearchType);
 
   return (
     <Menu.Root
       open={open}
-      onOpenChange={() => setOpen(!open)}
-      onSelect={(e) => setSelectedValue(e.value)}
+      onOpenChange={(e) => setOpen(e.open)}
+      onSelect={(e) => setMediaType(e.value as SearchMenuValue)}
     >
       <Menu.Trigger asChild>
         <Button
@@ -19,15 +22,19 @@ const SearchDropdownMenu = () => {
           size="sm"
           borderRadius="md"
         >
-          {selectedValue}
+          {searchType}
           {open ? <IoIosArrowUp /> : <IoIosArrowDown />}
         </Button>
       </Menu.Trigger>
       <Portal>
         <Menu.Positioner>
           <Menu.Content zIndex="popover" bg="blackAlpha.800">
-            {items.map((item) => (
-              <Menu.Item key={item.value} value={item.value}>
+            {searchMenuItems.map((item) => (
+              <Menu.Item
+                bg={searchType == item.value ? "gray.900" : undefined}
+                key={item.value}
+                value={item.value}
+              >
                 {item.label}
               </Menu.Item>
             ))}
@@ -39,9 +46,3 @@ const SearchDropdownMenu = () => {
 };
 
 export default SearchDropdownMenu;
-
-const items = [
-  { label: "Movies & TV Shows", value: "Movies & TV Shows" },
-  { label: "Movies", value: "Movies" },
-  { label: "TV Shows", value: "TV Shows" },
-];

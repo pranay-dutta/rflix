@@ -2,9 +2,10 @@ import useSearchSuggestion from "@/hooks/useSearchSuggestion";
 import { Movie } from "@/interfaces/Movie";
 import TvSeries from "@/interfaces/TvSeries";
 import isMovie from "@/utils/isMovie";
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import SearchSuggestion from "../presentation/SearchSuggestion";
+import { useSearchType } from "@/store/searchTypeStore";
 
 interface Props {
   setShowSuggestions: (show: boolean) => void;
@@ -23,6 +24,7 @@ export interface SearchSuggestionProps {
 const SearchSuggestionContainer = ({ searchTerm, setShowSuggestions }: Props) => {
   const navigate = useNavigate();
   const { movieResponse, tvResponse, isLoading, error } = useSearchSuggestion(searchTerm);
+  const searchType = useSearchType((s) => s.searchType);
 
   const handleSuggestionClick = (media: TvSeries | Movie) => {
     const destination = isMovie(media) ? "movie" : "tv";
@@ -30,10 +32,16 @@ const SearchSuggestionContainer = ({ searchTerm, setShowSuggestions }: Props) =>
     setShowSuggestions(false);
   };
 
-  const mediaSuggestion = [
-    ...(movieResponse?.results?.slice(0, 10) ?? []),
-    ...(tvResponse?.results?.slice(0, 10) ?? []),
-  ];
+  const mediaSuggestion: (Movie | TvSeries)[] = [];
+
+  if (searchType === "Movies & TV Shows") {
+    mediaSuggestion.push(...(movieResponse?.results?.slice(0, 10) ?? []));
+    mediaSuggestion.push(...(tvResponse?.results?.slice(0, 10) ?? []));
+  } else if (searchType === "Movies") {
+    mediaSuggestion.push(...(movieResponse?.results?.slice(0, 10) ?? []));
+  } else if (searchType === "TV Shows") {
+    mediaSuggestion.push(...(tvResponse?.results?.slice(0, 10) ?? []));
+  }
 
   const extractProperties = (media: TvSeries | Movie) => {
     const is_movie = isMovie(media);
@@ -45,7 +53,14 @@ const SearchSuggestionContainer = ({ searchTerm, setShowSuggestions }: Props) =>
     return { is_movie, accent, title, mediaType, releaseDate, posterPath };
   };
 
-  if (isLoading || error || mediaSuggestion.length === 0) return null;
+  if (error)
+    return (
+      <Text mt={2} color="red.300">
+        Error fetching suggestions
+      </Text>
+    );
+
+  if (isLoading || mediaSuggestion.length === 0) return null;
 
   return (
     <Box
@@ -59,6 +74,7 @@ const SearchSuggestionContainer = ({ searchTerm, setShowSuggestions }: Props) =>
       maxH="300px"
       overflowY="auto"
       bg="blackAlpha.800"
+      onMouseDown={(e) => e.preventDefault()}
     >
       {mediaSuggestion.map((suggestion) => {
         return (

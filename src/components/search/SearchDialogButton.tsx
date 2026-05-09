@@ -3,13 +3,21 @@ import { useRef } from "react";
 import { LuSearch } from "react-icons/lu";
 import SearchInput from "../SearchInput";
 import SearchDropdownMenu from "./SearchDropdownMenu";
+import { useSearchDialogStore } from "@/store/searchDialogStore";
 
 const SearchDialogButton = () => {
   const ref = useRef<HTMLInputElement | null>(null);
+  const isOpen = useSearchDialogStore((s) => s.isOpen);
+  const setOpen = useSearchDialogStore((s) => s.setOpen);
 
   return (
-    <Dialog.Root placement="center" initialFocusEl={() => ref.current}>
-      <Dialog.Trigger asChild>
+    <Dialog.Root
+      placement="center"
+      open={isOpen}
+      initialFocusEl={() => ref.current}
+      onOpenChange={(e) => setOpen(e.open)}
+    >
+      <Dialog.Trigger asChild onClick={() => setOpen(true)}>
         <Button variant="ghost" size="md">
           <LuSearch size={24} />
         </Button>
@@ -21,12 +29,13 @@ const SearchDialogButton = () => {
             <Dialog.Header alignItems="center">
               <Dialog.Title>Search</Dialog.Title>
               <Flex position="absolute" zIndex="max" top={0} right={0} p={2} gap={2}>
-                {/* Search Dropdown */}
+                {/* Media type selection menu */}
                 <SearchDropdownMenu />
 
                 <Dialog.CloseTrigger position="initial" asChild>
                   <CloseButton
                     bgColor="blackAlpha.800"
+                    _hover={{ bgColor: "gray.900" }}
                     variant="surface"
                     size="sm"
                     borderRadius="md"
