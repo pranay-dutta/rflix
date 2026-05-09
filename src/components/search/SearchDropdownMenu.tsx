@@ -1,7 +1,8 @@
+import type { SearchMenuValue } from "@/store/searchTypeStore";
+import { searchMenuItems, useSearchType } from "@/store/searchTypeStore";
 import { Button, Menu, Portal } from "@chakra-ui/react";
 import { useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { useSearchType, search_menu_items } from "@/store/searchTypeStore";
 
 const SearchDropdownMenu = () => {
   const [open, setOpen] = useState(false);
@@ -11,8 +12,8 @@ const SearchDropdownMenu = () => {
   return (
     <Menu.Root
       open={open}
-      onOpenChange={() => setOpen(!open)}
-      onSelect={(e) => setMediaType(e.value)}
+      onOpenChange={(e) => setOpen(e.open)}
+      onSelect={(e) => setMediaType(e.value as SearchMenuValue)}
     >
       <Menu.Trigger asChild>
         <Button
@@ -28,9 +29,9 @@ const SearchDropdownMenu = () => {
       <Portal>
         <Menu.Positioner>
           <Menu.Content zIndex="popover" bg="blackAlpha.800">
-            {search_menu_items.map((item) => (
+            {searchMenuItems.map((item) => (
               <Menu.Item
-                bg={searchType == item.value ? "gray.900" : ""}
+                bg={searchType == item.value ? "gray.900" : undefined}
                 key={item.value}
                 value={item.value}
               >

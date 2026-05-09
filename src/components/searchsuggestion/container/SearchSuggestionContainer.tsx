@@ -2,7 +2,7 @@ import useSearchSuggestion from "@/hooks/useSearchSuggestion";
 import { Movie } from "@/interfaces/Movie";
 import TvSeries from "@/interfaces/TvSeries";
 import isMovie from "@/utils/isMovie";
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import SearchSuggestion from "../presentation/SearchSuggestion";
 import { useSearchType } from "@/store/searchTypeStore";
@@ -32,7 +32,8 @@ const SearchSuggestionContainer = ({ searchTerm, setShowSuggestions }: Props) =>
     setShowSuggestions(false);
   };
 
-  const mediaSuggestion = [];
+  const mediaSuggestion: (Movie | TvSeries)[] = [];
+
   if (searchType === "Movies & TV Shows") {
     mediaSuggestion.push(...(movieResponse?.results?.slice(0, 10) ?? []));
     mediaSuggestion.push(...(tvResponse?.results?.slice(0, 10) ?? []));
@@ -52,13 +53,14 @@ const SearchSuggestionContainer = ({ searchTerm, setShowSuggestions }: Props) =>
     return { is_movie, accent, title, mediaType, releaseDate, posterPath };
   };
 
-  if (isLoading || mediaSuggestion.length === 0) return null;
   if (error)
     return (
-      <Box mt={2} color="red.300">
+      <Text mt={2} color="red.300">
         Error fetching suggestions
-      </Box>
+      </Text>
     );
+
+  if (isLoading || mediaSuggestion.length === 0) return null;
 
   return (
     <Box

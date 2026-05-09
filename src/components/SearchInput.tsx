@@ -3,8 +3,9 @@ import { KeyboardEvent, MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchSuggestionContainer from "./searchsuggestion/container/SearchSuggestionContainer";
 import { LuSearch } from "react-icons/lu";
+import { forwardRef } from "react";
 
-const SearchInput = ({ ref }: { ref?: React.RefObject<HTMLInputElement | null> }) => {
+const SearchInput = forwardRef<HTMLInputElement>((_, ref) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -54,6 +55,6 @@ const SearchInput = ({ ref }: { ref?: React.RefObject<HTMLInputElement | null> }
       )}
     </Box>
   );
-};
+});
 
 export default SearchInput;
