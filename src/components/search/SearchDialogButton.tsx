@@ -3,18 +3,20 @@ import { useRef } from "react";
 import { LuSearch } from "react-icons/lu";
 import SearchInput from "../SearchInput";
 import SearchDropdownMenu from "./SearchDropdownMenu";
-import { useSearchDialogStore } from "@/store/serachDialogStore";
+import { useSearchDialogStore } from "@/store/searchDialogStore";
 
 const SearchDialogButton = () => {
   const ref = useRef<HTMLInputElement | null>(null);
-  const { isOpen, setOpen } = useSearchDialogStore();
+  const isOpen = useSearchDialogStore((s) => s.isOpen);
+  const setOpen = useSearchDialogStore((s) => s.setOpen);
 
   return (
     <Dialog.Root
       placement="center"
       open={isOpen}
       initialFocusEl={() => ref.current}
-      finalFocusEl={undefined} // don't focus on search button after closing
+      onEscapeKeyDown={() => setOpen(false)}
+      onInteractOutside={() => setOpen(false)}
     >
       <Dialog.Trigger asChild onClick={() => setOpen(true)}>
         <Button variant="ghost" size="md">
@@ -28,7 +30,7 @@ const SearchDialogButton = () => {
             <Dialog.Header alignItems="center">
               <Dialog.Title>Search</Dialog.Title>
               <Flex position="absolute" zIndex="max" top={0} right={0} p={2} gap={2}>
-                {/* Search Dropdown */}
+                {/* Media type selection menu */}
                 <SearchDropdownMenu />
 
                 <Dialog.CloseTrigger

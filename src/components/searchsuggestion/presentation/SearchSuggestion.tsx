@@ -2,7 +2,7 @@ import { getTMDBImage } from "@/components/constants";
 import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import { MdOutlineLiveTv, MdOutlineMovie } from "react-icons/md";
 import { SearchSuggestionProps } from "../container/SearchSuggestionContainer";
-import { useSearchDialogStore } from "@/store/serachDialogStore";
+import { useSearchDialogStore } from "@/store/searchDialogStore";
 
 const SearchSuggestion = ({
   is_movie,
