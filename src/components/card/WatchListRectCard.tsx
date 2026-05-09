@@ -32,6 +32,8 @@ const WatchListRectCard = ({ watchListItem }: Props) => {
       aspectRatio={16 / 9}
       overflow="hidden"
       borderRadius="sm"
+      border="1px solid"
+      borderColor="gray.800"
     >
       <Box position="relative">
         <Image

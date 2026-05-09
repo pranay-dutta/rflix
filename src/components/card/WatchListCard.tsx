@@ -24,7 +24,7 @@ const WatchListCard = ({ watchListItem }: Props) => {
   return (
     <Box
       className="cursor-pointer relative overflow-hidden"
-      borderRadius="md"
+      borderRadius="sm"
       transition="all 0.3s ease-in-out"
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
@@ -37,10 +37,12 @@ const WatchListCard = ({ watchListItem }: Props) => {
         position="relative"
         aspectRatio={2 / 3}
         overflow="hidden"
-        borderRadius="md"
+        borderRadius="sm"
+        border="1px solid"
+        borderColor="gray.800"
       >
         <Image
-          borderRadius="md"
+          borderRadius="sm"
           transition="transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
           filter={show ? "brightness(0.7)" : "brightness(1)"}
           transform={show ? "scale3d(1.08, 1.08, 1)" : "scale3d(1, 1, 1)"}
