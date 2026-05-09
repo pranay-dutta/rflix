@@ -45,7 +45,13 @@ const SearchSuggestionContainer = ({ searchTerm, setShowSuggestions }: Props) =>
     return { is_movie, accent, title, mediaType, releaseDate, posterPath };
   };
 
-  if (isLoading || error || mediaSuggestion.length === 0) return null;
+  if (isLoading || mediaSuggestion.length === 0) return null;
+  if (error)
+    return (
+      <Box mt={2} color="red.300">
+        Error fetching suggestions
+      </Box>
+    );
 
   return (
     <Box
@@ -59,6 +65,7 @@ const SearchSuggestionContainer = ({ searchTerm, setShowSuggestions }: Props) =>
       maxH="300px"
       overflowY="auto"
       bg="blackAlpha.800"
+      onMouseDown={(e) => e.preventDefault()}
     >
       {mediaSuggestion.map((suggestion) => {
         return (
