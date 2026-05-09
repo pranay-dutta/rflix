@@ -15,8 +15,7 @@ const SearchDialogButton = () => {
       placement="center"
       open={isOpen}
       initialFocusEl={() => ref.current}
-      onEscapeKeyDown={() => setOpen(false)}
-      onInteractOutside={() => setOpen(false)}
+      onOpenChange={(e) => setOpen(e.open)}
     >
       <Dialog.Trigger asChild onClick={() => setOpen(true)}>
         <Button variant="ghost" size="md">
@@ -33,13 +32,10 @@ const SearchDialogButton = () => {
                 {/* Media type selection menu */}
                 <SearchDropdownMenu />
 
-                <Dialog.CloseTrigger
-                  position="initial"
-                  asChild
-                  onClick={() => setOpen(false)}
-                >
+                <Dialog.CloseTrigger position="initial" asChild>
                   <CloseButton
                     bgColor="blackAlpha.800"
+                    _hover={{ bgColor: "gray.900" }}
                     variant="surface"
                     size="sm"
                     borderRadius="md"

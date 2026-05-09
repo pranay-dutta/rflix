@@ -25,7 +25,6 @@ const SearchInput = forwardRef<HTMLInputElement>((_, ref) => {
     setSearchTerm(value);
     setShowSuggestions(value.length > 2);
   };
-  if (!ref) return null;
 
   return (
     <Box>
