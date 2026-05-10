@@ -6,7 +6,6 @@ import BrowseMenu from "../browsemenu/BrowseMenu";
 import LoginButton from "../common/LoginButton";
 import HomeButton from "../HomeButton";
 import SearchDialogButton from "../search/SearchDialogButton";
-import Sidebar from "../Sidebar";
 import Title from "../Title";
 
 const Navbar = () => {
@@ -57,7 +56,11 @@ const Navbar = () => {
         <>
           {/* Smaller screen */}
           <Title />
-          <Sidebar />
+          <Group gap={4}>
+            <SearchDialogButton />
+            <BrowseMenu />
+            <LoginButton />
+          </Group>
         </>
       )}
     </HStack>

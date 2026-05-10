@@ -13,7 +13,8 @@ const BrowseMenu = () => {
     <Popover.Root open={open} onOpenChange={(e) => setOpen(e.open)}>
       <Popover.Trigger asChild>
         <Button size="md" variant="ghost">
-          <LuLayoutGrid /> Browse
+          <LuLayoutGrid />
+          <Text display={{ smDown: "none" }}>Browse</Text>
         </Button>
       </Popover.Trigger>
 
