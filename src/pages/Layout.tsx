@@ -13,7 +13,7 @@ const Layout = () => {
 
   // Avoid mount/unmount flicker while Clerk is still determining auth state.
   if (!isLoaded) return null;
-  if (!isSignedIn) return <SignUp />;
+  if (!isHome && !isSignedIn) return <SignUp />;
 
   return (
     <Flex direction="column" minH="100vh">

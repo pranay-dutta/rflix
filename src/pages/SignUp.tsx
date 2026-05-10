@@ -11,7 +11,7 @@ const SignUp = () => {
   return (
     <Box>
       <Navbar />
-      <Container height="max-content" py={5} mt={20}>
+      <Container height="min-content" py={2} mt={10}>
         <Flex alignContent="center" justifyContent="center">
           <ClerkSignUp />
         </Flex>
