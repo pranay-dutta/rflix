@@ -19,7 +19,7 @@ const WatchListRectScroll = ({ watchListItems }: Props) => {
   const showSkeletons = !inView;
 
   return (
-    <Box ref={ref} mb={20}>
+    <Box ref={ref}>
       <Swiper
         breakpoints={{
           50: { slidesPerView: 2 },

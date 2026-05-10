@@ -19,7 +19,7 @@ const WatchList = () => {
   if (!watchListItems.length || disableWatchListHomepage || disableWatchList) return null;
 
   return (
-    <>
+    <Box mb={{ smDown: 10, md: 10, lg: 20 }}>
       <Flex justifyContent="space-between">
         <Box my={3}>
           <MediaScrollHeading highlight={"Watch List"}>
@@ -37,7 +37,7 @@ const WatchList = () => {
           <WatchListScroll watchListItems={watchListItems} />
         )}
       </Box>
-    </>
+    </Box>
   );
 };
 

@@ -14,7 +14,6 @@ const HomePage = () => {
   useChangeScrollbarColor(); //runs useEffect when scrollbar color changes in the store
 
   const SliderElements = [
-    WatchList,
     WatchProvider,
     TrendingToday,
     TopRated,
@@ -30,6 +29,7 @@ const HomePage = () => {
         zIndex={10}
         position="relative"
       >
+        <WatchList />
         {SliderElements.map((Element, index) => (
           <Box key={index} mb={{ smDown: 10, md: 10, lg: 20 }}>
             <Element />
