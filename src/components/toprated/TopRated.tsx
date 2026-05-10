@@ -1,7 +1,7 @@
 import { movieAndTvTab } from "@/data";
 import useMovieLists from "@/hooks/useMovieLists";
 import useTvSeriesLists from "@/hooks/useTvSeriesLists";
-import { Box } from "@chakra-ui/react";
+import { Box, useMediaQuery } from "@chakra-ui/react";
 import { useState } from "react";
 import Tabs from "../Tabs";
 import { MediaScroll } from "../common";
@@ -11,6 +11,8 @@ import useCustomizationStore from "@/store/customizationStore";
 const TopRated = () => {
   const [selectedTab, setSelectedTab] = useState("movies");
   const cardStyle = useCustomizationStore((s) => s.cardStyle);
+  const [isLargerThan480] = useMediaQuery(["(min-width: 480px)"]);
+
   const { data: topRatedMovies, isLoading: isMovieLoading } = useMovieLists(
     "top_rated",
     selectedTab === "movies",
@@ -35,10 +37,10 @@ const TopRated = () => {
         />
       </Box>
 
-      {cardStyle === "vertical" ? (
-        <MediaScroll media={media?.pages[0].results} loading={isLoading} />
-      ) : (
+      {cardStyle === "horizontal" && isLargerThan480 ? (
         <RectMediaScroll media={media?.pages[0].results} loading={isLoading} />
+      ) : (
+        <MediaScroll media={media?.pages[0].results} loading={isLoading} />
       )}
     </>
   );

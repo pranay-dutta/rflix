@@ -2,8 +2,7 @@ import PageHeading from "@/components/common/PageHeading";
 import WatchListCard from "@/components/card/WatchListCard";
 import useCustomizationStore from "@/store/customizationStore";
 import useWatchListStore from "@/store/watchListStore";
-import { Box, Flex, Grid, Heading, Text } from "@chakra-ui/react";
-import { useMediaQuery } from "@uidotdev/usehooks";
+import { Box, Flex, Grid, Heading, Text, useMediaQuery } from "@chakra-ui/react";
 import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { GiEmptyWoodBucket, GiSightDisabled } from "react-icons/gi";
@@ -15,7 +14,7 @@ const WatchListPage = () => {
   const disableWatchList = useCustomizationStore((state) => state.disableWatchList);
   const activePalette = useCustomizationStore((s) => s.activePalette);
 
-  const isBelow480 = useMediaQuery("only screen and (max-width: 480px)");
+  const [isBelow480] = useMediaQuery(["(max-width: 480px)"]);
 
   if (disableWatchList) {
     return (

@@ -15,6 +15,7 @@ const SearchPage = () => {
         onValueChange={(details) => setCurrentTab(details.value as Tab)}
         variant="plain"
         size="lg"
+        mt={10}
       >
         <Tabs.List
           bg="bg.muted"

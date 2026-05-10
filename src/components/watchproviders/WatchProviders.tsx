@@ -1,7 +1,7 @@
 import { watchProviderTabs } from "@/data";
 import useWatchProvider from "@/hooks/useWatchProvider";
 import useCustomizationStore from "@/store/customizationStore";
-import { Box } from "@chakra-ui/react";
+import { Box, useMediaQuery } from "@chakra-ui/react";
 import { useState } from "react";
 import Tabs from "../Tabs";
 import RectMediaScroll from "@/components/scroll/RectMediaScroll";
@@ -12,6 +12,7 @@ const WatchProvider = () => {
   const { data: watchProviderData, isLoading } = useWatchProvider(selectedTab);
   const currentTab = watchProviderTabs.find((tab) => tab.id === selectedTab);
   const cardStyle = useCustomizationStore((s) => s.cardStyle);
+  const [isLargerThan480] = useMediaQuery(["(min-width: 480px)"]);
 
   return (
     <>
@@ -23,10 +24,10 @@ const WatchProvider = () => {
         setSelectedTab={setSelectedTab}
       />
       <Box my={3}>
-        {cardStyle === "vertical" ? (
-          <MediaScroll media={watchProviderData} loading={isLoading} />
-        ) : (
+        {cardStyle === "horizontal" && isLargerThan480 ? (
           <RectMediaScroll media={watchProviderData} loading={isLoading} />
+        ) : (
+          <MediaScroll media={watchProviderData} loading={isLoading} />
         )}
       </Box>
     </>

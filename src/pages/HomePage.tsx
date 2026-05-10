@@ -8,12 +8,12 @@ import TrendingWeek from "@/components/trendingweek/TrendingWeek";
 import WatchList from "@/components/WatchList";
 import WatchProvider from "@/components/watchproviders/WatchProviders";
 import useChangeScrollbarColor from "@/hooks/useChangeScrollbarColor";
+import { Box } from "@chakra-ui/react";
 
 const HomePage = () => {
   useChangeScrollbarColor(); //runs useEffect when scrollbar color changes in the store
 
   const SliderElements = [
-    WatchList,
     WatchProvider,
     TrendingToday,
     TopRated,
@@ -24,9 +24,16 @@ const HomePage = () => {
   return (
     <>
       <Hero />
-      <Container marginTop={{ base: "0px", md: "-90px" }} zIndex={10} position="relative">
+      <Container
+        marginTop={{ base: "50px", md: "-90px" }}
+        zIndex={10}
+        position="relative"
+      >
+        <WatchList />
         {SliderElements.map((Element, index) => (
-          <Element key={index} />
+          <Box key={index} mb={{ smDown: 10, md: 10, lg: 20 }}>
+            <Element />
+          </Box>
         ))}
       </Container>
     </>

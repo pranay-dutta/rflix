@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
 import { MediaScrollHeading } from "./common";
 import useWatchListStore from "@/store/watchListStore";
 import useCustomizationStore from "@/store/customizationStore";
@@ -14,11 +14,12 @@ const WatchList = () => {
   );
   const disableWatchList = useCustomizationStore((s) => s.disableWatchList);
   const cardStyle = useCustomizationStore((s) => s.cardStyle);
+  const [isLargerThan480] = useMediaQuery(["(min-width: 480px)"]);
 
   if (!watchListItems.length || disableWatchListHomepage || disableWatchList) return null;
 
   return (
-    <>
+    <Box mb={{ smDown: 10, md: 10, lg: 20 }}>
       <Flex justifyContent="space-between">
         <Box my={3}>
           <MediaScrollHeading highlight={"Watch List"}>
@@ -30,13 +31,13 @@ const WatchList = () => {
         </Link>
       </Flex>
       <Box my={3}>
-        {cardStyle === "vertical" ? (
-          <WatchListScroll watchListItems={watchListItems} />
-        ) : (
+        {cardStyle === "horizontal" && isLargerThan480 ? (
           <WatchListRectScroll watchListItems={watchListItems} />
+        ) : (
+          <WatchListScroll watchListItems={watchListItems} />
         )}
       </Box>
-    </>
+    </Box>
   );
 };
 

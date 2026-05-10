@@ -12,6 +12,7 @@ import {
   Skeleton,
   Stack,
   Text,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import ReleaseDate from "@/components/ReleaseDate";
@@ -39,7 +40,7 @@ const MovieInfoPage = () => {
 
   return (
     <>
-      <Box my={3}>
+      <Box mt={10} mb={5}>
         <BackButton />
       </Box>
       {isLoading ? <Skeleton w="full" h="80vh" /> : movie && <MovieHero movie={movie} />}
@@ -53,6 +54,7 @@ const SimilarMovies = () => {
   if (!id) throw new Error("Info page");
 
   const { similarMovies } = useSimilarMovies(1, parseInt(id));
+  const [isLargerThan480] = useMediaQuery(["(min-width: 480px)"]);
   if (!similarMovies || !similarMovies.length) return null;
 
   return (
@@ -60,10 +62,10 @@ const SimilarMovies = () => {
       <Box my={3}>
         <MediaScrollHeading highlight="Movies">Similar Movies</MediaScrollHeading>
       </Box>
-      {cardStyle === "vertical" ? (
-        <MediaScroll media={similarMovies} />
-      ) : (
+      {cardStyle === "horizontal" && isLargerThan480 ? (
         <RectMediaScroll media={similarMovies} />
+      ) : (
+        <MediaScroll media={similarMovies} />
       )}
     </Box>
   );

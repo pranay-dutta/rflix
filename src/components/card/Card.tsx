@@ -22,17 +22,19 @@ const Card = ({ media }: Props) => {
     <Skeleton
       loading={imgLoading}
       className="cursor-pointer"
-      borderRadius="md"
+      borderRadius="sm"
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
       onClick={() => navigate(`/info/${isMovie(media) ? "movie/" : "tv/"}` + media.id)}
       position="relative"
       overflow="hidden"
       aspectRatio={2 / 3}
+      border="1px solid"
+      borderColor="gray.800"
     >
       {/* Image of movie card */}
       <Image
-        borderRadius="md"
+        borderRadius="sm"
         onLoad={() => setImgLoading(false)}
         transition="transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
         filter={show ? "brightness(0.7)" : "brightness(1)"}

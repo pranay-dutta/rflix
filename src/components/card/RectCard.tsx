@@ -157,6 +157,9 @@ const RectCard = ({ media }: Props) => {
         onPointerLeave={handlePointerLeave}
         onClick={() => navigate(`/info/${mediaType}/${media.id}`)}
         overflow="hidden"
+        borderRadius="sm"
+        border="1px solid"
+        borderColor="gray.800"
       >
         {/* image poster of the media */}
         {showPoster && (
@@ -165,7 +168,6 @@ const RectCard = ({ media }: Props) => {
             src={posterPath}
             _hover={{ transform: "scale(1.07)" }}
             transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
-            objectFit="cover"
             aspectRatio={16 / 9}
             willChange="scale"
             h="full"

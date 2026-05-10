@@ -1,6 +1,6 @@
 import { movieAndTvTab } from "@/data";
 import useTrending from "@/hooks/useTrending";
-import { Box } from "@chakra-ui/react";
+import { Box, useMediaQuery } from "@chakra-ui/react";
 import { useState } from "react";
 import { MediaScroll } from "../common";
 import Tabs from "../Tabs";
@@ -10,6 +10,7 @@ import useCustomizationStore from "@/store/customizationStore";
 const TrendingToday = () => {
   const [selectedTab, setSelectedTab] = useState("movies");
   const cardStyle = useCustomizationStore((s) => s.cardStyle);
+  const [isLargerThan480] = useMediaQuery(["(min-width: 480px)"]);
 
   const { data: trendingMoviesToday, isLoading: isMovieLoading } = useTrending(
     "movie",
@@ -38,10 +39,10 @@ const TrendingToday = () => {
         />
       </Box>
 
-      {cardStyle === "vertical" ? (
-        <MediaScroll media={media} loading={isLoading} />
-      ) : (
+      {cardStyle === "horizontal" && isLargerThan480 ? (
         <RectMediaScroll media={media} loading={isLoading} />
+      ) : (
+        <MediaScroll media={media} loading={isLoading} />
       )}
     </>
   );
