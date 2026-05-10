@@ -29,7 +29,12 @@ const RadioSelector = ({ value, mediaType, setValue }: RadioSelectorProps) => {
         wrap="wrap"
       >
         {items.map((item) => (
-          <RadioCard.Item key={item.value} value={item.value}>
+          <RadioCard.Item
+            key={item.value}
+            value={item.value}
+            border="1px solid"
+            borderColor={item.value === value ? activePalette + ".800" : "gray.800"}
+          >
             <RadioCard.ItemHiddenInput />
             <RadioCard.ItemControl display="flex" alignItems="center" gap={2}>
               <item.Icon color={activePalette} size={20} />

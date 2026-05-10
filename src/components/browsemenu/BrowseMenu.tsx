@@ -1,5 +1,5 @@
 import usePreventScroll from "@/hooks/usePreventScroll";
-import { Button, HStack, Popover, Portal, Text } from "@chakra-ui/react";
+import { Box, Button, HStack, Popover, Portal, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { LuLayoutGrid } from "react-icons/lu";
 import { contentBrowseItems, featureBrowseItems } from "./browse_menu";
@@ -29,11 +29,13 @@ const BrowseMenu = () => {
             <Popover.Title fontWeight="medium" textAlign="center" my={3}>
               Browse
             </Popover.Title>
-            <hr />
+            <Box height="1px" bgColor="gray.800" mb={2} />
             <Popover.Body display="flex" flexDirection="column">
               {/* Content section and discover */}
               <>
-                <Text fontSize="smaller">CONTENT</Text>
+                <Text fontSize="smaller" color="gray.300">
+                  CONTENT
+                </Text>
                 <HStack justifyContent="space-between" my={2}>
                   {contentBrowseItems.map((item) => (
                     <BrowseMenuItem
@@ -46,7 +48,9 @@ const BrowseMenu = () => {
                 </HStack>
               </>
               {/* Features */}
-              <Text fontSize="smaller">FEATURES</Text>
+              <Text fontSize="smaller" color="gray.300">
+                FEATURES
+              </Text>
               <HStack justifyContent="space-between" my={2}>
                 {featureBrowseItems.map((item) => (
                   <BrowseMenuItem

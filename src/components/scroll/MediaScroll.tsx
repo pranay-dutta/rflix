@@ -2,7 +2,7 @@ import { Movie } from "@/interfaces/Movie";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Card from "../card/Card";
 import TvSeries from "@/interfaces/TvSeries";
-import { Box, Skeleton } from "@chakra-ui/react";
+import { Box, Button, Skeleton } from "@chakra-ui/react";
 import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Navigation } from "swiper/modules";
@@ -26,30 +26,56 @@ const MediaScroll = ({ media, loading }: Props) => {
   return (
     <Box ref={ref} mb={20}>
       <div className="group relative overflow-hidden">
-        <button
+        {/* LEFT ARROW */}
+        <Button
           ref={prevRef}
-          className="absolute left-0 top-1/2 z-10 -translate-y-1/2 flex items-center justify-center
-                   opacity-0 group-hover:opacity-100 w-8
-                   transition-all duration-300
-                   h-full px-4
-                   bg-gradient-to-r from-black/70 to-transparent
-                   text-white text-3xl hover:scale-125 hover:bg-black/70! will-change-transform"
+          position="absolute"
+          variant="ghost"
+          left="0"
+          top="50%"
+          zIndex="10"
+          transform="translateY(-50%)"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          opacity="0"
+          _groupHover={{ opacity: 1 }}
+          w="6"
+          h="full"
+          px="4"
+          transition="all 0.3s"
+          color="white"
+          fontSize="3xl"
+          willChange="transform"
+          _hover={{ transform: "translateY(-50%) scale(1.25)", bg: "blackAlpha.700" }}
         >
           <FaChevronLeft size={20} />
-        </button>
+        </Button>
 
         {/* RIGHT ARROW */}
-        <button
+        <Button
           ref={nextRef}
-          className="absolute right-0 top-1/2 z-10 -translate-y-1/2 flex items-center justify-center
-                   opacity-0 group-hover:opacity-100 w-8
-                   transition-all duration-300
-                   h-full px-4 
-                   bg-gradient-to-l from-black/70 to-transparent
-                   text-white text-3xl hover:scale-125 hover:bg-black/70! will-change-transform"
+          position="absolute"
+          variant="ghost"
+          right="0"
+          top="50%"
+          zIndex="10"
+          transform="translateY(-50%)"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          opacity="0"
+          _groupHover={{ opacity: 1 }}
+          w="6"
+          h="full"
+          px="4"
+          transition="all 0.3s"
+          fontSize="3xl"
+          willChange="transform"
+          _hover={{ transform: "translateY(-50%) scale(1.25)", bg: "blackAlpha.700" }}
         >
           <FaChevronRight size={20} />
-        </button>
+        </Button>
         <Swiper
           breakpoints={{
             200: { slidesPerView: 2.1 },
