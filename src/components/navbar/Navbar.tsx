@@ -1,5 +1,4 @@
-import { Container, Flex, Group, HStack } from "@chakra-ui/react";
-import { useMediaQuery } from "@uidotdev/usehooks";
+import { Container, Flex, Group, HStack, useMediaQuery } from "@chakra-ui/react";
 import { useLayoutEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import BrowseMenu from "../browsemenu/BrowseMenu";
@@ -9,7 +8,7 @@ import SearchDialogButton from "../search/SearchDialogButton";
 import Title from "../Title";
 
 const Navbar = () => {
-  const isLargerThan1024 = useMediaQuery("only screen and (min-width: 1024px)");
+  const [isLargerThan1024] = useMediaQuery(["(min-width: 1024px)"]);
   const [show, setShow] = useState<boolean>(true);
   const { pathname } = useLocation();
 

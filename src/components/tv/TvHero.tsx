@@ -8,6 +8,7 @@ import {
   Stack,
   HStack,
   Badge,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import useTvSeries from "@/hooks/useTvSeries";
 import { TvSeriesDetails } from "@/interfaces/TvSeriesDetails";
@@ -153,6 +154,7 @@ const SimilarSeries = () => {
   if (!id) throw Error("Failed to get series id");
 
   const cardStyle = useCustomizationStore((s) => s.cardStyle);
+  const [isLargerThan480] = useMediaQuery(["(min-width: 480px)"]);
 
   const { data: similarSeries } = useTvSeries(parseInt(id), "similar");
   if (!similarSeries || !similarSeries.results.length) return null;
@@ -162,10 +164,10 @@ const SimilarSeries = () => {
       <Box my={3}>
         <MediaScrollHeading highlight="Tv Shows">Similar Tv Shows</MediaScrollHeading>
       </Box>
-      {cardStyle === "vertical" ? (
-        <MediaScroll media={similarSeries.results} />
-      ) : (
+      {cardStyle === "horizontal" && isLargerThan480 ? (
         <RectMediaScroll media={similarSeries.results} />
+      ) : (
+        <MediaScroll media={similarSeries.results} />
       )}
     </Box>
   );
