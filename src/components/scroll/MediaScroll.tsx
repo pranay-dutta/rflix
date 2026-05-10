@@ -24,7 +24,7 @@ const MediaScroll = ({ media, loading }: Props) => {
   const showSkeletons = loading || !inView;
 
   return (
-    <Box ref={ref} mb={20}>
+    <Box ref={ref}>
       <div className="group relative overflow-hidden">
         {/* LEFT ARROW */}
         <Button

@@ -25,13 +25,14 @@ const InfoButton = (props: Props) => {
       borderRadius="lg"
       borderColor="gray.700"
       rounded="full"
-      padding={6}
       _hover={{
         borderColor: `${activePalette}.800`,
         boxShadow: `0px 0px 30px 1px ${withAlpha(activePalette, 0.3)}`,
       }}
       onClick={() => navigate(`/info/${mediaType}/${mediaId}`)}
       {...props}
+      padding={{ base: 5, md: 6 }}
+      size={{ base: "xs", md: "sm" }}
     >
       <Icon />
       {children}

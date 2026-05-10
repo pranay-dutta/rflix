@@ -12,7 +12,7 @@ const TvSeriesInfoPage = () => {
 
   return (
     <>
-      <Box my={3}>
+      <Box mt={10} mb={5}>
         <BackButton />
       </Box>
       {isLoading ? <Skeleton w="full" h="80vh" /> : series && <TvHero series={series} />}

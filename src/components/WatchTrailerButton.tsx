@@ -26,9 +26,10 @@ const WatchTrailerButton = (props: WatchButtonProps) => {
       border="1px solid"
       borderRadius="lg"
       rounded="full"
-      padding={6}
       _hover={{ boxShadow: `0px 0px 30px 1px ${withAlpha(activePalette, 0.3)}` }}
       onClick={() => navigate(path)}
+      padding={{ base: 5, md: 6 }}
+      size={{ base: "xs", md: "sm" }}
       {...props}
     >
       <Icon />
