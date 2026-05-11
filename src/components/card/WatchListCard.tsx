@@ -1,5 +1,5 @@
 import { WatchListItem } from "@/store/watchListStore";
-import { Box, HStack, Image, Skeleton, Stack, Text } from "@chakra-ui/react";
+import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getTMDBImage } from "../constants";
@@ -7,6 +7,7 @@ import Gradient from "../Gradient";
 import Rating from "../Rating";
 import WatchListButton from "../WatchListButton";
 import useCustomizationStore from "@/store/customizationStore";
+import Skeleton from "../skeleton/Skeleton";
 
 interface Props {
   watchListItem: WatchListItem;
@@ -24,7 +25,6 @@ const WatchListCard = ({ watchListItem }: Props) => {
   return (
     <Box
       className="cursor-pointer relative overflow-hidden"
-      borderRadius="sm"
       transition="all 0.3s ease-in-out"
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
@@ -37,9 +37,6 @@ const WatchListCard = ({ watchListItem }: Props) => {
         position="relative"
         aspectRatio={2 / 3}
         overflow="hidden"
-        borderRadius="sm"
-        border="1px solid"
-        borderColor="gray.800"
       >
         <Image
           borderRadius="sm"

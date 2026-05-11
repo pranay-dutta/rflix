@@ -1,8 +1,9 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { WatchListItem } from "@/store/watchListStore";
-import { Box, Skeleton } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import WatchListCard from "../card/WatchListCard";
 import { useInView } from "react-intersection-observer";
+import Skeleton from "../skeleton/Skeleton";
 
 interface Props {
   watchListItems?: WatchListItem[];

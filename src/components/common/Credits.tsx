@@ -1,10 +1,11 @@
 import useCredits from "@/hooks/useCredits";
-import { Box, Flex, Image, Skeleton, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { getCreditImage } from "../constants";
 import useCustomizationStore from "@/store/customizationStore";
 import { BsArrowRight } from "react-icons/bs";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Skeleton from "../skeleton/Skeleton";
 
 interface Props {
   mediaId: string;

@@ -1,8 +1,9 @@
-import { Badge, Box, Image, Skeleton } from "@chakra-ui/react";
+import { Episode } from "@/interfaces/Season";
+import { Badge, Box, Image } from "@chakra-ui/react";
+import { useState } from "react";
 import { RiMovieLine } from "react-icons/ri";
 import { getTMDBImage } from "../constants";
-import { Episode } from "@/interfaces/Season";
-import { useState } from "react";
+import Skeleton from "../skeleton/Skeleton";
 
 const SeasonImage = ({ episode }: { episode: Episode }) => {
   const [loaded, setLoaded] = useState(false);

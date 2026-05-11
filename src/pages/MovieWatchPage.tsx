@@ -5,9 +5,10 @@ import ReleaseDate from "@/components/ReleaseDate";
 import Runtime from "@/components/Runtime";
 import useMovie from "@/hooks/useMovie";
 import useMovieTrailer from "@/hooks/useMovieTrailer";
-import { Text, Heading, HStack, Stack, Box, Skeleton } from "@chakra-ui/react";
+import { Text, Heading, HStack, Stack, Box } from "@chakra-ui/react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import Skeleton from "@/components/skeleton/Skeleton";
 
 const MovieWatchPage = () => {
   const { id } = useParams();

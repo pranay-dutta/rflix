@@ -9,7 +9,6 @@ import {
   HStack,
   Image,
   SimpleGrid,
-  Skeleton,
   Stack,
   Text,
   useMediaQuery,
@@ -31,6 +30,7 @@ import useCustomizationStore from "@/store/customizationStore";
 import RectMediaScroll from "@/components/scroll/RectMediaScroll";
 import useRectPoster from "@/hooks/useRectPoster";
 import getPosterURL from "@/utils/getPosterURL";
+import Skeleton from "@/components/skeleton/Skeleton";
 
 const MovieInfoPage = () => {
   const { id } = useParams();
@@ -53,9 +53,9 @@ const SimilarMovies = () => {
   const cardStyle = useCustomizationStore((s) => s.cardStyle);
   if (!id) throw new Error("Info page");
 
-  const { similarMovies } = useSimilarMovies(1, parseInt(id));
+  const { similarMovies, isLoading } = useSimilarMovies(1, parseInt(id));
   const [isLargerThan480] = useMediaQuery(["(min-width: 480px)"]);
-  if (!similarMovies || !similarMovies.length) return null;
+  if (!isLoading && !similarMovies) return null;
 
   return (
     <Box mt={10}>
@@ -63,9 +63,9 @@ const SimilarMovies = () => {
         <MediaScrollHeading highlight="Movies">Similar Movies</MediaScrollHeading>
       </Box>
       {cardStyle === "horizontal" && isLargerThan480 ? (
-        <RectMediaScroll media={similarMovies} />
+        <RectMediaScroll media={similarMovies} loading={isLoading} />
       ) : (
-        <MediaScroll media={similarMovies} />
+        <MediaScroll media={similarMovies} loading={isLoading} />
       )}
     </Box>
   );

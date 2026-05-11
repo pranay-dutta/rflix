@@ -1,11 +1,11 @@
 import useTrending from "@/hooks/useTrending";
-import { Skeleton } from "@chakra-ui/react";
 import ms from "ms";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import AspectRatioContainer from "../AspectRatioContainer";
 import HeroImage from "./HeroImage";
 import { filterLowVotes } from "./hero_utils";
+import Skeleton from "../skeleton/Skeleton";
 
 const Hero = () => {
   const { data, isLoading } = useTrending("all", "day", true);

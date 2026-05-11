@@ -1,10 +1,11 @@
-import { Box, Text, Skeleton } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { Image } from "@chakra-ui/react";
 import Rating from "../Rating";
 import { useNavigate } from "react-router-dom";
 import { WatchListItem } from "@/store/watchListStore";
 import WatchListButton from "../WatchListButton";
+import Skeleton from "../skeleton/Skeleton";
 
 interface Props {
   watchListItem: WatchListItem;
@@ -32,8 +33,6 @@ const WatchListRectCard = ({ watchListItem }: Props) => {
       aspectRatio={16 / 9}
       overflow="hidden"
       borderRadius="sm"
-      border="1px solid"
-      borderColor="gray.800"
     >
       <Box position="relative">
         <Image

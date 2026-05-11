@@ -1,8 +1,9 @@
 import BackButton from "@/components/BackButton";
 import TvHero from "@/components/tv/TvHero";
 import useTvSeries from "@/hooks/useTvSeries";
-import { Box, Skeleton } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
+import Skeleton from "@/components/skeleton/Skeleton";
 
 const TvSeriesInfoPage = () => {
   const { id } = useParams();

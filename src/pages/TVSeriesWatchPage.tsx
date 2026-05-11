@@ -5,9 +5,10 @@ import ReleaseDate from "@/components/ReleaseDate";
 import Runtime from "@/components/Runtime";
 import useTvSeries from "@/hooks/useTvSeries";
 import useTvSeriesTrailer from "@/hooks/useTvSeriesTrailer";
-import { Text, Heading, HStack, Stack, Box, Skeleton } from "@chakra-ui/react";
+import { Text, Heading, HStack, Stack, Box } from "@chakra-ui/react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import Skeleton from "@/components/skeleton/Skeleton";
 
 const TvSeriesWatchPage = () => {
   // currently not using season and episode params, but they are included
