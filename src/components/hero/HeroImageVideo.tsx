@@ -5,9 +5,9 @@ import TvSeries from "@/interfaces/TvSeries";
 import useCustomizationStore from "@/store/customizationStore";
 import isMovie from "@/utils/isMovie";
 import { Box } from "@chakra-ui/react";
-import MediaBackdropImage from "./MediaBackdropImage";
+import MediaBackdropImage from "../MediaBackdropImage";
 import { useEffect, useRef } from "react";
-import Skeleton from "./skeleton/Skeleton";
+import Skeleton from "../skeleton/Skeleton";
 
 interface Props {
   isActive: boolean;
@@ -16,7 +16,7 @@ interface Props {
   handleShowButton: (show: boolean) => void;
 }
 
-const MediaTrailer = ({ media, isActive, isMuted, handleShowButton }: Props) => {
+const HeroImageVideo = ({ media, isActive, isMuted, handleShowButton }: Props) => {
   const mediaType = isMovie(media) ? "movie" : "tv";
   const { data: posterAndExternalIds, isLoading } = useRectPoster(media.id, mediaType);
 
@@ -55,12 +55,12 @@ const MediaTrailer = ({ media, isActive, isMuted, handleShowButton }: Props) => 
   }, [isActive]);
 
   // if trailer is loading show skeleton
-  if (isLoading || trailerFetching)
+  if (isLoading || trailerFetching || !posterAndExternalIds)
     return <Skeleton variant="shine" width="100%" height="100%" />;
 
   //if there is no trailer or homepage video is disabled show backdrop image
   if (disableHomepageVideo || !trailerURL || window.innerWidth < 768)
-    return <MediaBackdropImage path={media.backdrop_path} />;
+    return <MediaBackdropImage path={posterAndExternalIds.backdrop_path} />;
 
   return (
     <Box scale={1.3} position="relative">
@@ -81,4 +81,4 @@ const MediaTrailer = ({ media, isActive, isMuted, handleShowButton }: Props) => 
   );
 };
 
-export default MediaTrailer;
+export default HeroImageVideo;

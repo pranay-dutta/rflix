@@ -11,7 +11,7 @@ import AspectRatioContainer from "../AspectRatioContainer";
 import InfoButton from "../InfoButton";
 import MediaSummary from "../MediaSummary";
 import MediaTitle from "../MediaTitle";
-import MediaTrailer from "../MediaTrailer";
+import HeroImageVideo from "./HeroImageVideo";
 import MovieLanguage from "../MovieLanguage";
 import Rating from "../Rating";
 import ReleaseDate from "../ReleaseDate";
@@ -23,7 +23,7 @@ interface MovieTrailerWrapperProps {
   isActive: boolean;
 }
 
-const HeroImage = ({ media, isActive }: MovieTrailerWrapperProps) => {
+const HeroImageOverlay = ({ media, isActive }: MovieTrailerWrapperProps) => {
   const activePalette = useCustomizationStore((s) => s.activePalette);
   const disableHomepageVideo = useCustomizationStore((s) => s.disableHomepageVideo);
 
@@ -35,12 +35,12 @@ const HeroImage = ({ media, isActive }: MovieTrailerWrapperProps) => {
   const handleShowButton = (show: boolean) => {
     setShowButton(show);
   };
-  // if homepage video is not disabled and slide is active
 
+  // if homepage video is not disabled and slide is active
   return (
     <Box key={media.id} className="transition-all">
       <AspectRatioContainer>
-        <MediaTrailer
+        <HeroImageVideo
           media={media}
           isMuted={isMuted}
           handleShowButton={handleShowButton}
@@ -141,4 +141,4 @@ const HeroImage = ({ media, isActive }: MovieTrailerWrapperProps) => {
   );
 };
 
-export default HeroImage;
+export default HeroImageOverlay;

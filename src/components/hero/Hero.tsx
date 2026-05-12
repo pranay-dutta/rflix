@@ -3,7 +3,7 @@ import ms from "ms";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import AspectRatioContainer from "../AspectRatioContainer";
-import HeroImage from "./HeroImage";
+import HeroImageOverlay from "./HeroImageOverlay";
 import { filterLowVotes } from "./hero_utils";
 import Skeleton from "../skeleton/Skeleton";
 
@@ -33,7 +33,7 @@ const Hero = () => {
       >
         {filteredData.map((media) => (
           <SwiperSlide key={media.id}>
-            {({ isActive }) => <HeroImage isActive={isActive} media={media} />}
+            {({ isActive }) => <HeroImageOverlay isActive={isActive} media={media} />}
           </SwiperSlide>
         ))}
       </Swiper>

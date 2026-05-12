@@ -2,7 +2,7 @@ import createClient from "@/services/client";
 import { useQuery } from "@tanstack/react-query";
 import ms from "ms";
 
-export interface Backdrop {
+export interface ImageDetails {
   aspect_ratio: number;
   height: number;
   iso_3166_1: string;
@@ -12,9 +12,10 @@ export interface Backdrop {
   vote_count: number;
   width: number;
 }
-export interface PosterAndExternalIds {
+export interface ImageWithExternalIds {
+  backdrop_path: string;
   images: {
-    backdrops: Backdrop[];
+    backdrops: ImageDetails[];
   };
   external_ids: {
     imdb_id: string;
@@ -22,12 +23,12 @@ export interface PosterAndExternalIds {
 }
 
 const useRectPoster = (id: number, type: "movie" | "tv") => {
-  const client = createClient<PosterAndExternalIds>(`/poster/${type}/${id}`);
+  const client = createClient<ImageWithExternalIds>(`/poster/${type}/${id}`);
 
   return useQuery({
     queryKey: ["rectPoster", id, type],
     queryFn: client.get,
-    staleTime: ms("2h"),
+    staleTime: ms("12h"),
     refetchOnWindowFocus: false,
   });
 };
