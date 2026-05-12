@@ -64,14 +64,13 @@ const WatchListRectCard = ({ watchListItem }: Props) => {
 
         {/* Watch List add, remove button on the bottom right */}
         <WatchListButton
-          bottom={1}
-          right={1}
-          position="absolute"
-          background="blackAlpha.600"
-          color="white"
-          size="xs"
           {...watchListItem}
           iconOnly
+          iconProps={{
+            position: "absolute",
+            right: 1,
+            bottom: 1,
+          }}
         />
       </Box>
     </Skeleton>

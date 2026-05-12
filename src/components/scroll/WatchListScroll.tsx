@@ -4,6 +4,8 @@ import { Box } from "@chakra-ui/react";
 import WatchListCard from "../card/WatchListCard";
 import { useInView } from "react-intersection-observer";
 import Skeleton from "../skeleton/Skeleton";
+import useCustomizationStore from "@/store/customizationStore";
+import Description from "../description/Description";
 
 interface Props {
   watchListItems?: WatchListItem[];
@@ -18,6 +20,8 @@ const WatchListScroll = ({ watchListItems }: Props) => {
     rootMargin: "0px 0px -20px 0px",
   });
   const showSkeletons = !inView;
+  const cardType = useCustomizationStore((s) => s.cardType);
+  const activePalette = useCustomizationStore((s) => s.activePalette);
 
   return (
     <Box ref={ref}>
@@ -38,13 +42,23 @@ const WatchListScroll = ({ watchListItems }: Props) => {
               <Skeleton>
                 <Box aspectRatio={2 / 3} />
               </Skeleton>
+              {cardType === "descriptive" && <Description isLoading={true} />}
             </SwiperSlide>
           ))}
 
         {!showSkeletons &&
           watchListItems10.map((watchListItem) => (
             <SwiperSlide key={`${watchListItem.id}-${watchListItem.mediaType}`}>
-              <WatchListCard watchListItem={watchListItem} />
+              <Box
+                _hover={{ color: `${activePalette}.500` }}
+                transition="all 0.3s ease-in-out"
+                cursor="pointer"
+              >
+                <WatchListCard watchListItem={watchListItem} />
+                {cardType === "descriptive" && (
+                  <Description isLoading={false} watchListItem={watchListItem} />
+                )}
+              </Box>
             </SwiperSlide>
           ))}
       </Swiper>
