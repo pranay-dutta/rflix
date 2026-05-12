@@ -41,6 +41,7 @@ const TvSeriesWatchPage = () => {
       <Skeleton
         loading={isLoading || isVideoLoading}
         className="w-full aspect-square md:aspect-video"
+        rounded="sm"
       >
         <div className="w-full aspect-square md:aspect-video">
           <iframe

@@ -6,6 +6,7 @@ import { Badge, Box, Flex, Heading, HStack, Image, Span, Text } from "@chakra-ui
 import { useState } from "react";
 import { CastPageProps } from "../container/CastPageContainer";
 import Skeleton from "@/components/skeleton/Skeleton";
+import BackButton from "@/components/BackButton";
 
 const CastPage = ({
   activePalette,
@@ -24,6 +25,9 @@ const CastPage = ({
 
   return (
     <Box>
+      <Box mt={5} mb={5}>
+        <BackButton />
+      </Box>
       <Flex
         direction={{ base: "column", md: "row" }}
         p={4}

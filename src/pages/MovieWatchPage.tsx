@@ -40,6 +40,7 @@ const MovieWatchPage = () => {
       <Skeleton
         loading={isLoading || isVideoLoading}
         className="w-full aspect-square md:aspect-video"
+        rounded="sm"
       >
         <iframe
           className="w-full h-full rounded-md"
