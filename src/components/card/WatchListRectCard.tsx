@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { WatchListItem } from "@/store/watchListStore";
 import WatchListButton from "../WatchListButton";
 import Skeleton from "../skeleton/Skeleton";
+import useCustomizationStore from "@/store/customizationStore";
 
 interface Props {
   watchListItem: WatchListItem;
@@ -24,7 +25,9 @@ const badgeStyles = {
 
 const WatchListRectCard = ({ watchListItem }: Props) => {
   const mediaType = watchListItem.mediaType;
+
   const [imgLoading, setImgLoading] = useState(true);
+  const cardType = useCustomizationStore((s) => s.cardType);
   const navigate = useNavigate();
 
   return (
@@ -48,19 +51,23 @@ const WatchListRectCard = ({ watchListItem }: Props) => {
         />
 
         {/* Media Type Badge */}
-        <Text {...badgeStyles} top={1} right={1}>
-          {mediaType === "movie" ? "MOVIE" : "TV SHOW"}
-        </Text>
+        {cardType == "overlay" && (
+          <Text {...badgeStyles} top={1} right={1}>
+            {mediaType === "movie" ? "MOVIE" : "TV SHOW"}
+          </Text>
+        )}
 
         {/* Rating */}
-        <Rating
-          pos="absolute"
-          top={1}
-          left={1}
-          {...badgeStyles}
-          vote_average={watchListItem.rating}
-          fontSize="x-small"
-        />
+        {cardType == "overlay" && (
+          <Rating
+            pos="absolute"
+            top={1}
+            left={1}
+            {...badgeStyles}
+            vote_average={watchListItem.rating}
+            fontSize="x-small"
+          />
+        )}
 
         {/* Watch List add, remove button on the bottom right */}
         <WatchListButton

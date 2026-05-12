@@ -6,10 +6,20 @@ import SortDropDown from "@/components/common/SortDropDown";
 import MovieGenrePills from "@/components/movie/MovieGenrePills";
 import TvGenrePills from "@/components/tv/TvGenrePills";
 import useDiscover from "@/hooks/useDiscover";
-import { Box, Text, createListCollection, Flex, Select, Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  createListCollection,
+  Flex,
+  Select,
+  Spinner,
+  Span,
+} from "@chakra-ui/react";
 import { Fragment, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Center } from "@chakra-ui/react";
+import { FiTv } from "react-icons/fi";
+import { RiMovieLine } from "react-icons/ri";
 
 const Wrapper = () => {
   const [open, setOpen] = useState(false);
@@ -90,14 +100,17 @@ interface MediaTypeDropdownProps {
 const MediaTypeDropdown = ({ selected, onMediaTypeChange }: MediaTypeDropdownProps) => {
   return (
     <Select.Root
-      hideBelow="md"
       value={[selected]}
       collection={collections}
       onValueChange={(e) => onMediaTypeChange(e.value[0] as "movie" | "tv")}
+      width={{ smDown: "1/2", sm: "full" }}
     >
       <Select.Control>
         <Select.Trigger>
-          <Select.ValueText placeholder="Select media type" />
+          <Select.ValueText hideBelow="sm" placeholder="Select media type" />
+          <Select.ValueText hideFrom="sm">
+            {selected === "movie" ? <FiTv /> : <RiMovieLine />}
+          </Select.ValueText>
         </Select.Trigger>
         <Select.IndicatorGroup>
           <Select.Indicator />
@@ -110,7 +123,8 @@ const MediaTypeDropdown = ({ selected, onMediaTypeChange }: MediaTypeDropdownPro
             {collections.items.map((sortItem) => (
               <Fragment key={sortItem.value}>
                 <Select.Item item={sortItem}>
-                  {sortItem.label}
+                  <Span hideBelow="md">{sortItem.label}</Span>
+                  <Span hideFrom="md">{<sortItem.icon />}</Span>
                   <Select.ItemIndicator />
                 </Select.Item>
               </Fragment>
@@ -124,7 +138,7 @@ const MediaTypeDropdown = ({ selected, onMediaTypeChange }: MediaTypeDropdownPro
 
 const collections = createListCollection({
   items: [
-    { label: "Movies", value: "movie" },
-    { label: "TV Shows", value: "tv" },
+    { label: "Movies", icon: FiTv, value: "movie" },
+    { label: "TV Shows", icon: RiMovieLine, value: "tv" },
   ],
 });

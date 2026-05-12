@@ -66,7 +66,6 @@ const SimilarMovies = () => {
       <Box my={3}>
         <MediaScrollHeading highlight="Movies">Similar Movies</MediaScrollHeading>
       </Box>
-      similarMovies
       {cardStyle === "horizontal" && isLargerThan480 ? (
         <RectMediaScroll media={similarMovies} loading={isLoading} />
       ) : (

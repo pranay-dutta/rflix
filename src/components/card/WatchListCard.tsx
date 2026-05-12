@@ -112,7 +112,7 @@ const WatchListCard = ({ watchListItem }: Props) => {
           transition="all 0.3s ease-in-out"
           position="absolute"
           bottom={1}
-          transform={show ? "translateY(-10px)" : "translateY(20px)"}
+          transform={show ? "translateY(-10px)" : "translateY(5px)"}
           w="full"
           px={2}
           gap={1}
@@ -122,11 +122,12 @@ const WatchListCard = ({ watchListItem }: Props) => {
             fontWeight="semibold"
             textWrap="balance"
             letterSpacing="0.025em"
+            color="white"
           >
             {watchListItem.title}
           </Text>
-          <Text fontSize="md" fontWeight="semibold" color={`${activePalette}.400`}>
-            {watchListItem.mediaType === "movie" ? "Movie" : "TV Series"}
+          <Text fontSize="sm" fontWeight="semibold" color={`${activePalette}.400`}>
+            {watchListItem.mediaType === "movie" ? "Movie" : "TV Show"}
           </Text>
         </Stack>
       )}
