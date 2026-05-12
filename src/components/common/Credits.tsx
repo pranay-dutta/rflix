@@ -16,10 +16,7 @@ const Credits = ({ mediaId, isTvShow }: Props) => {
   const activePalette = useCustomizationStore((s) => s.activePalette);
 
   const { data } = useCredits(mediaId, isTvShow);
-  if (!data || !data.cast.length)
-    return (
-      <Text color={`${activePalette}.400/90`}>Credit information is not available.</Text>
-    );
+  if (!data) return <Text color={"red.700"}>Credit information is not available.</Text>;
 
   const casts = data.cast.slice(0, CAST_SIZE);
 
@@ -37,7 +34,7 @@ const Credits = ({ mediaId, isTvShow }: Props) => {
             <PersonImage profilePath={cast.profile_path} />
             <Box mt={2}>
               <Text>{cast.name}</Text>
-              <Text color="gray.300" fontSize="sm">
+              <Text color="gray.400" fontSize="sm">
                 {cast.character}
               </Text>
             </Box>
@@ -65,7 +62,7 @@ const PersonImage = ({ profilePath }: { profilePath: string }) => {
   const [isLoading, setLoading] = useState(true);
 
   return (
-    <Skeleton loading={isLoading}>
+    <Skeleton loading={isLoading} overflow="hidden" borderRadius="sm">
       <Image
         width={138}
         borderRadius="sm"
