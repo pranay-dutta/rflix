@@ -56,7 +56,7 @@ const HeroImage = ({ media, isActive }: MovieTrailerWrapperProps) => {
         transform={"translateX(-50%)"}
         className="flex gap-3 bottom-5 md:bottom-[25%]"
       >
-        <Flex direction="column" minW="full" gap={6}>
+        <Flex direction="column" minW="full" gap={3}>
           {/* Movie title logo */}
           <HeroItemShadowWrapper show={isMuted}>
             <MediaTitle media={media} />
@@ -79,7 +79,7 @@ const HeroImage = ({ media, isActive }: MovieTrailerWrapperProps) => {
           </HeroItemShadowWrapper>
 
           <HeroItemShadowWrapper show={true}>
-            <HStack gap={5}>
+            <HStack gap={5} mt={5}>
               {/*  Watch trailer button*/}
               <WatchTrailerButton
                 mediaId={media.id}
