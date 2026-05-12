@@ -27,12 +27,12 @@ const Description = ({ isLoading, media, watchListItem }: Props) => {
       (watchListItem && watchListItem.title);
   const rating = showTemplate ? 0 : media?.vote_average || watchListItem?.rating || 0;
   const mediaType = showTemplate
-    ? "media"
+    ? "Media"
     : media
       ? isMovie(media)
-        ? "movie"
-        : "tv"
-      : watchListItem?.mediaType || "media";
+        ? "Movie"
+        : "TV Show"
+      : watchListItem?.mediaType || "Media";
   const opacity = showTemplate ? 0.2 : 1;
 
   return (
@@ -40,7 +40,7 @@ const Description = ({ isLoading, media, watchListItem }: Props) => {
       <Text mt={2} fontSize="13px" fontWeight="semibold" opacity={opacity} lineClamp={1}>
         {title}
       </Text>
-      <Flex mt={1} fontSize="11px" gap={2} color="gray.400" opacity={opacity}>
+      <Flex mt={1} fontSize="11px" gap={1} color="gray.400" opacity={opacity}>
         <Rating vote_average={rating} color="gray.400" />
         <Span opacity="0.5">•</Span>
         <Box>{date.slice(0, 4)}</Box>
