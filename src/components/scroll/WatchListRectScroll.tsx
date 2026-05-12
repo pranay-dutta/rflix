@@ -1,8 +1,11 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { WatchListItem } from "@/store/watchListStore";
-import { Box, Skeleton } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import WatchListRectCard from "../card/WatchListRectCard";
 import { useInView } from "react-intersection-observer";
+import Skeleton from "../skeleton/Skeleton";
+import Description from "../description/Description";
+import useCustomizationStore from "@/store/customizationStore";
 
 interface Props {
   watchListItems?: WatchListItem[];
@@ -17,6 +20,8 @@ const WatchListRectScroll = ({ watchListItems }: Props) => {
     rootMargin: "0px 0px -20px 0px",
   });
   const showSkeletons = !inView;
+  const cardType = useCustomizationStore((s) => s.cardType);
+  const activePalette = useCustomizationStore((s) => s.activePalette);
 
   return (
     <Box ref={ref}>
@@ -35,6 +40,7 @@ const WatchListRectScroll = ({ watchListItems }: Props) => {
             <SwiperSlide key={index}>
               <Skeleton>
                 <Box aspectRatio={16 / 9} />
+                {cardType === "descriptive" && <Description isLoading={true} />}
               </Skeleton>
             </SwiperSlide>
           ))}
@@ -42,7 +48,16 @@ const WatchListRectScroll = ({ watchListItems }: Props) => {
         {!showSkeletons &&
           watchListItems10.map((watchListItem) => (
             <SwiperSlide key={`${watchListItem.id}-${watchListItem.mediaType}`}>
-              <WatchListRectCard watchListItem={watchListItem} />
+              <Box
+                _hover={{ color: `${activePalette}.500` }}
+                transition="all 0.3s ease-in-out"
+                cursor="pointer"
+              >
+                <WatchListRectCard watchListItem={watchListItem} />
+                {cardType === "descriptive" && (
+                  <Description isLoading={false} watchListItem={watchListItem} />
+                )}
+              </Box>
             </SwiperSlide>
           ))}
       </Swiper>

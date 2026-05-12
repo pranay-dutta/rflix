@@ -2,7 +2,7 @@ import useCustomizationStore from "@/store/customizationStore";
 import useWatchListStore from "@/store/watchListStore";
 import { Box, Button } from "@chakra-ui/react";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
-import type { ButtonProps } from "@chakra-ui/react";
+import type { BoxProps, ButtonProps } from "@chakra-ui/react";
 
 interface Props {
   id: string;
@@ -10,15 +10,27 @@ interface Props {
   title: string;
   rating: number;
   posterPath: string;
-  iconOnly?: boolean;
   rectPosterPath: string;
+  releaseDate: string;
+  iconOnly?: boolean;
+  iconProps?: BoxProps;
 }
 
 type WatchListButtonProps = Props & ButtonProps;
 
 const WatchListButton = (props: WatchListButtonProps) => {
-  const { id, mediaType, title, rating, posterPath, rectPosterPath, iconOnly, ...rest } =
-    props;
+  const {
+    id,
+    mediaType,
+    title,
+    rating,
+    posterPath,
+    rectPosterPath,
+    releaseDate,
+    iconOnly,
+    iconProps,
+    ...rest
+  } = props;
 
   const disableWatchList = useCustomizationStore((state) => state.disableWatchList);
   const inWishlist = useWatchListStore((state) => state.inWatchList(mediaType, id));
@@ -41,6 +53,7 @@ const WatchListButton = (props: WatchListButtonProps) => {
         mediaType,
         title,
         posterPath,
+        releaseDate,
         rating,
         rectPosterPath,
       });
@@ -52,15 +65,14 @@ const WatchListButton = (props: WatchListButtonProps) => {
   if (iconOnly)
     return (
       <Box
-        position="absolute"
-        right={1}
-        bottom={1}
         px={1}
         py={1}
         borderRadius="sm"
-        _hover={{ color: "red.600" }}
         backgroundColor="blackAlpha.600"
         onClick={handleClick}
+        {...iconProps}
+        color="white"
+        _hover={{ color: "red.600" }} //color will not be inherited
       >
         {inWishlist ? <FaBookmark size="12px" /> : <FaRegBookmark size="12px" />}
       </Box>
@@ -68,7 +80,6 @@ const WatchListButton = (props: WatchListButtonProps) => {
 
   return (
     <Button
-      {...rest} //spread rest props after destructuring
       paddingX={5}
       paddingY={2}
       backgroundColor="whiteAlpha.200"
@@ -81,6 +92,7 @@ const WatchListButton = (props: WatchListButtonProps) => {
       rounded="md"
       _hover={{ scale: 1.1, opacity: 0.9 }}
       onClick={handleClick}
+      {...rest}
     >
       {inWishlist ? <FaBookmark /> : <FaRegBookmark />}
       Watch List

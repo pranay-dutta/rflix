@@ -4,9 +4,10 @@ import { Movie } from "@/interfaces/Movie";
 import TvSeries from "@/interfaces/TvSeries";
 import useCustomizationStore from "@/store/customizationStore";
 import isMovie from "@/utils/isMovie";
-import { Box, Skeleton } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import MediaBackdropImage from "./MediaBackdropImage";
 import { useEffect, useRef } from "react";
+import Skeleton from "./skeleton/Skeleton";
 
 interface Props {
   isActive: boolean;

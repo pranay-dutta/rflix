@@ -1,8 +1,8 @@
 import { movieAndTvTab } from "@/data";
 import useTrending from "@/hooks/useTrending";
 import { Box, useMediaQuery } from "@chakra-ui/react";
-import { useState } from "react";
-import { MediaScroll } from "../common";
+import { memo, useState } from "react";
+import { VerticalMediaScroll } from "../common";
 import Tabs from "../Tabs";
 import useCustomizationStore from "@/store/customizationStore";
 import RectMediaScroll from "@/components/scroll/RectMediaScroll";
@@ -40,10 +40,10 @@ const TrendingWeek = () => {
         {cardStyle === "horizontal" && isLargerThan480 ? (
           <RectMediaScroll media={media} loading={isLoading} />
         ) : (
-          <MediaScroll media={media} loading={isLoading} />
+          <VerticalMediaScroll media={media} loading={isLoading} />
         )}
       </Box>
     </>
   );
 };
-export default TrendingWeek;
+export default memo(TrendingWeek);

@@ -2,19 +2,11 @@ import { getCreditImage, getTMDBImage } from "@/components/constants";
 import { Quote } from "@/components/Quote";
 import { Cast, Crew } from "@/interfaces/Credit";
 import { isCrew } from "@/utils/isCrew";
-import {
-  Badge,
-  Box,
-  Flex,
-  Heading,
-  HStack,
-  Image,
-  Skeleton,
-  Span,
-  Text,
-} from "@chakra-ui/react";
+import { Badge, Box, Flex, Heading, HStack, Image, Span, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { CastPageProps } from "../container/CastPageContainer";
+import Skeleton from "@/components/skeleton/Skeleton";
+import BackButton from "@/components/BackButton";
 
 const CastPage = ({
   activePalette,
@@ -33,6 +25,9 @@ const CastPage = ({
 
   return (
     <Box>
+      <Box mt={5} mb={5}>
+        <BackButton />
+      </Box>
       <Flex
         direction={{ base: "column", md: "row" }}
         p={4}
@@ -40,7 +35,7 @@ const CastPage = ({
         borderRadius="sm"
         bgColor={activePalette + ".900/20"}
       >
-        <Skeleton loading={imgLoading} minWidth="185px" minHeight="278px">
+        <Skeleton loading={imgLoading} minWidth="185px" minHeight="278px" border="none">
           <Image
             borderRadius="sm"
             width="185px"

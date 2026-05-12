@@ -1,6 +1,6 @@
 import { SimpleGrid } from "@chakra-ui/react";
 import { Fragment } from "react/jsx-runtime";
-import Card from "./card/Card";
+import VerticalCard from "./card/VerticalCard";
 import { FetchResponse } from "@/interfaces/FetchResponse";
 import { InfiniteData } from "@tanstack/react-query";
 import { Movie } from "@/interfaces/Movie";
@@ -15,7 +15,7 @@ const MediaGrid = ({ media }: Props) => {
       {media.pages?.map((page, index) => (
         <Fragment key={index}>
           {page.results?.map((movie) => (
-            <Card key={movie.id} media={movie} />
+            <VerticalCard key={movie.id} media={movie} />
           ))}
         </Fragment>
       ))}

@@ -1,6 +1,24 @@
+import BackButton from "@/components/BackButton";
+import MovieWatchButton from "@/components/MovieWatchButton";
+import Rating from "@/components/Rating";
+import ReleaseDate from "@/components/ReleaseDate";
+import Runtime from "@/components/Runtime";
+import WatchListButton from "@/components/WatchListButton";
+import {
+  MediaPoster,
+  MediaScrollHeading,
+  VerticalMediaScroll,
+} from "@/components/common";
+import Credits from "@/components/common/Credits";
 import { getTMDBImage } from "@/components/constants";
+import RectMediaScroll from "@/components/scroll/RectMediaScroll";
+import Skeleton from "@/components/skeleton/Skeleton";
 import useMovie from "@/hooks/useMovie";
-import { FaPlay } from "react-icons/fa";
+import useRectPoster from "@/hooks/useRectPoster";
+import useSimilarMovies from "@/hooks/useSimilarMovies";
+import { MovieDetails } from "@/interfaces/MovieDetails";
+import useCustomizationStore from "@/store/customizationStore";
+import getPosterURL from "@/utils/getPosterURL";
 import {
   Badge,
   Box,
@@ -9,28 +27,14 @@ import {
   HStack,
   Image,
   SimpleGrid,
-  Skeleton,
   Stack,
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
-import ReleaseDate from "@/components/ReleaseDate";
-import Rating from "@/components/Rating";
-import useSimilarMovies from "@/hooks/useSimilarMovies";
-import { Quote } from "../components/Quote";
-import Runtime from "@/components/Runtime";
-import BackButton from "@/components/BackButton";
-import MovieWatchButton from "@/components/MovieWatchButton";
-import { MediaScroll, MediaScrollHeading, MediaPoster } from "@/components/common";
-import { MovieDetails } from "@/interfaces/MovieDetails";
+import { FaPlay } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
-import WatchListButton from "@/components/WatchListButton";
-import Credits from "@/components/common/Credits";
-import useCustomizationStore from "@/store/customizationStore";
-import RectMediaScroll from "@/components/scroll/RectMediaScroll";
-import useRectPoster from "@/hooks/useRectPoster";
-import getPosterURL from "@/utils/getPosterURL";
+import { useParams } from "react-router-dom";
+import { Quote } from "../components/Quote";
 
 const MovieInfoPage = () => {
   const { id } = useParams();
@@ -40,7 +44,7 @@ const MovieInfoPage = () => {
 
   return (
     <>
-      <Box mt={10} mb={5}>
+      <Box mt={5} mb={5}>
         <BackButton />
       </Box>
       {isLoading ? <Skeleton w="full" h="80vh" /> : movie && <MovieHero movie={movie} />}
@@ -53,19 +57,20 @@ const SimilarMovies = () => {
   const cardStyle = useCustomizationStore((s) => s.cardStyle);
   if (!id) throw new Error("Info page");
 
-  const { similarMovies } = useSimilarMovies(1, parseInt(id));
+  const { similarMovies, isLoading } = useSimilarMovies(1, parseInt(id));
   const [isLargerThan480] = useMediaQuery(["(min-width: 480px)"]);
-  if (!similarMovies || !similarMovies.length) return null;
+  if ((!isLoading && !similarMovies) || !similarMovies?.length) return null;
 
   return (
     <Box mt={10}>
       <Box my={3}>
         <MediaScrollHeading highlight="Movies">Similar Movies</MediaScrollHeading>
       </Box>
+      similarMovies
       {cardStyle === "horizontal" && isLargerThan480 ? (
-        <RectMediaScroll media={similarMovies} />
+        <RectMediaScroll media={similarMovies} loading={isLoading} />
       ) : (
-        <MediaScroll media={similarMovies} />
+        <VerticalMediaScroll media={similarMovies} loading={isLoading} />
       )}
     </Box>
   );
@@ -136,6 +141,7 @@ const MovieHero = ({ movie }: { movie: MovieDetails }) => {
                     rectPosterPath={posterPath}
                     title={movie.title}
                     rating={movie.vote_average}
+                    releaseDate={movie.release_date}
                   />
                 )}
               </HStack>

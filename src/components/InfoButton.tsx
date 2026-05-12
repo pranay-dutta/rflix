@@ -13,7 +13,7 @@ interface Props extends ButtonProps {
 }
 
 const InfoButton = (props: Props) => {
-  const { children, mediaId, mediaType, icon: Icon } = props;
+  const { children, mediaId, mediaType, icon: Icon, ...rest } = props;
   const navigate = useNavigate();
   const activePalette = useCustomizationStore((s) => s.activePalette);
 
@@ -30,9 +30,9 @@ const InfoButton = (props: Props) => {
         boxShadow: `0px 0px 30px 1px ${withAlpha(activePalette, 0.3)}`,
       }}
       onClick={() => navigate(`/info/${mediaType}/${mediaId}`)}
-      {...props}
       padding={{ base: 5, md: 6 }}
       size={{ base: "xs", md: "sm" }}
+      {...rest}
     >
       <Icon />
       {children}

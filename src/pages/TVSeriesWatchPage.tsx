@@ -5,9 +5,10 @@ import ReleaseDate from "@/components/ReleaseDate";
 import Runtime from "@/components/Runtime";
 import useTvSeries from "@/hooks/useTvSeries";
 import useTvSeriesTrailer from "@/hooks/useTvSeriesTrailer";
-import { Text, Heading, HStack, Stack, Box, Skeleton } from "@chakra-ui/react";
+import { Text, Heading, HStack, Stack, Box } from "@chakra-ui/react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import Skeleton from "@/components/skeleton/Skeleton";
 
 const TvSeriesWatchPage = () => {
   // currently not using season and episode params, but they are included
@@ -24,7 +25,7 @@ const TvSeriesWatchPage = () => {
   if (loading)
     return (
       <Box>
-        <Box my={3}>
+        <Box mt={5} mb={5}>
           <BackButton />
         </Box>
         <Skeleton className="w-full aspect-square md:aspect-video" />
@@ -34,12 +35,13 @@ const TvSeriesWatchPage = () => {
 
   return (
     <Box>
-      <Box my={3}>
+      <Box mt={5} mb={5}>
         <BackButton />
       </Box>
       <Skeleton
         loading={isLoading || isVideoLoading}
         className="w-full aspect-square md:aspect-video"
+        rounded="sm"
       >
         <div className="w-full aspect-square md:aspect-video">
           <iframe

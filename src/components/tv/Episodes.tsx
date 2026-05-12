@@ -1,5 +1,5 @@
 import useSeason from "@/hooks/useSeason";
-import { Box, Skeleton, HStack, Text, SkeletonText } from "@chakra-ui/react";
+import { Box, HStack, Text, SkeletonText } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import Rating from "../Rating";
 import ReleaseDate from "../ReleaseDate";
@@ -7,6 +7,7 @@ import Runtime from "../Runtime";
 import SeasonImage from "./SeasonImage";
 import { Episode } from "@/interfaces/Season";
 import { useInView } from "react-intersection-observer";
+import Skeleton from "../skeleton/Skeleton";
 
 const Episodes = ({
   seriesId,

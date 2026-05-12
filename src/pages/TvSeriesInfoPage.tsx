@@ -1,8 +1,9 @@
 import BackButton from "@/components/BackButton";
 import TvHero from "@/components/tv/TvHero";
 import useTvSeries from "@/hooks/useTvSeries";
-import { Box, Skeleton } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
+import Skeleton from "@/components/skeleton/Skeleton";
 
 const TvSeriesInfoPage = () => {
   const { id } = useParams();
@@ -12,7 +13,7 @@ const TvSeriesInfoPage = () => {
 
   return (
     <>
-      <Box mt={10} mb={5}>
+      <Box mt={5} mb={5}>
         <BackButton />
       </Box>
       {isLoading ? <Skeleton w="full" h="80vh" /> : series && <TvHero series={series} />}

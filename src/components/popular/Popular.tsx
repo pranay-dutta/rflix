@@ -2,8 +2,8 @@ import { movieAndTvTab } from "@/data";
 import useMovieLists from "@/hooks/useMovieLists";
 import useTvSeriesLists from "@/hooks/useTvSeriesLists";
 import { Box, useMediaQuery } from "@chakra-ui/react";
-import { useState } from "react";
-import { MediaScroll } from "../common";
+import { memo, useState } from "react";
+import { VerticalMediaScroll } from "../common";
 import Tabs from "../Tabs";
 import useCustomizationStore from "@/store/customizationStore";
 import RectMediaScroll from "@/components/scroll/RectMediaScroll";
@@ -37,11 +37,11 @@ const Popular = () => {
         {cardStyle === "horizontal" && isLargerThan480 ? (
           <RectMediaScroll media={media?.pages[0].results} loading={isLoading} />
         ) : (
-          <MediaScroll media={media?.pages[0].results} loading={isLoading} />
+          <VerticalMediaScroll media={media?.pages[0].results} loading={isLoading} />
         )}
       </Box>
     </>
   );
 };
 
-export default Popular;
+export default memo(Popular);

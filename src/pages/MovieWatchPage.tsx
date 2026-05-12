@@ -5,9 +5,10 @@ import ReleaseDate from "@/components/ReleaseDate";
 import Runtime from "@/components/Runtime";
 import useMovie from "@/hooks/useMovie";
 import useMovieTrailer from "@/hooks/useMovieTrailer";
-import { Text, Heading, HStack, Stack, Box, Skeleton } from "@chakra-ui/react";
+import { Text, Heading, HStack, Stack, Box } from "@chakra-ui/react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import Skeleton from "@/components/skeleton/Skeleton";
 
 const MovieWatchPage = () => {
   const { id } = useParams();
@@ -22,7 +23,7 @@ const MovieWatchPage = () => {
   if (loading)
     return (
       <Box>
-        <Box my={3}>
+        <Box mt={5} mb={5}>
           <BackButton />
         </Box>
         <Skeleton className="w-full aspect-square md:aspect-video" />
@@ -33,12 +34,13 @@ const MovieWatchPage = () => {
 
   return (
     <Box>
-      <Box my={3}>
+      <Box mt={5} mb={5}>
         <BackButton />
       </Box>
       <Skeleton
         loading={isLoading || isVideoLoading}
         className="w-full aspect-square md:aspect-video"
+        rounded="sm"
       >
         <iframe
           className="w-full h-full rounded-md"

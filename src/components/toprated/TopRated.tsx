@@ -2,9 +2,9 @@ import { movieAndTvTab } from "@/data";
 import useMovieLists from "@/hooks/useMovieLists";
 import useTvSeriesLists from "@/hooks/useTvSeriesLists";
 import { Box, useMediaQuery } from "@chakra-ui/react";
-import { useState } from "react";
+import { memo, useState } from "react";
 import Tabs from "../Tabs";
-import { MediaScroll } from "../common";
+import { VerticalMediaScroll } from "../common";
 import RectMediaScroll from "@/components/scroll/RectMediaScroll";
 import useCustomizationStore from "@/store/customizationStore";
 
@@ -40,9 +40,9 @@ const TopRated = () => {
       {cardStyle === "horizontal" && isLargerThan480 ? (
         <RectMediaScroll media={media?.pages[0].results} loading={isLoading} />
       ) : (
-        <MediaScroll media={media?.pages[0].results} loading={isLoading} />
+        <VerticalMediaScroll media={media?.pages[0].results} loading={isLoading} />
       )}
     </>
   );
 };
-export default TopRated;
+export default memo(TopRated);

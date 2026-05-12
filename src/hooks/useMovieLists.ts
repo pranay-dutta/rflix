@@ -19,13 +19,13 @@ const useMovieLists = (endpoint: MovieTags, enabled?: boolean) => {
     staleTime: ms("2h"),
     queryFn: ({ pageParam }) => client.getAll({ params: { page: pageParam } }),
     getNextPageParam: (lastPage, allPages) => {
-      return lastPage.results.length ? allPages.length + 1 : undefined;
+      return lastPage?.results?.length ? allPages.length + 1 : undefined;
     },
     enabled,
   });
 
   const resCount =
-    res.data?.pages.reduce((acc, page) => acc + page.results.length, 0) || 0;
+    res.data?.pages.reduce((acc, page) => acc + page.results?.length, 0) || 0;
 
   return { ...res, resCount };
 };

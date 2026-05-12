@@ -1,16 +1,12 @@
 import { Movie } from "@/interfaces/Movie";
+import VerticalDescriptiveCard from "./VerticalDescriptiveCard";
 import TvSeries from "@/interfaces/TvSeries";
+import Description from "../description/Description";
 import useCustomizationStore from "@/store/customizationStore";
 import { Box } from "@chakra-ui/react";
-import Description from "../description/Description";
-import RectDescriptiveCard from "./RectDescriptiveCard";
-import RectOverlayCard from "./RectOverlayCard";
+import VerticalOverlayCard from "./VerticalOverlayCard";
 
-interface Props {
-  media: Movie | TvSeries;
-}
-
-const RectCard = ({ media }: Props) => {
+const VerticalCard = ({ media }: { media: Movie | TvSeries }) => {
   const activePalette = useCustomizationStore((s) => s.activePalette);
   const cardType = useCustomizationStore((s) => s.cardType);
 
@@ -20,12 +16,12 @@ const RectCard = ({ media }: Props) => {
       transition="all 0.3s ease-in-out"
       cursor="pointer"
     >
-      <RectDescriptiveCard media={media} />
+      <VerticalDescriptiveCard media={media} />
       <Description isLoading={false} media={media} />
     </Box>
   ) : (
-    <RectOverlayCard media={media} />
+    <VerticalOverlayCard media={media} />
   );
 };
 
-export default RectCard;
+export default VerticalCard;
