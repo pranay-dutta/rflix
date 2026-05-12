@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import AboutPage from "./pages/AboutPage";
 import CastPageContainer from "./pages/cast/container/CastPageContainer";
-import CustomizePage from "./pages/CustomizePage";
+import CustomizePage from "./pages/customization/CustomizePage";
 import DiscoverPage from "./pages/discover/DiscoverPage";
 import HomePage from "./pages/HomePage";
 import Layout from "./pages/Layout";

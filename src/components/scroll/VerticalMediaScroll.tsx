@@ -1,17 +1,20 @@
 import { Movie } from "@/interfaces/Movie";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Card from "../card/Card";
+import VerticalCard from "../card/VerticalCard";
 import TvSeries from "@/interfaces/TvSeries";
-import { Box, Button, Skeleton } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Navigation } from "swiper/modules";
 import { useInView } from "react-intersection-observer";
+import Skeleton from "../skeleton/Skeleton";
+import Description from "../description/Description";
+import useCustomizationStore from "@/store/customizationStore";
 interface Props {
   media?: Movie[] | TvSeries[];
   loading?: boolean;
 }
-const MediaScroll = ({ media, loading }: Props) => {
+const VerticalMediaScroll = ({ media, loading }: Props) => {
   const skeletons = Array.from({ length: 20 });
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
@@ -22,6 +25,7 @@ const MediaScroll = ({ media, loading }: Props) => {
     rootMargin: "0px 0px -20px 0px",
   });
   const showSkeletons = loading || !inView;
+  const cardType = useCustomizationStore((s) => s.cardType);
 
   return (
     <Box ref={ref}>
@@ -103,14 +107,14 @@ const MediaScroll = ({ media, loading }: Props) => {
                 <Skeleton>
                   <Box aspectRatio={2 / 3} />
                 </Skeleton>
+                {cardType === "descriptive" && <Description isLoading={true} />}
               </SwiperSlide>
             ))}
 
-          {!showSkeletons &&
-            media &&
+          {media &&
             media.map((media) => (
               <SwiperSlide key={media.id}>
-                <Card media={media} />
+                <VerticalCard media={media} />
               </SwiperSlide>
             ))}
         </Swiper>
@@ -118,4 +122,4 @@ const MediaScroll = ({ media, loading }: Props) => {
     </Box>
   );
 };
-export default MediaScroll;
+export default VerticalMediaScroll;

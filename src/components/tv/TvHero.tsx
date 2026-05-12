@@ -19,7 +19,7 @@ import Rating from "../Rating";
 import { BiPlay } from "react-icons/bi";
 import { Quote } from "../Quote";
 import Season from "./Season";
-import { MediaPoster, MediaScroll, MediaScrollHeading } from "../common";
+import { MediaPoster, VerticalMediaScroll, MediaScrollHeading } from "../common";
 import { useParams } from "react-router-dom";
 import WatchListButton from "../WatchListButton";
 import Credits from "../common/Credits";
@@ -156,8 +156,8 @@ const SimilarSeries = () => {
   const cardStyle = useCustomizationStore((s) => s.cardStyle);
   const [isLargerThan480] = useMediaQuery(["(min-width: 480px)"]);
 
-  const { data: similarSeries } = useTvSeries(parseInt(id), "similar");
-  if (!similarSeries || !similarSeries.results.length) return null;
+  const { data: similarSeries, isLoading } = useTvSeries(parseInt(id), "similar");
+  if ((!isLoading && !similarSeries) || !similarSeries?.results) return null;
 
   return (
     <Box mt={10}>
@@ -165,9 +165,9 @@ const SimilarSeries = () => {
         <MediaScrollHeading highlight="Tv Shows">Similar Tv Shows</MediaScrollHeading>
       </Box>
       {cardStyle === "horizontal" && isLargerThan480 ? (
-        <RectMediaScroll media={similarSeries.results} />
+        <RectMediaScroll media={similarSeries.results} loading={isLoading} />
       ) : (
-        <MediaScroll media={similarSeries.results} />
+        <VerticalMediaScroll media={similarSeries.results} loading={isLoading} />
       )}
     </Box>
   );

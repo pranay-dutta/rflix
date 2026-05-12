@@ -1,33 +1,36 @@
 import { Movie } from "@/interfaces/Movie";
 import TvSeries from "@/interfaces/TvSeries";
-import { Box, Button, Skeleton } from "@chakra-ui/react";
+import useCustomizationStore from "@/store/customizationStore";
+import { Box, Button } from "@chakra-ui/react";
 import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import { useInView } from "react-intersection-observer";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import RectCard from "../card/RectCard";
-import { useInView } from "react-intersection-observer";
+import Description from "../description/Description";
+import Skeleton from "../skeleton/Skeleton";
 
 interface Props {
   media?: Movie[] | TvSeries[];
   loading?: boolean;
 }
 
-const RectMediaScroll = ({ media, loading }: Props) => {
-  const skeletons = Array.from({ length: 20 });
-
+const RectMediaScroll = ({ media, loading = true }: Props) => {
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
+  const skeletons = Array.from({ length: 5 });
 
   const { ref, inView } = useInView({
     threshold: 0,
     triggerOnce: true,
     rootMargin: "0px 0px -20px 0px",
   });
+  const cardType = useCustomizationStore((s) => s.cardType);
   const showSkeletons = loading || !inView;
 
   return (
-    <Box ref={ref} mb={20}>
+    <Box ref={ref}>
       <div className="group relative overflow-hidden">
         {/* LEFT ARROW */}
         <Button
@@ -89,6 +92,7 @@ const RectMediaScroll = ({ media, loading }: Props) => {
           spaceBetween={10}
           slidesPerGroup={2}
           modules={[Navigation]}
+          effect="fade"
           onBeforeInit={(swiper) => {
             if (!swiper.params.navigation) return;
 
@@ -101,14 +105,16 @@ const RectMediaScroll = ({ media, loading }: Props) => {
           {showSkeletons &&
             skeletons.map((_, index) => (
               <SwiperSlide key={index}>
-                <Skeleton>
-                  <Box aspectRatio={16 / 9} />
-                </Skeleton>
+                <Box>
+                  <Skeleton>
+                    <Box aspectRatio={16 / 9} />
+                  </Skeleton>
+                  {cardType === "descriptive" && <Description isLoading={true} />}
+                </Box>
               </SwiperSlide>
             ))}
 
-          {!showSkeletons &&
-            media &&
+          {media &&
             media.map((m) => (
               <SwiperSlide key={m.id}>
                 <RectCard media={m} />

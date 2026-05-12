@@ -1,11 +1,11 @@
 import { genreTabs } from "@/data";
 import useGenre from "@/hooks/useGenre";
-import { useState } from "react";
+import { memo, useState } from "react";
 import Tabs from "../Tabs";
 import { Box, useMediaQuery } from "@chakra-ui/react";
 import RectMediaScroll from "@/components/scroll/RectMediaScroll";
 import useCustomizationStore from "@/store/customizationStore";
-import { MediaScroll } from "../common";
+import { VerticalMediaScroll } from "../common";
 
 const GenreBased = () => {
   const [selectedGenre, setSelectedGenre] = useState<string>("28"); //Default to Action
@@ -26,11 +26,11 @@ const GenreBased = () => {
         {cardStyle === "horizontal" && isLargerThan480 ? (
           <RectMediaScroll media={data?.results} loading={isLoading} />
         ) : (
-          <MediaScroll media={data?.results} loading={isLoading} />
+          <VerticalMediaScroll media={data?.results} loading={isLoading} />
         )}
       </Box>
     </>
   );
 };
 
-export default GenreBased;
+export default memo(GenreBased);
