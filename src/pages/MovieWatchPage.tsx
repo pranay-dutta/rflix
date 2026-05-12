@@ -23,7 +23,7 @@ const MovieWatchPage = () => {
   if (loading)
     return (
       <Box>
-        <Box mt={10} mb={5}>
+        <Box mt={5} mb={5}>
           <BackButton />
         </Box>
         <Skeleton className="w-full aspect-square md:aspect-video" />
@@ -34,7 +34,7 @@ const MovieWatchPage = () => {
 
   return (
     <Box>
-      <Box mt={10} mb={5}>
+      <Box mt={5} mb={5}>
         <BackButton />
       </Box>
       <Skeleton

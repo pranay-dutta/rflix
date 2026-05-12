@@ -44,7 +44,7 @@ const MovieInfoPage = () => {
 
   return (
     <>
-      <Box mt={10} mb={5}>
+      <Box mt={5} mb={5}>
         <BackButton />
       </Box>
       {isLoading ? <Skeleton w="full" h="80vh" /> : movie && <MovieHero movie={movie} />}

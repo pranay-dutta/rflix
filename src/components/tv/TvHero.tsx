@@ -162,7 +162,7 @@ const SimilarSeries = () => {
   return (
     <Box mt={10}>
       <Box my={3}>
-        <MediaScrollHeading highlight="Tv Shows">Similar Tv Shows</MediaScrollHeading>
+        <MediaScrollHeading highlight="TV Shows">Similar TV Shows</MediaScrollHeading>
       </Box>
       {cardStyle === "horizontal" && isLargerThan480 ? (
         <RectMediaScroll media={similarSeries.results} loading={isLoading} />
