@@ -61,7 +61,7 @@ const CustomizePage = () => {
           <CustomizationBox heading="Data saving mode">
             <Box onClick={toggleDisableHomepageVideo}>
               <ChakraCheckBox
-                label="Disable homepage page video"
+                label="Disable homepage video"
                 checked={disableHomeScreenVideo}
               />
             </Box>
@@ -83,19 +83,19 @@ const CustomizePage = () => {
           </CustomizationBox>
 
           {/* Color scheme customization */}
-          <CustomizationBox heading="Chose color scheme">
+          <CustomizationBox heading="Choose color scheme">
             <CustomizeColorPalette />
           </CustomizationBox>
 
           {/* Card style customization • Visible only on larger screens */}
           {isLargerThan480 && (
-            <CustomizationBox heading="Chose card style">
+            <CustomizationBox heading="Choose card style">
               <CustomizeCardStyle />
             </CustomizationBox>
           )}
 
           {/* Card type customization */}
-          <CustomizationBox heading="Chose card type">
+          <CustomizationBox heading="Choose card type">
             <CustomizeCardType />
           </CustomizationBox>
         </Grid>

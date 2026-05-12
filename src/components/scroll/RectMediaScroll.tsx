@@ -16,7 +16,7 @@ interface Props {
   loading?: boolean;
 }
 
-const RectMediaScroll = ({ media, loading = true }: Props) => {
+const RectMediaScroll = ({ media, loading }: Props) => {
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
   const skeletons = Array.from({ length: 5 });
@@ -92,7 +92,6 @@ const RectMediaScroll = ({ media, loading = true }: Props) => {
           spaceBetween={10}
           slidesPerGroup={2}
           modules={[Navigation]}
-          effect="fade"
           onBeforeInit={(swiper) => {
             if (!swiper.params.navigation) return;
 

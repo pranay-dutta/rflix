@@ -8,6 +8,7 @@ export type WatchListItem = {
   posterPath: string;
   rectPosterPath: string;
   rating: number;
+  releaseDate: string;
 };
 
 type WishlistStore = {

@@ -59,13 +59,14 @@ const SimilarMovies = () => {
 
   const { similarMovies, isLoading } = useSimilarMovies(1, parseInt(id));
   const [isLargerThan480] = useMediaQuery(["(min-width: 480px)"]);
-  if (!isLoading && !similarMovies) return null;
+  if ((!isLoading && !similarMovies) || !similarMovies?.length) return null;
 
   return (
     <Box mt={10}>
       <Box my={3}>
         <MediaScrollHeading highlight="Movies">Similar Movies</MediaScrollHeading>
       </Box>
+      similarMovies
       {cardStyle === "horizontal" && isLargerThan480 ? (
         <RectMediaScroll media={similarMovies} loading={isLoading} />
       ) : (
@@ -140,6 +141,7 @@ const MovieHero = ({ movie }: { movie: MovieDetails }) => {
                     rectPosterPath={posterPath}
                     title={movie.title}
                     rating={movie.vote_average}
+                    releaseDate={movie.release_date}
                   />
                 )}
               </HStack>

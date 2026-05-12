@@ -90,6 +90,7 @@ const TvHero = ({ series }: { series: TvSeriesDetails }) => {
                     rectPosterPath={posterPath}
                     title={series.name}
                     rating={series.vote_average}
+                    releaseDate={series.first_air_date}
                   />
                 )}
               </HStack>
@@ -156,8 +157,8 @@ const SimilarSeries = () => {
   const cardStyle = useCustomizationStore((s) => s.cardStyle);
   const [isLargerThan480] = useMediaQuery(["(min-width: 480px)"]);
 
-  const { data: similarSeries, isLoading } = useTvSeries(parseInt(id), "similar");
-  if ((!isLoading && !similarSeries) || !similarSeries?.results) return null;
+  const { data, isLoading } = useTvSeries(parseInt(id), "similar");
+  if ((!isLoading && !data) || !data?.results.length) return null;
 
   return (
     <Box mt={10}>
@@ -165,9 +166,9 @@ const SimilarSeries = () => {
         <MediaScrollHeading highlight="TV Shows">Similar TV Shows</MediaScrollHeading>
       </Box>
       {cardStyle === "horizontal" && isLargerThan480 ? (
-        <RectMediaScroll media={similarSeries.results} loading={isLoading} />
+        <RectMediaScroll media={data.results} loading={isLoading} />
       ) : (
-        <VerticalMediaScroll media={similarSeries.results} loading={isLoading} />
+        <VerticalMediaScroll media={data.results} loading={isLoading} />
       )}
     </Box>
   );

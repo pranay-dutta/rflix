@@ -10,7 +10,6 @@ const useCardNavigation = () => {
 
     const path = isMovie(media) ? "movie" : "tv";
     const id = media.id;
-    console.log(media.media_type)
     navigate(`/info/${path}/${id}`);
   };
   return { handleCardClick };

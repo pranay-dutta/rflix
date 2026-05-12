@@ -56,7 +56,7 @@ const VerticalOverlayCard = ({ media }: Props) => {
         </Box>
 
         {/* Movie card rating and release date*/}
-        <Text {...badgeStyles} right={1} top={1} transition="all 0.3s fade-out">
+        <Text {...badgeStyles} right={1} top={1} transition="all 0.3s ease-in-out">
           {isMovie(media) ? "MOVIE" : "TV SHOW"}
         </Text>
 
@@ -65,7 +65,7 @@ const VerticalOverlayCard = ({ media }: Props) => {
           {...badgeStyles}
           left={1}
           top={1}
-          transition="all 0.3s fade-out"
+          transition="all 0.3s ease-out"
           fontSize="x-small"
           vote_average={media.vote_average}
         />

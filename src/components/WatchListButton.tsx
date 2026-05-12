@@ -11,6 +11,7 @@ interface Props {
   rating: number;
   posterPath: string;
   rectPosterPath: string;
+  releaseDate: string;
   iconOnly?: boolean;
   iconProps?: BoxProps;
 }
@@ -25,6 +26,7 @@ const WatchListButton = (props: WatchListButtonProps) => {
     rating,
     posterPath,
     rectPosterPath,
+    releaseDate,
     iconOnly,
     iconProps,
     ...rest
@@ -51,6 +53,7 @@ const WatchListButton = (props: WatchListButtonProps) => {
         mediaType,
         title,
         posterPath,
+        releaseDate,
         rating,
         rectPosterPath,
       });

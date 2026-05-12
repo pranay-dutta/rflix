@@ -16,7 +16,9 @@ const Credits = ({ mediaId, isTvShow }: Props) => {
   const activePalette = useCustomizationStore((s) => s.activePalette);
 
   const { data } = useCredits(mediaId, isTvShow);
-  if (!data) return <Text color={"red.700"}>Credit information is not available.</Text>;
+
+  if (!data || data.cast.length === 0)
+    return <Text color={"red.700"}>Credit information is not available.</Text>;
 
   const casts = data.cast.slice(0, CAST_SIZE);
 

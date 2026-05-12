@@ -247,7 +247,7 @@ const RectOverlayCard = ({ media }: Props) => {
           top={1}
           opacity={showBadges ? 1 : 0}
           scale={showBadges ? 1 : 0}
-          transition="all 0.3s fade-out"
+          transition="all 0.3s ease-in-out"
           pointerEvents={showBadges ? "auto" : "none"}
         >
           {isMovie(media) ? "MOVIE" : "TV SHOW"}
@@ -260,7 +260,7 @@ const RectOverlayCard = ({ media }: Props) => {
           top={1}
           opacity={showBadges ? 1 : 0}
           scale={showBadges ? 1 : 0}
-          transition="all 0.3s fade-out"
+          transition="all 0.3s ease-in-out"
           pointerEvents={showBadges ? "auto" : "none"}
           fontSize="x-small"
           vote_average={media.vote_average}

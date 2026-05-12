@@ -54,7 +54,7 @@ const WatchListCard = ({ watchListItem }: Props) => {
         <Image
           borderRadius="sm"
           transition="transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
-          filter={show && cardType == "overlay" ? "brightness(0.7)" : "brightness(1)"}
+          filter={show && cardType === "overlay" ? "brightness(0.7)" : "brightness(1)"}
           transform={show ? "scale3d(1.04, 1.04, 1)" : "scale3d(1, 1, 1)"}
           willChange="transform, filter"
           src={getTMDBImage(watchListItem.posterPath, "w342", "vertical")}
@@ -89,7 +89,7 @@ const WatchListCard = ({ watchListItem }: Props) => {
           {...badgeStyles}
           left={1}
           top={0}
-          transition="all 0.3s fade-out"
+          transition="all 0.3s ease-in-out"
           fontSize="x-small"
           vote_average={watchListItem.rating}
         />

@@ -1,7 +1,7 @@
+import type { SkeletonProps } from "@chakra-ui/react";
 import { Skeleton as ChakraSkeleton } from "@chakra-ui/react";
 import { ReactNode } from "react";
-
-interface Props extends React.ComponentProps<typeof ChakraSkeleton> {
+interface Props extends SkeletonProps {
   children?: ReactNode;
 }
 const Skeleton = ({ children, ...rest }: Props) => {
