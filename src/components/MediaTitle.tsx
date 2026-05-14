@@ -11,8 +11,10 @@ const MediaTitle = ({ media }: { media: Movie | TvSeries }) => {
     <Text
       fontSize={{ base: "3xl", md: "5xl" }}
       fontWeight="extrabold"
+      letterSpacing="tighter"
       lineHeight={1.1}
       maxW="20ch"
+      textWrap="stable"
     >
       {title.toUpperCase()}
     </Text>

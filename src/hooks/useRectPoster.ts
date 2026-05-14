@@ -22,7 +22,7 @@ export interface ImageWithExternalIds {
   };
 }
 
-const useRectPoster = (id: number, type: "movie" | "tv") => {
+const useRectPoster = (id: number, type: "movie" | "tv", enabled = true) => {
   const client = createClient<ImageWithExternalIds>(`/poster/${type}/${id}`);
 
   return useQuery({
@@ -30,6 +30,7 @@ const useRectPoster = (id: number, type: "movie" | "tv") => {
     queryFn: client.get,
     staleTime: ms("12h"),
     refetchOnWindowFocus: false,
+    enabled,
   });
 };
 

@@ -1,6 +1,6 @@
 import { genreTabs } from "@/data";
 import useGenre from "@/hooks/useGenre";
-import { memo, useState } from "react";
+import {  useState } from "react";
 import Tabs from "../Tabs";
 import { Box, useMediaQuery } from "@chakra-ui/react";
 import RectMediaScroll from "@/components/scroll/RectMediaScroll";
@@ -33,4 +33,4 @@ const GenreBased = () => {
   );
 };
 
-export default memo(GenreBased);
+export default GenreBased;

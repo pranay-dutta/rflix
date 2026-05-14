@@ -21,9 +21,14 @@ import HeroItemShadowWrapper from "./HeroItemShadowWrapper";
 interface MovieTrailerWrapperProps {
   media: Movie | TvSeries;
   isActive: boolean;
+  shouldLoadMedia?: boolean;
 }
 
-const HeroImageOverlay = ({ media, isActive }: MovieTrailerWrapperProps) => {
+const HeroImageOverlay = ({
+  media,
+  isActive,
+  shouldLoadMedia = true,
+}: MovieTrailerWrapperProps) => {
   const activePalette = useCustomizationStore((s) => s.activePalette);
   const disableHomepageVideo = useCustomizationStore((s) => s.disableHomepageVideo);
 
@@ -45,6 +50,7 @@ const HeroImageOverlay = ({ media, isActive }: MovieTrailerWrapperProps) => {
           isMuted={isMuted}
           handleShowButton={handleShowButton}
           isActive={isActive}
+          shouldLoadMedia={shouldLoadMedia}
         />
       </AspectRatioContainer>
 

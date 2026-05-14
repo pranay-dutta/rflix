@@ -12,6 +12,7 @@ const MediaBackdropImage = ({ path }: { path: string }) => {
         w="100%"
         h="100%"
         loading="lazy"
+        fetchPriority="high"
       />
     </>
   );

@@ -9,6 +9,39 @@ import WatchList from "@/components/WatchList";
 import WatchProvider from "@/components/watchproviders/WatchProviders";
 import useChangeScrollbarColor from "@/hooks/useChangeScrollbarColor";
 import { Box } from "@chakra-ui/react";
+import { memo, type ComponentType } from "react";
+import { useInView } from "react-intersection-observer";
+
+interface DeferredHomeSectionProps {
+  Section: ComponentType;
+  eager?: boolean;
+}
+
+const DeferredHomeSection = memo(
+  ({ Section, eager = false }: DeferredHomeSectionProps) => {
+    const { ref, inView } = useInView({
+      triggerOnce: true,
+      rootMargin: "700px 0px",
+    });
+
+    const shouldRender = eager || inView;
+
+    return (
+      <Box
+        ref={ref}
+        mb={{ smDown: 10, md: 10, lg: 20 }}
+        minH={{
+          base: shouldRender ? "auto" : "260px",
+          md: shouldRender ? "auto" : "320px",
+        }}
+      >
+        {shouldRender ? <Section /> : null}
+      </Box>
+    );
+  },
+);
+
+DeferredHomeSection.displayName = "DeferredHomeSection";
 
 const HomePage = () => {
   useChangeScrollbarColor(); //runs useEffect when scrollbar color changes in the store
@@ -31,9 +64,7 @@ const HomePage = () => {
       >
         <WatchList />
         {SliderElements.map((Element, index) => (
-          <Box key={index} mb={{ smDown: 10, md: 10, lg: 20 }}>
-            <Element />
-          </Box>
+          <DeferredHomeSection key={index} Section={Element} eager={index < 1} />
         ))}
       </Container>
     </>

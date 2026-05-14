@@ -2,7 +2,7 @@ import { watchProviderTabs } from "@/data";
 import useWatchProvider from "@/hooks/useWatchProvider";
 import useCustomizationStore from "@/store/customizationStore";
 import { Box, useMediaQuery } from "@chakra-ui/react";
-import { memo, useState } from "react";
+import { useState } from "react";
 import Tabs from "../Tabs";
 import RectMediaScroll from "@/components/scroll/RectMediaScroll";
 import { VerticalMediaScroll } from "../common";
@@ -34,4 +34,4 @@ const WatchProvider = () => {
   );
 };
 
-export default memo(WatchProvider);
+export default WatchProvider;

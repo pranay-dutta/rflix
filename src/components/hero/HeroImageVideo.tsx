@@ -13,19 +13,30 @@ interface Props {
   isActive: boolean;
   media: Movie | TvSeries;
   isMuted?: boolean;
+  shouldLoadMedia?: boolean;
   handleShowButton: (show: boolean) => void;
 }
 
-const HeroImageVideo = ({ media, isActive, isMuted, handleShowButton }: Props) => {
+const HeroImageVideo = ({
+  media,
+  isActive,
+  isMuted,
+  shouldLoadMedia = true,
+  handleShowButton,
+}: Props) => {
   const mediaType = isMovie(media) ? "movie" : "tv";
-  const { data: posterAndExternalIds, isLoading } = useRectPoster(media.id, mediaType);
+  const { data: posterAndExternalIds, isLoading } = useRectPoster(
+    media.id,
+    mediaType,
+    shouldLoadMedia,
+  );
 
   const disableHomepageVideo = useCustomizationStore((s) => s.disableHomepageVideo);
   const videoRef = useRef<HTMLVideoElement>(null);
   const imdbId = posterAndExternalIds?.external_ids.imdb_id;
 
   //fetch the trailer from backend using the imdb id
-  const fetchTrailer = isActive && !disableHomepageVideo;
+  const fetchTrailer = shouldLoadMedia && isActive && !disableHomepageVideo;
   const { data: trailerURL, isFetching: trailerFetching } = useTrailer(
     mediaType,
     fetchTrailer,
@@ -55,6 +66,7 @@ const HeroImageVideo = ({ media, isActive, isMuted, handleShowButton }: Props) =
   }, [isActive]);
 
   // if trailer is loading show skeleton
+
   if (isLoading || trailerFetching || !posterAndExternalIds)
     return <Skeleton variant="shine" width="100%" height="100%" />;
 

@@ -6,10 +6,12 @@ import AspectRatioContainer from "../AspectRatioContainer";
 import HeroImageOverlay from "./HeroImageOverlay";
 import { filterLowVotes } from "./hero_utils";
 import Skeleton from "../skeleton/Skeleton";
+import { useState } from "react";
 
 const Hero = () => {
   const { data, isLoading } = useTrending("all", "day", true);
-  const filteredData = filterLowVotes(data);
+  const filteredData = filterLowVotes(data).slice(0, 8);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   if (isLoading) {
     return (
@@ -30,10 +32,17 @@ const Hero = () => {
         autoplay={{ delay: ms("12s"), pauseOnMouseEnter: true }}
         grabCursor
         watchSlidesProgress
+        onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
       >
-        {filteredData.map((media) => (
+        {filteredData.map((media, index) => (
           <SwiperSlide key={media.id}>
-            {({ isActive }) => <HeroImageOverlay isActive={isActive} media={media} />}
+            {({ isActive }) => (
+              <HeroImageOverlay
+                isActive={isActive}
+                media={media}
+                shouldLoadMedia={Math.abs(index - activeIndex) <= 1}
+              />
+            )}
           </SwiperSlide>
         ))}
       </Swiper>

@@ -2,7 +2,7 @@ import { movieAndTvTab } from "@/data";
 import useMovieLists from "@/hooks/useMovieLists";
 import useTvSeriesLists from "@/hooks/useTvSeriesLists";
 import { Box, useMediaQuery } from "@chakra-ui/react";
-import { memo, useState } from "react";
+import { useState } from "react";
 import { VerticalMediaScroll } from "../common";
 import Tabs from "../Tabs";
 import useCustomizationStore from "@/store/customizationStore";
@@ -44,4 +44,4 @@ const Popular = () => {
   );
 };
 
-export default memo(Popular);
+export default Popular;

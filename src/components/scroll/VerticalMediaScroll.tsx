@@ -15,7 +15,7 @@ interface Props {
   loading?: boolean;
 }
 const VerticalMediaScroll = ({ media, loading }: Props) => {
-  const skeletons = Array.from({ length: 20 });
+  const skeletons = Array.from({ length: 6 });
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
 
@@ -24,7 +24,7 @@ const VerticalMediaScroll = ({ media, loading }: Props) => {
     triggerOnce: true,
     rootMargin: "0px 0px -20px 0px",
   });
-  const showSkeletons = loading || !inView;
+  const showSkeletons = Boolean(loading && inView);
   const cardType = useCustomizationStore((s) => s.cardType);
 
   return (

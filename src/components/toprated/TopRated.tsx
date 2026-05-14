@@ -2,7 +2,7 @@ import { movieAndTvTab } from "@/data";
 import useMovieLists from "@/hooks/useMovieLists";
 import useTvSeriesLists from "@/hooks/useTvSeriesLists";
 import { Box, useMediaQuery } from "@chakra-ui/react";
-import { memo, useState } from "react";
+import { useState } from "react";
 import Tabs from "../Tabs";
 import { VerticalMediaScroll } from "../common";
 import RectMediaScroll from "@/components/scroll/RectMediaScroll";
@@ -45,4 +45,4 @@ const TopRated = () => {
     </>
   );
 };
-export default memo(TopRated);
+export default TopRated;

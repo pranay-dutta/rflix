@@ -27,7 +27,7 @@ const RectMediaScroll = ({ media, loading }: Props) => {
     rootMargin: "0px 0px -20px 0px",
   });
   const cardType = useCustomizationStore((s) => s.cardType);
-  const showSkeletons = loading || !inView;
+  const showSkeletons = Boolean(loading && inView);
 
   return (
     <Box ref={ref}>

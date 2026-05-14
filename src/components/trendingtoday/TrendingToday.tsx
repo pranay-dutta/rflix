@@ -1,7 +1,7 @@
 import { movieAndTvTab } from "@/data";
 import useTrending from "@/hooks/useTrending";
 import { Box, useMediaQuery } from "@chakra-ui/react";
-import { memo, useState } from "react";
+import { useState } from "react";
 import { VerticalMediaScroll } from "../common";
 import Tabs from "../Tabs";
 import RectMediaScroll from "@/components/scroll/RectMediaScroll";
@@ -47,4 +47,4 @@ const TrendingToday = () => {
     </>
   );
 };
-export default memo(TrendingToday);
+export default TrendingToday;
