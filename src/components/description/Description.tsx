@@ -34,7 +34,7 @@ const Description = ({ isLoading, media, watchListItem }: Props) => {
 
   const handleClick = () => {
     if (media) handleCardClick(media);
-    if (watchListItem) navigate(`/${watchListItem.mediaType}/${watchListItem.id}`);
+    if (watchListItem) navigate(`info/${watchListItem.mediaType}/${watchListItem.id}`);
   };
 
   return (

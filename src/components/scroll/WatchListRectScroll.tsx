@@ -40,8 +40,8 @@ const WatchListRectScroll = ({ watchListItems }: Props) => {
             <SwiperSlide key={index}>
               <Skeleton>
                 <Box aspectRatio={16 / 9} />
-                {cardType === "descriptive" && <Description isLoading={true} />}
               </Skeleton>
+              {cardType === "descriptive" && <Description isLoading={true} />}
             </SwiperSlide>
           ))}
 
